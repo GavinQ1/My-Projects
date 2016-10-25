@@ -1,0 +1,167 @@
+;;; ==========================
+;;; CMPU-101, Fall 2015 
+;;; Assignement 10
+;;; Gavin Qi
+;;; ==========================
+
+
+;;; main functions: 0. which-app-most (which appears the most frequently)
+;;;                 1. bill-roll!
+;;;                 2. score-for-bill!
+
+
+;;; WHICH-APP-MOST-HELPER
+;;; ----------------------------
+;;; INPUTS: DICE-VECK, a dice vector
+;;;         LISTY, a list of numbers (1 2 3 4 5 6)
+;;;         ACC, an accumulator
+;;;         FRE, largest frequency
+;;; OUTPUTS: ACC
+
+(define which-app-most-helper
+  (lambda (dice-veck listy acc fre)
+    (cond
+      ;; LISTY is empty
+      ((null? listy)
+       acc)
+      ;; a larger frequency appears
+      ((>= (num-matches dice-veck (first listy))
+           fre)
+       (which-app-most-helper dice-veck 
+                              (rest listy) 
+                              (cons (first listy) acc) 
+                              (num-matches dice-veck (first listy))))
+      ;; largest frequency does not change
+      (else
+       (which-app-most-helper dice-veck 
+                              (rest listy) 
+                              acc
+                              fre)))))
+
+;;; WHICH-APP-MOST
+;;; ----------------------------
+;;; INPUTS: DICE-VECK, a dice vector
+;;; OUTPUTS: a list
+
+(define which-app-most
+  (lambda (dice-veck)
+    (which-app-most-helper dice-veck dice-values () 0)))
+
+
+
+;;; BILL-ROLL!
+;;; --------------------------
+;;; INPUT: GAME, a yahtzee struct
+;;; OUTPUT: NONE
+;;: SIDE EFFECT: 1. change state
+;;;              2. roll and score in bill-chart
+;;;              3. check if it is time to settle
+
+(define bill-roll!
+  (lambda (game)
+    (set-yahtzee-state! game *wait-for-roll-keep-scoring*)
+    (rolling! game)
+    (let* ((dicey (yahtzee-dices game))
+           (get-roll (dices-get-roll dicey))
+           (app-most (which-app-most get-roll)))
+      (score-for-bill! game get-roll app-most)
+      (set-yahtzee-state! game *press-to-start*)
+      (convert-to-result-str! game "Press Roll Me now.")
+      (if (= 0 (yahtzee-rounds game))
+          (settle! game)))))
+
+
+;;; SCORING-FOR-BILL!
+;;; --------------------------
+;;; INPUTS: GAME, a yahtzee struct
+;;;         DICE-VECK, a dice vector
+;;;         ANALYZED-VECK-LIST, a dice value list
+;;; OUTPUT: NONE
+;;: SIDE EFFECT: 1. change state/ round +1 and (-1 in calling scoring!-for-) to keep round constant
+;;;              2. roll and score in bill-chart
+
+(define score-for-bill!
+  (lambda (game dice-veck analyzed-veck-list)
+    (set-yahtzee-rounds! game (+ (yahtzee-rounds game) 1))
+    (let (
+          (len (length analyzed-veck-list))
+          (bill-chart (yahtzee-score-chart-bill game))
+          (temp-chart (yahtzee-score-chart-temp game)))
+      (cond
+        ((and (not (vector-ref bill-chart 25))
+              (> (vector-ref temp-chart 24) 0))
+         (scoring! game bill-chart 24))
+        ((and (not (vector-ref bill-chart 23))
+              (> (vector-ref temp-chart 22) 0))
+         (scoring! game bill-chart 22))
+        ;; deal with full-house
+        ((and (not (vector-ref bill-chart 21))
+              (> (vector-ref temp-chart 20) 0))
+         (scoring! game bill-chart 20))
+        ;; deal with yahtzee
+        ((> (vector-ref temp-chart 28) 0)
+         (scoring! game bill-chart 28))
+        ;; deal with ones
+        ((and (not (vector-ref bill-chart 1))
+              (> (vector-ref temp-chart 0) 0))
+         (scoring! game bill-chart 0))
+        ;; deal with twos
+        ((and (not (vector-ref bill-chart 3))
+              (> (vector-ref temp-chart 2) 0))
+         (scoring! game bill-chart 2))
+        ;; deal with threes
+        ((and (not (vector-ref bill-chart 5))
+              (> (vector-ref temp-chart 4) 0))
+         (scoring! game bill-chart 4))
+        ;; deal with fours
+        ((and (not (vector-ref bill-chart 7))
+              (> (vector-ref temp-chart 6) 0))
+         (scoring! game bill-chart 6))
+        ;; deal with fives
+        ((and (not (vector-ref bill-chart 9))
+              (> (vector-ref temp-chart 8) 0))
+         (scoring! game bill-chart 8))
+        ;; deal with sixes
+        ((and (not (vector-ref bill-chart 11))
+              (> (vector-ref temp-chart 10) 0))
+         (scoring! game bill-chart 10))
+        ;; deal with four-of-a-kind
+        ((and (not (vector-ref bill-chart 13))
+              (> (vector-ref temp-chart 12) 0))
+         (scoring! game bill-chart 12))
+        ;; deal with three-of-a-kind
+        ((and (not (vector-ref bill-chart 15))
+              (> (vector-ref temp-chart 14) 0))
+         (scoring! game bill-chart 14))
+        ;; deal with chance
+        ((not (vector-ref bill-chart 27))
+         (scoring! game bill-chart 26))
+        
+        ;; deal with got nothing
+        ((not (vector-ref bill-chart 29))
+         (scoring! game bill-chart 28))
+        ((not (vector-ref bill-chart 19))
+         (scoring! game bill-chart 18))
+        ((not (vector-ref bill-chart 21))
+         (scoring! game bill-chart 20))
+        ((not (vector-ref bill-chart 25))
+         (scoring! game bill-chart 24))
+        ((not (vector-ref bill-chart 23))
+         (scoring! game bill-chart 22))
+        ((not (vector-ref bill-chart 17))
+         (scoring! game bill-chart 16))
+        ((not (vector-ref bill-chart 1))
+         (scoring! game bill-chart 0))
+        ((not (vector-ref bill-chart 3))
+         (scoring! game bill-chart 2))
+        ((not (vector-ref bill-chart 5))
+         (scoring! game bill-chart 4))
+        ((not (vector-ref bill-chart 7))
+         (scoring! game bill-chart 6))
+        ((not (vector-ref bill-chart 9))
+         (scoring! game bill-chart 8))
+        ((not (vector-ref bill-chart 11))
+         (scoring! game bill-chart 10))
+        ((not (vector-ref bill-chart 27))
+         (scoring! game bill-chart 26))
+        ))))

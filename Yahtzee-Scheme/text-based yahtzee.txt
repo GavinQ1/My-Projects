@@ -1,0 +1,256 @@
+;;; ==========================
+;;; CMPU-101, Fall 2015 
+;;; Assignement 10
+;;; Gavin Qi
+;;; ==========================
+
+
+
+(load "score-chart.txt")
+(load "dices.txt")
+(load "yahtzee.txt")
+(load "easy-bill.txt")
+
+
+
+;;; ================== WRAPPER FUNCTIONS ===============================
+
+; wrap ROLLING!
+(define roll!
+  (lambda (g)
+    (let ((state (yahtzee-state g)))
+      (cond 
+        ((eq? state
+              *press-to-start*)
+         (start g)
+         (printf "==> Continue by ---> (show-yahtzee <game>)~%"))
+        ((= (yahtzee-roll-left g) 0)
+         (printf "==> Error! It is time to score!~%"))
+        ((eq? state
+              *wait-for-roll-keep-scoring*)
+         (rolling! g)
+         (printf "==> Continue by ---> (show-yahtzee <game>)~%"))
+        (else
+         (printf "==> Wrong time to roll!~%"))))))
+
+; wrap CLEAR-KEEP-LIST!
+(define clear!
+  (lambda (g)
+    (printf "==> Cleared!~%")
+    (clear-keep-list! g)))
+
+; wrap SWITCH/CONTINUE!
+(define continue!
+  (lambda (g)
+    (switch/continue! g)
+    (if (= 0 (yahtzee-rounds g))
+           (printf "~%==> Game over! To see result ---> (show-yahtzee <game>)~%")
+           (printf "==> Continue by ---> (roll! <game>)~%"))))
+
+; wrap scoring!-for-**
+(define score-for-ones!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 0)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-twos!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 2)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-threes!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 4)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-fours!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 6)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-fives!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 8)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-sixes!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 10)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-three-of-a-kind!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 16)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-four-of-a-kind!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 18)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-full-house!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 20)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-small-straight!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 22)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-large-straight!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 24)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-chance!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 26)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+(define score-for-yahtzee!
+  (lambda (g)
+    (scoring! g (yahtzee-score-chart-player g) 28)
+    (printf "==>Continue by ---> (continue! <game>)~%")))
+
+; wrap RESTART
+(define restart!
+  (lambda (game)
+    (reset-yahtzee! game)
+    (show-yahtzee game)))
+
+
+;;; =======================================================================================
+
+;  (in case you want to look at what Bill and you have got during the game)
+;;; SHOW-CHART
+;;; -----------------------
+;;; INPUTS: G, a yahtzee structure
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: show charts of player and Bill
+
+(define show-chart
+  (lambda (g)
+    (let ((player-chart (yahtzee-score-chart-player g))
+          (bill-chart (yahtzee-score-chart-bill g)))
+      (printf "-------------------------Player------------------------Bill-----------------------~%")
+      (printf "Ones            :         ~A                           ~A~%" (vector-ref player-chart 0) (vector-ref bill-chart 0))
+      (printf "Twos            :         ~A                           ~A~%" (vector-ref player-chart 2) (vector-ref bill-chart 2))
+      (printf "Threes          :         ~A                           ~A~%" (vector-ref player-chart 4) (vector-ref bill-chart 4))
+      (printf "Fours           :         ~A                           ~A~%" (vector-ref player-chart 6) (vector-ref bill-chart 6))
+      (printf "Fives           :         ~A                           ~A~%" (vector-ref player-chart 8) (vector-ref bill-chart 8))
+      (printf "Sixes           :         ~A                           ~A~%" (vector-ref player-chart 10) (vector-ref bill-chart 10))
+      (printf "Sum             :         ~A                           ~A~%" (vector-ref player-chart 12) (vector-ref bill-chart 12))
+      (printf "Bonus           :         ~A                           ~A~%" (vector-ref player-chart 14) (vector-ref bill-chart 14))
+      (printf "Three-of-a-kind :         ~A                           ~A~%" (vector-ref player-chart 16) (vector-ref bill-chart 16))
+      (printf "Four-of-a-kind  :         ~A                           ~A~%" (vector-ref player-chart 18) (vector-ref bill-chart 18))
+      (printf "Full-house      :         ~A                           ~A~%" (vector-ref player-chart 20) (vector-ref bill-chart 20))
+      (printf "Small-straight  :         ~A                           ~A~%" (vector-ref player-chart 22) (vector-ref bill-chart 22))
+      (printf "Large-straight  :         ~A                           ~A~%" (vector-ref player-chart 24) (vector-reft bill-chart 24))
+      (printf "Chance          :         ~A                           ~A~%" (vector-ref player-chart 26) (vector-ref bill-chart 26))
+      (printf "YAHTZEE!        :         ~A                           ~A~%" (vector-ref player-chart 28) (vector-ref bill-chart 28))
+      (printf "Total           :         ~A                           ~A~%" (vector-ref player-chart 30) (vector-ref bill-chart 30))
+      (printf "=============================================================================~%"))))
+
+
+
+;;; SHOW-YAHTZEE
+;;; -----------------------------
+;;; INPUTS: G, a yahtzee structure
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: monitor the states of game and show the necessary information
+
+(define show-yahtzee
+  (lambda (g)
+    (let* ((state (yahtzee-state g))
+          (result (yahtzee-result-str g))
+          (player-chart (yahtzee-score-chart-player g))
+          (bill-chart (yahtzee-score-chart-bill g))
+          (temp-chart (yahtzee-score-chart-temp g))
+          (dicey (yahtzee-dices g))
+          (round-left (yahtzee-rounds g))
+          (roll-left (yahtzee-roll-left g))
+          (keep-list (dices-what-to-keep? dicey)))
+      
+      (printf "======================================~%")
+      (printf "  Yahtzee!~%")
+      (printf "--------------------------------------~%")
+      
+      (cond
+        ((eq? state
+              *press-to-start*)
+         (printf "==> Please roll the dice! (roll! <game>)~%")
+         )
+        
+        ((eq? state
+              *wait-for-roll-keep-scoring*)
+         (printf "==> Dices you've got: ~A~%" (dices-get-roll dicey))
+         (printf "==> Current keeped dices (keep! <game> <list>): ~A~%" keep-list)
+         (printf "==> Roll chances left: ~A~%~%" roll-left)
+         
+         (printf "-------------Following are the catagories you can score-------------~%")
+         (if (not (vector-ref player-chart 1))
+             (printf "==> You can score for ones by   --->  (score-for-ones! <game>):        ~A~%" (vector-ref temp-chart 0)))
+         (if (not (vector-ref player-chart 3))
+             (printf "==> You can score for twos by   --->  (score-for-twos! <game>):        ~A~%" (vector-ref temp-chart 2)))
+         (if (not (vector-ref player-chart 5))
+             (printf "==> You can score for threes by   --->  (score-for-threes! <game>):    ~A~%" (vector-ref temp-chart 4)))
+         (if (not (vector-ref player-chart 7))
+             (printf "==> You can score for fours by   --->  (score-for-fours! <game>):      ~A~%" (vector-ref temp-chart 6)))
+         (if (not (vector-ref player-chart 9))
+             (printf "==> You can score for fives by   --->  (score-for-fives! <game>):      ~A~%" (vector-ref temp-chart 8)))
+         (if (not (vector-ref player-chart 11))
+             (printf "==> You can score for sixes by   --->  (score-for-sixes! <game>):      ~A~%" (vector-ref temp-chart 10)))
+         (if (not (vector-ref player-chart 17))
+             (printf "==> You can score for three-of-a-kind by   --->  (score-for-three-of-a-kind! <game>):   ~A~%" (vector-ref temp-chart 16)))
+         (if (not (vector-ref player-chart 19))
+             (printf "==> You can score for four-of-a-kind by   --->  (score-for-four-of-a-kind! <game>):     ~A~%" (vector-ref temp-chart 18)))
+         (if (not (vector-ref player-chart 21))
+             (printf "==> You can score for full-house by   --->  (score-for-full-house! <game>):             ~A~%" (vector-ref temp-chart 20)))
+         (if (not (vector-ref player-chart 23))
+             (printf "==> You can score for small-straight by   --->  (score-for-small-straight! <game>):     ~A~%" (vector-ref temp-chart 22)))
+         (if (not (vector-ref player-chart 25))
+             (printf "==> You can score for large-straight by   --->  (score-for-large-straight! <game>):     ~A~%" (vector-ref temp-chart 24)))
+         (if (not (vector-ref player-chart 27))
+             (printf "==> You can score for chance by   --->  (score-for-chance! <game>):    ~A~%" (vector-ref temp-chart 26)))
+         (if (not (vector-ref player-chart 29))
+             (printf "==> You can score for yahtzee by   --->  (score-for-yahtzee! <game>):  ~A~%" (vector-ref temp-chart 28)))
+         
+         (printf "--------------------------------------------------------------------~%")
+         (printf "~%==> If you do not want to score, roll again.                 --->   (roll! <game>)~%")
+         (printf "==> Don't forget that you can keep dices.                    --->   (keep! <game> <list>)~%")
+         (printf "==> If unhappy with current keeped dices, clear it.          --->   (clear! <game>)~%")
+         (printf "==> You can always see what You and Bill have got by         --->   (show-chart <game>).~%~%")
+         (printf "==> Rounds left: ~A~%" round-left)
+         )
+        
+        ((eq? state
+              *prepared-for-next-round*)
+         (printf "~%=================Here is the final charts for you and Bill=================~%")
+         (show-chart g)
+         (cond
+           ((> (vector-ref player-chart 30) (vector-ref bill-chart 30))
+            (printf "~%==> You won Bill by ~A points.~%" (- vector-ref player-chart 30) (vector-ref bill-chart 30))
+            (printf "~%==> (Congrats! But... Bill SUCKS!~%)"))
+           ((< (vector-ref player-chart 30) (vector-ref bill-chart 30))
+            (printf "~%==> You lost to Bill by ~A points.~%" (- vector-ref player-chart 30) (vector-ref bill-chart 30))
+            (printf "~%==> (You lost to easy Bill??!!)~%"))
+           (else
+            (printf "~%==> Tie...(really?! That's easy Bill!)~%")))
+         (printf "~%Want another game? (restart! <game>)~%"))))))
+
+
+; wrap MAKE-YAHTZEE-WR (to make it look nicer)
+(define new-game
+  (lambda ()
+    (make-yahtzee-wr)))
+
+(printf "======================================~%")
+(printf " Welcome to Text-Based Yahtzee!~%")
+(printf "======================================~%~%")
+(printf "To begin:  (define g (new-game))~%~%")
+(printf "Then:      (show-yahtzee <game>)~%~%")
+
+
+
+

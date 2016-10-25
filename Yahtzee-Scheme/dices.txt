@@ -1,0 +1,102 @@
+;;; ==========================
+;;; CMPU-101, Fall 2015 
+;;; Assignement 10
+;;; Gavin Qi
+;;; ==========================
+
+;;; Global variable: 0. DICE-VALUES (1 2 3 4 5 6)
+
+;;; main functions: 0. make-dices-wr          (wrapper for making dices struct)
+;;;                 1. reset-dices            (reset dices struct)
+;;;                 2. roll-dice!             (roll dice)
+;;;                 3. check-keep-list        (check if all values in the keep list is legal0
+
+
+
+(define dice-values '(1 2 3 4 5 6))
+
+;;; DICES - data structure
+(define-struct dices (
+                      get-roll
+                      what-to-keep?))
+
+;;; wrapper for make-dices
+(define make-dices-wr
+  (lambda ()
+    (make-dices (make-vector 5) ())))
+
+;;; reset-dices
+(define reset-dices!
+  (lambda (h)
+    (set-dices-get-roll! h (make-vector 5))
+    (set-dices-what-to-keep?! h ())))
+
+
+;;; ROLL-DICE!
+;;; -------------------
+;;; INPUT: H, dices in hand
+;;; OUTPUT: NONE
+;;; SIDE EFFECT: change value of "get-roll"
+
+(define roll-dice!
+  (lambda (h)
+    (let ((result (roll-some! (dices-get-roll h) (dices-what-to-keep? h))))
+      (set-dices-get-roll! h result))))
+
+
+;;; ROLL-SOME!-HELPER
+;;; -------------------
+;;; INPUT: DICE-VECK, a dice vector
+;;;        KEEP-LIST, a list
+;;;        i, index
+;;;        acc, an accumulator
+;;; OUTPUT: NONE
+;;; SIDE EFFECT: a new dice vector
+
+(define roll-some!-helper
+  (lambda (dice-veck keep-list i acc)
+    (cond
+      ((= i (vector-length dice-veck))
+       (list->vector acc))
+      ((null? keep-list)
+       (roll-some!-helper dice-veck () (+ i 1) (cons 0 acc)))
+      (else
+       (roll-some!-helper dice-veck (rest keep-list) (+ i 1) (cons (first keep-list) acc))))))
+
+;;; ROLL-SOME!
+;;; ---------------
+;;; INPUT: DICE-VECK, a vector representing values of dices
+;;;        KEEP-LIST, a list representing what value to keep
+;;; OUTPUT: new DICE-VECK
+;;; SIDE EFFECT: change values in dice-veck except those equal to KEEP
+
+(define roll-some!
+  (lambda (dice-veck keep-list)
+    (letrec ((newveck (roll-some!-helper dice-veck keep-list 0 ()))) 
+      (dotimes (i (vector-length dice-veck))
+               (if (= 0 (vector-ref newveck i))
+                   (vector-set! newveck i (+ 1 (random 6)))))
+      newveck)))
+
+
+;;; check-keep-list
+;;; ------------------------
+;;; INPUT: h, a dices data structure
+;;;        KEEP-LIST, a dice value
+;;; OUTPUT: Booleans
+
+(define check-keep-list
+  (lambda (h keep-list)
+    (let ((keep-veck (list->vector keep-list)))
+      (cond
+        ;; Base case: gone through the list
+        ((null? keep-list)
+         #t)
+        ;; Recursive case: check every one of the list
+        (else
+         (and (<= (num-matches keep-veck (first keep-list))
+                  (num-matches (dices-get-roll h) (first keep-list)))
+              (check-keep-list h (rest keep-list))))))))
+
+
+

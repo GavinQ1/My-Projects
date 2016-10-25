@@ -1,0 +1,335 @@
+;;; ==========================
+;;; CMPU-101, Fall 2015 
+;;; Assignement 10
+;;; Gavin Qi
+;;; ==========================
+
+
+
+;;; Global variable : 0. *press-to-start*
+;;;                   1. *wait-for-roll-keep-scoring*
+;;;                   2. *switch-turn*
+;;;                   3. *prepared-for-next-round*
+
+;;; Main functions  : 0. make-yahtzee-wr         (wrapper for make a yahtzee struct)
+;;;                   1. reset-yahtzee!          (reset yahtzee struct)
+;;;                   2. start                   (the first roll)
+;;;                   3. rolling!                (rolling dice)
+;;;                   4. add-**-to-keep-list!    (add (1~6) to keep list)
+;;;                   5. clear-keep-list!        (clear keep list)
+;;;                   6. scoring!-for-**         (score)
+;;;                   7. settle!                 (run after all 13 rounds are done --> calculate scores)
+;;;                   8. switch/continue!        (change state)
+;;;                   9. restart                 (reset all)
+;;;                   10. convert-to-result-str! (display info in text)
+;;;                   11. init-after-score!      (initialize certain stuffs)
+
+
+
+
+(load "score-chart.txt")
+(load "dices.txt")
+
+; Global variables
+(define *press-to-start* 0)
+(define *wait-for-roll-keep-scoring* 1)
+(define *switch-turn* 2)  ; or continue
+(define *prepared-for-next-round* 3)
+
+; define structure
+(define-struct yahtzee
+  (dices 
+   score-chart-player 
+   score-chart-bill 
+   score-chart-temp 
+   rounds 
+   result-str 
+   state 
+   roll-left 
+   ))
+
+; wrapper func for making a structure
+(define make-yahtzee-wr
+  (lambda ()
+    (make-yahtzee (make-dices-wr)          ;; dice
+                  (make-score-chart-veck)   ;; player's score chart
+                  (make-score-chart-veck)   ;; bill charts as a records
+                  (make-score-chart-veck)   ;; temp charts as a records
+                  13                      ;; a total of 13 rounds
+                  ""                     ;; result-str
+                  *press-to-start*        ;; state
+                  3                      ;; roll-left
+                  )))                  
+
+; reset a structure
+(define reset-yahtzee!
+  (lambda (g)
+    (set-yahtzee-dices! g (make-dices-wr))
+    (set-yahtzee-score-chart-player! g (make-score-chart-veck))
+    (set-yahtzee-score-chart-bill! g (make-score-chart-veck))
+    (set-yahtzee-score-chart-temp! g (make-score-chart-veck))
+    (set-yahtzee-rounds! g 13)
+    (set-yahtzee-result-str! g "")
+    (set-yahtzee-state! g *press-to-start*)
+    (set-yahtzee-roll-left! g 3)))
+
+;;; START
+;;; A wrapper function
+;;; -----------------------------
+;;; INPUTS: GAME, a yahtzee strucuture
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: make the first roll
+;;;              Change state to *wait-for-roll-keep-scoring*
+
+(define start
+  (lambda (game)
+    (if (or (eq? *press-to-start* (yahtzee-state game))
+            (eq? *wait-for-roll-keep-scoring* (yahtzee-state game)))
+        (begin (set-yahtzee-state! game *wait-for-roll-keep-scoring*)
+               (rolling! game))
+        (convert-to-result-str! game "Press switch/continue!"))))
+
+
+;;; ROLLING!
+;;; -------------------------------------
+;;; INPUT: GAME, a yahtzee game struct
+;;; OUTPUT: NONE
+;;; SIDE EFFECT: initialize RESULT-STR before everything
+;;;              case 0 ---> wrong state                  change RESULT-STR
+;;;              case 1 ---> no more chance to roll       change RESULT-STR
+;;;              case 2 ---> good to roll                 roll dice
+;;;                                                       record values to TEMP-CHART
+
+(define rolling!
+  (lambda (game)
+    (let ((dicey (yahtzee-dices game))
+          (temp-chart (yahtzee-score-chart-temp game)))
+      (set-yahtzee-result-str! game "")
+      (cond
+        ;; case 0: wrong state
+        ((not (eq? (yahtzee-state game)
+                   *wait-for-roll-keep-scoring*))
+         (convert-to-result-str! game "Press switch/continue!"))
+        ;; case 1: no more chance to roll dices!
+        ((= 0 (yahtzee-roll-left game))
+         ;(printf "~A~%" (yahtzee-result-str game))
+         (convert-to-result-str! game "Sorry... it is time to score and swith turn!"))
+        ;; case 2: good roll!
+        (else
+         ;; clear all temporary values in the chart
+         (reset-score-chart! temp-chart)
+         (roll-dice! dicey)
+         ;; count rolls
+         (set-yahtzee-roll-left! game (- (yahtzee-roll-left game) 1))
+         ;; display temporary values in the chart
+         (score-chart-normal! temp-chart
+                              (dices-get-roll dicey))
+         (score-chart-special! temp-chart
+                               (dices-get-roll dicey)))))))
+
+
+;;; First check values from users
+;;; If all legal, change the keep list
+;;; ============================================
+;;; KEEPING!
+;;; --------------------
+;;; INPUTS: GAME, a yahtzee game structure
+;;; OUTPUTS: Booleans
+;;; SIDE EFFECT: change keep-list/result-str with respect to different situations
+
+(define keep!
+  (lambda (game num)  ;; keep-list is a list input from player
+    (let* ((dicey (yahtzee-dices game))
+           (keep-list (dices-what-to-keep? dicey)))
+      (cond 
+        ;; case 0: wrong state
+        ((not (eq? (yahtzee-state game)
+                   *wait-for-roll-keep-scoring*))
+         (set-dices-what-to-keep?! dicey ())
+         (convert-to-result-str! game "Press Roll Me! or Switch/continue!")
+         )
+        ;; case 1: illegal choice
+        ((not (check-keep-list dicey keep-list))
+         (set-dices-what-to-keep?! dicey ())
+         (convert-to-result-str! game "illegal choices of values!")
+         ) ;; goto result-str
+        ;; case 2: good choice
+        (else
+         (set-dices-what-to-keep?! dicey (cons num 
+                                               keep-list)))
+         ))))
+
+
+;;; clear keep list
+;;; ---------------------------------
+;;; INPUTS: GAME, a yahtzee struct
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: clear keep list
+;;;              clear info in result-str
+
+(define clear-keep-list!
+  (lambda (game)
+    (set-yahtzee-result-str! game "")
+    (set-dices-what-to-keep?! (yahtzee-dices game) ())))
+
+;;; INIT-AFTER-SCORE!
+;;; ---------------------------------
+;;; INPUTS : GAME, a yahtzee struct
+;;;          YAHTZEE-DICES a dices struct in yahtzee
+;;;          TEMP-CHART, a score-chart struct (should be the temporary socre chart)
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: initialize the following:  
+;;;              DICES strcut
+;;;              KEEP-LIST
+;;;              TEMP-CHART
+;;;              change STATE (display info)
+
+
+(define init-after-score!
+  (lambda (game yahtzee-dices temp-chart)
+    (set-dices-what-to-keep?! (yahtzee-dices game) ())
+    (reset-dices! (yahtzee-dices game))
+    (reset-score-chart! temp-chart)
+    (set-yahtzee-state! game *switch-turn*)
+    (convert-to-result-str! game "Press switch/continue now.")))
+
+;;; SCORING!
+;;; ---------------------------------
+;;; INPUTS: GAME, a yahtzee struct
+;;;         CHART-VECK, a score-chart vector
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: initialize RESULT-STR struct
+;;;              case 1: wrong state    ---> change RESULT-STR struct
+;;;              case 2: game over      ---> call SETTLE!
+;;;              case 3: already scored ---> change RESULT-STR struct
+;;;              case 4: good to score  ---> change PLAYER-CHART   according to the corresponding value in TEMP-CHART
+;;;                                          record ROUNDS         (rounds - 1)
+;;;                                                                 
+;;;                                          initialize            reset (DICES KEEP-LIST TEMP-CHART)
+;;;                                          change STATE (display info)
+
+(define scoring!
+  (lambda (game chart-veck slot)
+    (set-yahtzee-result-str! game "")
+    (let* ((temp-chart (yahtzee-score-chart-temp game))
+           (curr-round (yahtzee-rounds game))
+           (corr-temp-value (vector-ref temp-chart slot))) ;corresponding value in temp-chart
+      (cond
+        ;; case 1: wrong state
+        ((not (eq? (yahtzee-state game)
+                   *wait-for-roll-keep-scoring*))
+         (convert-to-result-str! game "Sorry... illegal move at the moment!"))
+        ;; case 2: rounds over
+        ((= 0 curr-round)
+         (printf "Game is over!") ;; goto result-str
+         (settle! game))
+        ;; case 3: already scored
+        ((vector-ref chart-veck (+ 1 slot))
+         (set-yahtzee-keep-list! game ())
+         (convert-to-result-str! game "Already scored it!"))
+        ;; case 4: good to score
+        (else
+         (set-yahtzee-roll-left! game 3)
+         ;; extra case joker
+         (if (and (> (vector-ref chart-veck 28) 0)
+                  (= (vector-ref temp-chart 28) 50))
+             (vector-set! chart-veck 28 (+ (vector-ref chart-veck 28) 100)))
+         
+         (vector-set! chart-veck slot corr-temp-value)
+         (vector-set! chart-veck (+ 1 slot) #t)
+         
+         ;; record round
+         (set-yahtzee-rounds! game (- curr-round 1))
+         
+         ;; initializing
+         (init-after-score! game yahtzee-dices temp-chart)
+         )))))
+
+
+;;; SETTLE!
+;;; -------------------------------
+;;; INPUTS: GAME,a yahtzee struct
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: change STATE
+;;;              reset temp-chart
+;;;              calculate scores and decide who wins
+;;;              display infos
+
+(define settle!
+  (lambda (game)
+    (let ((player-chart (yahtzee-score-chart-player game))
+          (bill-chart (yahtzee-score-chart-bill game))
+          (temp-chart (yahtzee-score-chart-temp game)))
+      ;; change STATE
+      (set-yahtzee-state! game *prepared-for-next-round*)
+      ;; reset temp-chart
+      (reset-score-chart! temp-chart)
+      ;; calculate scores
+      (process-score-chart! player-chart)
+      (process-score-chart! bill-chart)
+      (cond
+        ;; You win
+        ((> (vector-ref player-chart 30)
+            (vector-ref bill-chart 30))
+         (convert-to-result-str! game "You WIN! but Bill SUCKS...")    ;; goto result-str
+         )
+        ;; You lose
+        ((< (vector-ref player-chart 30)
+            (vector-ref bill-chart) 30)
+         (convert-to-result-str! game "Sorry... YOU LOSE to Bill!")    ;; goto result-str
+         )
+        ;; Tie
+        (else
+         (convert-to-result-str! game "Tie... you can't even beat Bill??")    ;; goto result-str
+         )))))
+
+;;; SWITCH/CONTINUE!
+;;; ------------------------------
+;;; INPUTS: GAME, a yahtzee strcut
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: change RESULT-STR to helper user what to do next
+;;;              change state
+
+(define switch/continue!
+  (lambda (game)
+    (set-yahtzee-result-str! game "")
+    (let ((state (yahtzee-state game)))
+      (cond
+        ((eq? state
+              *prepared-for-next-round*)
+         (convert-to-result-str! game "Press RESTART to start another game!"))
+        ((eq? state
+              *switch-turn*)
+         "Time for Bill to play"                                                      ;; <================= INSERT BILL
+         (bill-roll! game)
+         )
+        (else
+         (convert-to-result-str! game "You are still in this game!"))))))
+
+
+;;; RESTART!
+;;; -----------------------------
+;;; INPUTS: GAME, a yahtzee strcut
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: Reset everything!
+
+(define restart
+  (lambda (game)
+    (reset-yahtzee! game)))
+
+
+
+;;; CONVERT-TO-RESULT-STR!
+;;; ----------------------------
+;;; INPUTS: GAME, a yahtzee struct
+;;;         INPUT, anything
+;;; OUTPUTS: NONE
+;;; SIDE EFFECT: transfer INPUT to string and add it to RESULT-STR
+
+(define convert-to-result-str!
+  (lambda (game input)
+    (let ((str-input (format "~A" input)))
+      ;(printf "~A~%" input)
+      (set-yahtzee-result-str! game str-input))))
+
+
