@@ -1,9 +1,12 @@
 import re, time, threading, os, sys, getpass
 from string import lowercase
 from itertools import permutations
-from bs4 import BeautifulSoup
-from seleniumrequests import PhantomJS
-from selenium.webdriver.common.keys import Keys
+try:
+    from bs4 import BeautifulSoup
+    from seleniumrequests import PhantomJS
+    from selenium.webdriver.common.keys import Keys
+except ImportError as e:
+    print e
 
 _CONTENT = ['\n', '\t', ' ']
 def clean_content(s):

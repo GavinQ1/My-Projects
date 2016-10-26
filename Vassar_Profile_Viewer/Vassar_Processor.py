@@ -1,10 +1,16 @@
-import re, os, cPickle as pickle
-from bs4 import BeautifulSoup
+import re, os
 from Student import Student, Dormitory
 from progress_animation import Progress_bar
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+try:
+    from bs4 import BeautifulSoup
+except ImportError as e:
+    print e
 
 _SIZE = 2086
-
 _CONTENT = ['\n', '\t']
 def clean_content(s):
     for c in _CONTENT:
