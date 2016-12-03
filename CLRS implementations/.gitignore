@@ -1,0 +1,7 @@
+*.pyc 
+*.o 
+*.exe 
+*.pyw 
+*.class 
+*.cmd 
+*.out
