@@ -107,7 +107,7 @@ public class BankAppGUIController extends GeneralController implements BankAppGU
             this.displayedAccounts = this.accounts.getAccountList(SavingAccount.class);
         else if (scope.equals(BankAppGUI.ACCOUNT_TYPES[0]))
             this.displayedAccounts = new ArrayList();
-      
+        
         view.getAccountListField().setModel(this.listModelFactory(this.displayedAccounts));
     }
 
@@ -131,27 +131,17 @@ public class BankAppGUIController extends GeneralController implements BankAppGU
 
     private void loginAction() {
         Account selectedAccount = view.getAccountListField().getSelectedValue();
-        if (selectedAccount != null) {
+        
+        if (selectedAccount != null) 
             AccountApplication.run(selectedAccount);
-        }
+        
         updateAccountListAction();
     }
 
     private void createAccountAction() {
-        ArrayList<Account> accounts = this.accounts.getAccountList();
-        int oldSize = accounts.size();
         CreateAccountApplication.run(this.accounts);
-        int newSize = accounts.size();
-        if (newSize > oldSize) {
-            Account lastAdded = accounts.get(oldSize);
-            String accountType;
-            if (lastAdded instanceof CheckingAccount)
-                accountType = BankAppGUI.ACCOUNT_TYPES[2];
-            else
-                accountType = BankAppGUI.ACCOUNT_TYPES[3];
-            updateAccountListAction(accountType);
-        } else
-            updateAccountListAction();
+        view.getAccountTypeBox().setSelectedItem(BankAppGUI.ACCOUNT_TYPES[1]);
+        updateAccountListAction(BankAppGUI.ACCOUNT_TYPES[1]);
     }
 
     private void dailySettle() {
@@ -164,11 +154,13 @@ public class BankAppGUIController extends GeneralController implements BankAppGU
         int i = 0;
         ArrayList<Account> newDisplayedAccounts = new ArrayList();
         ArrayList<Account> accounts = this.accounts.getAccountList();
+        
         while (i < accounts.size()) {
             Account a = accounts.get(i++);
             if (a.getName().toLowerCase().startsWith(searchContent)) {
                 newDisplayedAccounts.add(a);
             }
+        
         }
         displayedAccounts = newDisplayedAccounts;
         view.getAccountListField().setModel(listModelFactory(displayedAccounts));
