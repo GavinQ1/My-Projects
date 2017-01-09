@@ -2,12 +2,13 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.io.Serializable;
 
 /**
  *
  * @author Gavin
  */
-public class KnowledgeNodeList implements Iterable<KnowledgeNode> {
+public class KnowledgeNodeList implements Iterable<KnowledgeNode>, Serializable {
     private String catagoryName;
     private final ArrayList<KnowledgeNode> list;
     

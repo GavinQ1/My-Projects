@@ -1,12 +1,13 @@
 package Models;
 
 import java.util.HashMap;
+import java.io.Serializable;
 
 /**
  *
  * @author Gavin
  */
-public class KnowledgeMap {
+public class KnowledgeMap implements Serializable {
     private String name;
     private final HashMap<String, KnowledgeNodeList> map;
     
@@ -31,27 +32,27 @@ public class KnowledgeMap {
         return this.map.size();
     }
     
-    public boolean containsCatagory(String name) {
-        return this.map.containsKey(name);
+    public boolean containsCatagory(String catagoryName) {
+        return this.map.containsKey(catagoryName);
     }
     
-    public KnowledgeNodeList getCatagory(String name) {
-        return this.map.get(name);
+    public KnowledgeNodeList getCatagory(String catagoryName) {
+        return this.map.get(catagoryName);
     }
     
-    public void checkCatagory(String name) {
-        if (!this.containsCatagory(name))
+    public void checkCatagory(String catagoryName) {
+        if (!this.containsCatagory(catagoryName))
             throw new InvalidInputException("The map already has this catagory.");
     }
     
-    public void addCatagory(String name) {
-        this.map.put(name, new KnowledgeNodeList(name));
+    public void addCatagory(String catagoryName) {
+        this.map.put(catagoryName, new KnowledgeNodeList(catagoryName));
     }
     
-    public KnowledgeNode getKnowldegeNodeFrom(String catagoryName, String name)
+    public KnowledgeNode getKnowldegeNodeFrom(String catagoryName, String knowledgeNodeName)
             throws InvalidInputException {
         checkCatagory(catagoryName);
-        return this.map.get(catagoryName).getKnowledge(name);
+        return this.map.get(catagoryName).getKnowledge(knowledgeNodeName);
     }
     
     public void addKnowledgeNodeTo(String catagoryName, KnowledgeNode k)
@@ -60,10 +61,10 @@ public class KnowledgeMap {
         getCatagory(catagoryName).add(k);
     }
     
-    public void deleteCatagory(String name) {
-        if (!this.map.containsKey(name))
+    public void deleteCatagory(String catagoryName) {
+        if (!this.map.containsKey(catagoryName))
             return;
-        this.map.remove(name);
+        this.map.remove(catagoryName);
     }
     
     public void deleteKnowledgeNodeFrom(String catagoryName, KnowledgeNode k) {
@@ -72,10 +73,10 @@ public class KnowledgeMap {
         getCatagory(catagoryName).remove(k);
     }
     
-    public void deleteKnowledgeNodeFrom(String catagoryName, String name) {
+    public void deleteKnowledgeNodeFrom(String catagoryName, String knowledgeNodeName) {
         if (!this.map.containsKey(catagoryName))
             return;
-        getCatagory(catagoryName).remove(name);
+        getCatagory(catagoryName).remove(knowledgeNodeName);
     }
     
     // unit test

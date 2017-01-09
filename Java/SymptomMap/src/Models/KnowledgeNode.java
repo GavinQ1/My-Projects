@@ -1,13 +1,14 @@
 package Models;
 
 import java.util.Comparator;
+import java.io.Serializable;
 
 /**
  *
  * @author Gavin
  */
 public class KnowledgeNode implements Comparator<KnowledgeNode>, 
-        Comparable<KnowledgeNode>{
+        Comparable<KnowledgeNode>, Serializable{
     protected Integer significance;
     protected String name, definition, description;
     protected KnowledgeNodeList sources, destinations, neighbors;
