@@ -2,6 +2,7 @@ package bankingApp;
 
 import javax.swing.*;
 import account.*;
+import java.awt.*;
 
 /**
  * Bank application View
@@ -77,7 +78,7 @@ public class BankAppGUI extends JFrame {
 
         accountTypeTitle.setText("Account Type: ");
 
-        Title.setFont(new java.awt.Font("sansserif", 1, 36));
+        Title.setFont(new Font("sansserif", 1, 36));
         Title.setText("      Bank Application");
 
         accountTitle.setText("Accounts:");

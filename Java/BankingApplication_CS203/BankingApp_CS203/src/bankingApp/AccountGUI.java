@@ -2,6 +2,7 @@ package bankingApp;
 
 import account.*;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Account application View
@@ -48,7 +49,7 @@ public class AccountGUI extends JDialog {
 
         detailArea.setColumns(20);
         detailArea.setRows(5);
-        detailArea.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        detailArea.setCursor(new Cursor(Cursor.TEXT_CURSOR));
         detailArea.setEnabled(false);
         jScrollPane1.setViewportView(detailArea);
         detailArea.setText(this.selectedAccount.accountDetail());
