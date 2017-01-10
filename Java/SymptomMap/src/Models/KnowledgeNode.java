@@ -2,41 +2,63 @@ package Models;
 
 import java.util.Comparator;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Gavin
  */
 public class KnowledgeNode implements Comparator<KnowledgeNode>, 
-        Comparable<KnowledgeNode>, Serializable{
+        Comparable<KnowledgeNode>, Serializable, Cloneable {
     protected Integer significance;
-    protected String name, definition, description;
+    protected String name, catagory, definition, description;
     protected KnowledgeNodeList sources, destinations, neighbors;
     
-    public KnowledgeNode(String name, String definition, String description) {
-        this(name, definition, description, 
+    public KnowledgeNode(String name, String catagory, 
+            String definition, String description) {
+        this(name, catagory, definition, description, 
                 new KnowledgeNodeList(), 
                 new KnowledgeNodeList(), 
                 new KnowledgeNodeList());
     }
     
-    public KnowledgeNode(String name, String definition, String description,
+    public KnowledgeNode(String name, String catagory, 
+            String definition, String description,
             String sourcesName, String destinationsName, String neighborsName) {
-        this(name, definition, description, 
+        this(name, catagory, definition, description, 
                 new KnowledgeNodeList(sourcesName), 
                 new KnowledgeNodeList(destinationsName), 
                 new KnowledgeNodeList(neighborsName));
     }
     
-    public KnowledgeNode(String name, String definition, String description,
+    public KnowledgeNode(String name, String catagory, 
+            String definition, String description, 
             KnowledgeNodeList sources, KnowledgeNodeList destinations, KnowledgeNodeList neighbors) {
         this.significance = 0;
         this.name = name;
+        this.catagory = catagory;
         this.definition = definition;
         this.description = description;
         this.sources = sources;
+        this.sources.setType(KnowledgeNodeList.TYPE.SOURCES.getValue());
         this.destinations = destinations;
+        this.destinations.setType(KnowledgeNodeList.TYPE.DESTINATIONS.getValue());
         this.neighbors = neighbors;
+        this.neighbors.setType(KnowledgeNodeList.TYPE.NEIGHBORS.getValue());
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        try {
+            KnowledgeNode cloned = (KnowledgeNode) super.clone();
+            cloned.sources = (KnowledgeNodeList) sources.clone();
+            cloned.destinations = (KnowledgeNodeList) destinations.clone();
+            cloned.neighbors = (KnowledgeNodeList) neighbors.clone();
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
     
     @Override
@@ -58,7 +80,19 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
     }
     
     public void setName(String newName) {
+        if ("".equals(newName.trim()))
+            throw new InvalidInputException("Input can't be empty.");
         this.name = newName;
+    }
+    
+    public String getCatagory() {
+        return this.catagory;
+    }
+    
+    public void setCatagory(String newName) {
+        if ("".equals(newName.trim()))
+            throw new InvalidInputException("Input can't be empty.");
+        this.catagory = newName;
     }
     
     public String getDefinition() {
@@ -66,6 +100,8 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
     }
     
     public void setDefinition(String newDefinition) {
+        if ("".equals(newDefinition.trim()))
+            throw new InvalidInputException("Input can't be empty.");
         this.name = newDefinition;
     }
     
@@ -74,6 +110,8 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
     }
     
     public void setDescription(String newDescription) {
+        if ("".equals(newDescription.trim()))
+            throw new InvalidInputException("Input can't be empty.");
         this.name = newDescription;
     }
     
@@ -109,6 +147,10 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
             k.addNeighbor(s);
     }
     
+    public void removeSource(KnowledgeNode k) {
+        removeSource(k.name);
+    }
+    
     public void removeSource(String name) {
         if (!hasSource(name)) return;
         KnowledgeNode s = this.sources.getKnowledge(name);
@@ -126,6 +168,10 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         k.addSource(this);
     }
     
+    public void removeDestination(KnowledgeNode k) {
+        removeDestination(k.name);
+    }
+    
     public void removeDestination(String name) {
         if (!hasDestination(name)) return;
         KnowledgeNode d = this.destinations.getKnowledge(name);
@@ -134,9 +180,14 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
     }
     
     public void addNeighbor(KnowledgeNode k) {
-        if (hasNeighbor(k.getName()) || this == k) return;
+        if (this == k ||
+            !this.catagory.equals(k.catagory)) return;
         this.neighbors.add(k);
-        k.addNeighbor(this);
+        k.neighbors.add(this);
+    }
+    
+    public void removeNeighbor(KnowledgeNode k) {
+        removeNeighbor(k.name);
     }
     
     public void removeNeighbor(String name) {
@@ -146,31 +197,51 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         n.neighbors.remove(this.name);
     }
     
+    public String chineseFormattedInformation() {
+        return "名称: " + name + "\n\n类别: " + catagory + "\n\n定义: " + definition +
+                "\n\n描述: " + description + "\n\n" + sources.getName() + ":\n" +
+                sources.membersInString() + "\n\n" + destinations.getName() + ":\n" +
+                destinations.membersInString() + "\n\n" + neighbors.getName() + ":\n" +
+                neighbors.membersInString();
+    }
+    
+    public String toString() {
+        return name + " (" + catagory + ", referred: " + significance + ")";
+    }
+    
+    public static final Comparator<KnowledgeNode> comparatorByCatagory() {
+        return (Comparator<KnowledgeNode>) (KnowledgeNode k1, KnowledgeNode k2) -> k1.catagory.compareTo(k2.catagory);
+    }
+    
+    public static final Comparator<KnowledgeNode> comparatorBySignificance() {
+        return (Comparator<KnowledgeNode>) (KnowledgeNode k1, KnowledgeNode k2) -> k2.significance.compareTo(k1.significance);
+    }
+    
+    public static final Comparator<KnowledgeNode> comparatorByName() {
+        return (Comparator<KnowledgeNode>) (KnowledgeNode k1, KnowledgeNode k2) -> k1.name.compareTo(k2.name);
+    }
+    
     // unit test
     public static void main(String[] args) {
-        KnowledgeNode a = new KnowledgeNode("a", "", "", "", "", "");
-        KnowledgeNode b = new KnowledgeNode("b", "", "", "", "", "");
-        KnowledgeNode c = new KnowledgeNode("c", "", "", "", "", "");
-        KnowledgeNode d = new KnowledgeNode("d", "", "", "", "", "");
-        KnowledgeNode e = new KnowledgeNode("e", "", "", "", "", "");
-        a.addSource(e);
-        a.addDestination(d);
-        c.addDestination(d);
-        c.addDestination(a);
-        b.addDestination(d);
-        System.out.println(a.sources);
-        System.out.println(d.sources);
-        System.out.println(b.destinations);
-        System.out.println(c.destinations);
-        System.out.println(a.neighbors);
-        System.out.println(b.neighbors);
-        System.out.println(c.neighbors);
-        System.out.println(e.neighbors);
-        System.out.println(d.significance);
-        a.removeDestination(d.getName());
-        System.out.println(d.significance);
-        System.out.println(a.neighbors);
-        System.out.println(b.neighbors);
-        System.out.println(c.neighbors);
+        KnowledgeNode a = new KnowledgeNode("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
+        KnowledgeNode b = new KnowledgeNode("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
+        KnowledgeNode c = new KnowledgeNode("C", "Character", "C", "Third", "Source", "Destination", "Neighbor");
+        KnowledgeNode d = new KnowledgeNode("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode e = new KnowledgeNode("E", "Character", "E", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode f = new KnowledgeNode("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
+        
+        KnowledgeNode tempa;
+        try {
+            tempa = (KnowledgeNode) a.clone();
+            System.out.println(a.getDestinations().membersInString());
+            System.out.println(tempa.getDestinations().membersInString());
+            a.addSource(d);
+            System.out.println(a.getSources().membersInString());
+            System.out.println(tempa.getSources().membersInString());
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(KnowledgeNode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 }

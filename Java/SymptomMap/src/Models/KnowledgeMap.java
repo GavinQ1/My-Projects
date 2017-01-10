@@ -2,14 +2,17 @@ package Models;
 
 import java.util.HashMap;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 /**
  *
  * @author Gavin
  */
-public class KnowledgeMap implements Serializable {
+public class KnowledgeMap implements Serializable, Cloneable {
     private String name;
-    private final HashMap<String, KnowledgeNodeList> map;
+    private HashMap<String, ArrayList<KnowledgeNode>> map;
     
     public KnowledgeMap(String name) {
         this.name = name;
@@ -24,8 +27,19 @@ public class KnowledgeMap implements Serializable {
         this.name = newName;
     }
     
-    public HashMap<String, KnowledgeNodeList> getMap() {
+    public HashMap<String, ArrayList<KnowledgeNode>> getMap() {
         return this.map;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        try {
+            KnowledgeMap cloned = (KnowledgeMap) super.clone();
+            cloned.map = (HashMap<String, ArrayList<KnowledgeNode>>) map.clone();
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
     
     public int size() {
@@ -36,23 +50,27 @@ public class KnowledgeMap implements Serializable {
         return this.map.containsKey(catagoryName);
     }
     
-    public KnowledgeNodeList getCatagory(String catagoryName) {
+    public ArrayList<KnowledgeNode> getCatagory(String catagoryName) {
         return this.map.get(catagoryName);
     }
     
     public void checkCatagory(String catagoryName) {
         if (!this.containsCatagory(catagoryName))
-            throw new InvalidInputException("The map already has this catagory.");
+            throw new InvalidInputException("The map does not have this catagory.");
     }
     
     public void addCatagory(String catagoryName) {
-        this.map.put(catagoryName, new KnowledgeNodeList(catagoryName));
+        this.map.put(catagoryName, new ArrayList<>());
     }
     
     public KnowledgeNode getKnowldegeNodeFrom(String catagoryName, String knowledgeNodeName)
             throws InvalidInputException {
         checkCatagory(catagoryName);
-        return this.map.get(catagoryName).getKnowledge(knowledgeNodeName);
+        for (KnowledgeNode k : this.map.get(catagoryName)) {
+            if (knowledgeNodeName.equals(k.getName()))
+                return k;
+        }
+        return null;   
     }
     
     public void addKnowledgeNodeTo(String catagoryName, KnowledgeNode k)
@@ -79,14 +97,21 @@ public class KnowledgeMap implements Serializable {
         getCatagory(catagoryName).remove(knowledgeNodeName);
     }
     
+    public ArrayList<KnowledgeNode> getAllKnowledgeNodes() {
+        ArrayList<KnowledgeNode> a = new ArrayList<>();
+        for (String key : map.keySet()) 
+            a.addAll(new HashSet<>(map.get(key)));
+        Collections.sort(a, KnowledgeNode.comparatorBySignificance());
+        return a;
+    }
+    
     // unit test
     public static void main(String[] args) {
         KnowledgeMap map = new KnowledgeMap("K");
         map.addCatagory("Test");
         System.out.println(map.containsCatagory("Test"));
-        map.addKnowledgeNodeTo("Test", new Symptom("a", "", "", "", "", ""));
-        System.out.println(map.getKnowldegeNodeFrom("Test", "a").getName());
+        map.addKnowledgeNodeTo("Test", new KnowledgeNode("a", "Solution", "", "", "", "", ""));
+        System.out.println(map.getKnowldegeNodeFrom("Test", "a").chineseFormattedInformation());
         map.deleteKnowledgeNodeFrom("Test", "a");
-        System.out.println(map.getCatagory("Test"));
     }
 }

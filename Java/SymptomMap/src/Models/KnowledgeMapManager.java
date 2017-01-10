@@ -7,12 +7,14 @@ import java.io.*;
  * @author Gavin
  */
 public class KnowledgeMapManager {
-    private static final String SAVING_PATH = ".\\user_data\\";
+    private static final String DEFAULT_SAVING_PATH = ".\\user_data\\";
     private KnowledgeMap map;
+    private String saving_path;
 
     public KnowledgeMapManager() {
         this.map = null;
-        File dir = new File(SAVING_PATH);
+        this.saving_path = null;
+        File dir = new File(DEFAULT_SAVING_PATH);
         if (!dir.exists())
             dir.mkdirs();
     }
@@ -24,6 +26,12 @@ public class KnowledgeMapManager {
 
     public void register(KnowledgeMap map) {
         this.map = map;
+        this.saving_path = null;
+    }
+    
+    public void register(KnowledgeMap map, String filePath) {
+        this.map = map;
+        this.saving_path = filePath;
     }
 
     public KnowledgeMap getMap() {
@@ -43,14 +51,17 @@ public class KnowledgeMapManager {
     }
 
     public void saveMap() {
-        this.saveMapAs(KnowledgeMapManager.SAVING_PATH + this.map.getName() + ".ser");
+        String path = this.saving_path;
+        if (path == null)
+            path = KnowledgeMapManager.DEFAULT_SAVING_PATH;
+        this.saveMapAs(path + this.map.getName() + ".ser");
     }
 
     public void readMap(String filePath) {
         try {
             try (FileInputStream fileIn = new FileInputStream(filePath); 
                     ObjectInputStream in = new ObjectInputStream(fileIn)) {
-                this.register((KnowledgeMap) in.readObject());
+                this.register((KnowledgeMap) in.readObject(), filePath);
             }
         } catch (IOException i) {
             i.printStackTrace();
@@ -61,7 +72,7 @@ public class KnowledgeMapManager {
     }
     
     private void testReadMap(String filename) {
-        String filePath = KnowledgeMapManager.SAVING_PATH + filename + ".ser";
+        String filePath = KnowledgeMapManager.DEFAULT_SAVING_PATH + filename + ".ser";
         try {
             try (FileInputStream fileIn = new FileInputStream(filePath); 
                     ObjectInputStream in = new ObjectInputStream(fileIn)) {
@@ -76,7 +87,7 @@ public class KnowledgeMapManager {
     }
     
     private void testSaveMapAs(String filename) {
-        String filePath = KnowledgeMapManager.SAVING_PATH + filename + ".ser";
+        String filePath = KnowledgeMapManager.DEFAULT_SAVING_PATH + filename + ".ser";
         try {
             try (FileOutputStream fileOut = new FileOutputStream(filePath);
                     ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
@@ -97,7 +108,7 @@ public class KnowledgeMapManager {
         
         map.addCatagory("Test");
         System.out.println(map.containsCatagory("Test"));
-        map.addKnowledgeNodeTo("Test", new Symptom("a", "", "", "", "", ""));
+        map.addKnowledgeNodeTo("Test", new KnowledgeNode("a", "Symptom", "", "", "", "", ""));
         
         manager.saveMap();
         
