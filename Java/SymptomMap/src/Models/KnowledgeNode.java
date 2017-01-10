@@ -2,8 +2,6 @@ package Models;
 
 import java.util.Comparator;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -129,7 +127,14 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         this.sources.add(k);
         k.destinations.add(this);
         significance++;
+        
         for (KnowledgeNode s : this.sources) 
+            k.addNeighbor(s);      
+        // addRelatedAsDestination(k)
+    }
+    
+    public void addRelatedAsDestination(KnowledgeNode k) {
+        for (KnowledgeNode s : this.sources)
             k.addNeighbor(s);
     }
     
@@ -141,6 +146,12 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         k.sources.add(this);
         k.significance++;
         for (KnowledgeNode s : k.sources) 
+            this.addNeighbor(s);
+        // addRelatedAsSource(k);
+    }
+    
+    public void addRelatedAsSource(KnowledgeNode k) {
+        for (KnowledgeNode s : k.sources)
             this.addNeighbor(s);
     }
     

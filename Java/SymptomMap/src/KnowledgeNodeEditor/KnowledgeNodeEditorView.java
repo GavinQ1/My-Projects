@@ -119,7 +119,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         definitionTextArea.setWrapStyleWord(true);
         jScrollPane3.setViewportView(definitionTextArea);
 
-        cancelButton.setText("Cancel");
+        cancelButton.setText("Exit");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
