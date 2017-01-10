@@ -28,6 +28,5 @@ public class KnowledgeNodeEditorApp {
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(KnowledgeNodeEditorApp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 }

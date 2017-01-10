@@ -63,7 +63,9 @@ public class KnowledgeNodeList implements Iterable<KnowledgeNode>,
     }
     
     public void remove(String name) {
-        this.list.remove(getKnowledge(name));
+        KnowledgeNode k = getKnowledge(name);
+        if (k == null) return;
+        remove(k);
     }
     
     public void remove(KnowledgeNode k) {

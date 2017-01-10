@@ -28,6 +28,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     
     private KnowledgeMap map;
     private KnowledgeNode node, selected;
+    private boolean chosen = false; // safe lock for passing selected item
     /**
      * Creates new form KnowledgeNodeAppendApp
      */
@@ -216,6 +217,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
                 node.addDestination(selected);
             else
                 node.addNeighbor(selected);
+            chosen = true;
             dispose();
         } catch(InvalidInputException e) {
             GeneralController.errorMessageBox(e.toString());
@@ -238,7 +240,9 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     }
     
     public KnowledgeNode getSelected() {
-        return selected;
+        if (chosen)
+            return selected;
+        return null;
     }
     
     public int getExpandedGroup() {

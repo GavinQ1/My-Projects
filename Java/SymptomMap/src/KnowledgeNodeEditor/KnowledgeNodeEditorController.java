@@ -4,6 +4,7 @@ import Models.*;
 import KnowledgeNodeEditor.KnowledgeNodeEditorView.MyTreeNode;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,8 +17,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class KnowledgeNodeEditorController extends GeneralController implements KnowledgeNodeEditorControl {
     private KnowledgeMap map, tempMap;
     private KnowledgeNode node, tempNode;
-    private ArrayList<KnowledgeNode> sourceRemoveList, destinationRemoveList, neighborRemoveList, 
-            sourceAddList, destinationAddList, neighborAddList;
+    private HashMap<KnowledgeNode, Integer> sourceCache, destinationCache, neighborCache;
     private KnowledgeNodeEditorView view;
     
     public KnowledgeNodeEditorController(KnowledgeMap map, KnowledgeNode node) throws CloneNotSupportedException {
@@ -25,12 +25,9 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         this.tempMap = (KnowledgeMap) map.clone();
         this.node = node;
         this.tempNode = (KnowledgeNode) node.clone();
-        this.sourceRemoveList = new ArrayList<>();
-        this.destinationRemoveList = new ArrayList<>();
-        this.neighborRemoveList = new ArrayList<>();
-        this.sourceAddList = new ArrayList<>();
-        this.destinationAddList = new ArrayList<>();
-        this.neighborAddList = new ArrayList<>();
+        this.sourceCache = new HashMap<>();
+        this.destinationCache = new HashMap<>();
+        this.neighborCache = new HashMap<>();
     }
     
     public void register(KnowledgeNodeEditorView view) {
@@ -58,21 +55,27 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         
         switch (signal) {
             case 1:
-                sourceAddList.add(realNode);
+                sourceCache.putIfAbsent(realNode, 0);
+                sourceCache.put(realNode, sourceCache.get(realNode) + 1);
+                
                 ((DefaultTreeModel) view.getKnowledgeTree().getModel()).insertNodeInto(
                         leaf,  view.getSourcesTreeNode(), 
                         view.getSourcesTreeNode().getChildCount()
                 );
                 break;
             case 2:
-                destinationAddList.add(realNode);
+                destinationCache.putIfAbsent(realNode, 0);
+                destinationCache.put(realNode, destinationCache.get(realNode) + 1);
+                
                 ((DefaultTreeModel) view.getKnowledgeTree().getModel()).insertNodeInto(
                         leaf, view.getDestinationsTreeNode(), 
                         view.getDestinationsTreeNode().getChildCount()
                 );
                 break;
             default:
-                neighborAddList.add(realNode);
+                neighborCache.putIfAbsent(realNode, 0);
+                neighborCache.put(realNode, neighborCache.get(realNode) + 1);
+                
                 ((DefaultTreeModel) view.getKnowledgeTree().getModel()).insertNodeInto(
                         leaf, view.getNeighborsTreeNode(),  
                         view.getNeighborsTreeNode().getChildCount()
@@ -92,14 +95,17 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
                 KnowledgeNode tempSelectedNode = (KnowledgeNode) selectedNode.clone();
                 String type = parentList.getListType();
                 if (type.equals(KnowledgeNodeList.TYPE.SOURCES.getValue())) {
-                    sourceRemoveList.add(selectedNode);
                     tempNode.removeSource(tempSelectedNode);
+                    sourceCache.putIfAbsent(selectedNode, 0);
+                    sourceCache.put(selectedNode, sourceCache.get(selectedNode) - 1);
                 } else if (type.equals(KnowledgeNodeList.TYPE.DESTINATIONS.getValue())) {
-                    destinationRemoveList.add(selectedNode);
                     tempNode.removeDestination(tempSelectedNode);
+                    destinationCache.putIfAbsent(selectedNode, 0);
+                    destinationCache.put(selectedNode, destinationCache.get(selectedNode) - 1);
                 } else {
-                    neighborRemoveList.add(selectedNode);
                     tempNode.removeNeighbor(tempSelectedNode);
+                    neighborCache.putIfAbsent(selectedNode, 0);
+                    neighborCache.put(selectedNode, neighborCache.get(selectedNode) - 1);
                 }
                 removeNodeFromTree(n);
                 updateInfoPane();
@@ -113,8 +119,12 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         ((DefaultTreeModel) view.getKnowledgeTree().getModel()).removeNodeFromParent(node);
     }
     
+    private void updateInfoPane(KnowledgeNode k) {
+        view.getKnowledgeNodeInfoPane().setText(k.chineseFormattedInformation());
+    }
+    
     private void updateInfoPane() {
-        view.getKnowledgeNodeInfoPane().setText(tempNode.chineseFormattedInformation());
+        updateInfoPane(tempNode);
     }
     
     public void initialize() {
@@ -153,21 +163,23 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             node.setDefinition(view.getDefinitionTextArea().getText());
             node.setDescription(view.getDescriptionTextArea().getText());
             
-            for (KnowledgeNode k : sourceRemoveList)
-                node.removeSource(k);
-            for (KnowledgeNode k : destinationRemoveList)
-                node.removeDestination(k);
-            for (KnowledgeNode k : neighborRemoveList)
-                node.removeNeighbor(k);
+            for (KnowledgeNode k : sourceCache.keySet()) {
+                if (sourceCache.get(k) < 0) node.removeSource(k);
+                if (sourceCache.get(k) > 0) node.addSource(k);
+            }
+            for (KnowledgeNode k : destinationCache.keySet()){
+                if (destinationCache.get(k) < 0) node.removeDestination(k);
+                if (destinationCache.get(k) > 0) node.addDestination(k);
+            }
+            for (KnowledgeNode k : neighborCache.keySet()) {
+                if (neighborCache.get(k) < 0) node.removeNeighbor(k);
+                if (neighborCache.get(k) > 0) node.addNeighbor(k);
+            }
             
-            for (KnowledgeNode k : sourceAddList)
-                node.addSource(k);
-            for (KnowledgeNode k : destinationAddList)
-                node.addDestination(k);
-            for (KnowledgeNode k : neighborAddList)
-                node.addNeighbor(k);
-            
-            view.dispose();
+            updateInfoPane(node);
+            sourceCache = new HashMap<>();
+            destinationCache = new HashMap<>();
+            neighborCache = new HashMap<>();
         } catch (InvalidInputException e) {
             KnowledgeNodeEditorController.errorMessageBox(e.toString());
         }

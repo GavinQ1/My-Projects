@@ -102,7 +102,7 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
     public void setDefinition(String newDefinition) {
         if ("".equals(newDefinition.trim()))
             throw new InvalidInputException("Input can't be empty.");
-        this.name = newDefinition;
+        this.definition = newDefinition;
     }
     
     public String getDescription() {
@@ -112,7 +112,7 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
     public void setDescription(String newDescription) {
         if ("".equals(newDescription.trim()))
             throw new InvalidInputException("Input can't be empty.");
-        this.name = newDescription;
+        this.description = newDescription;
     }
     
     public KnowledgeNodeList getSources() {
@@ -230,18 +230,10 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         KnowledgeNode e = new KnowledgeNode("E", "Character", "E", "Fourth", "Source", "Destination", "Neighbor");
         KnowledgeNode f = new KnowledgeNode("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
         
-        KnowledgeNode tempa;
-        try {
-            tempa = (KnowledgeNode) a.clone();
-            System.out.println(a.getDestinations().membersInString());
-            System.out.println(tempa.getDestinations().membersInString());
-            a.addSource(d);
-            System.out.println(a.getSources().membersInString());
-            System.out.println(tempa.getSources().membersInString());
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(KnowledgeNode.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        a.addDestination(f);
+        System.out.println(a.chineseFormattedInformation());
+        a.removeDestination(f);
+        System.out.println(a.chineseFormattedInformation());
         
     }
 }
