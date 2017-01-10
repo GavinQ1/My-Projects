@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * @author Gavin
  */
 public class KnowledgeNodeEditorApp {
-    public static final void run(KnowledgeMap map, KnowledgeNode node) {
+    public static final KnowledgeNode run(KnowledgeMap map, KnowledgeNode node) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -28,5 +28,7 @@ public class KnowledgeNodeEditorApp {
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(KnowledgeNodeEditorApp.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return node;
     }
 }

@@ -71,144 +71,6 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         return t.significance - t1.significance;
     }
     
-    public int getSignificance() {
-        return this.significance;
-    }
-    
-    public String getName() {
-        return this.name;
-    }
-    
-    public void setName(String newName) {
-        if ("".equals(newName.trim()))
-            throw new InvalidInputException("Input can't be empty.");
-        this.name = newName;
-    }
-    
-    public String getCatagory() {
-        return this.catagory;
-    }
-    
-    public void setCatagory(String newName) {
-        if ("".equals(newName.trim()))
-            throw new InvalidInputException("Input can't be empty.");
-        this.catagory = newName;
-    }
-    
-    public String getDefinition() {
-        return this.definition;
-    }
-    
-    public void setDefinition(String newDefinition) {
-        if ("".equals(newDefinition.trim()))
-            throw new InvalidInputException("Input can't be empty.");
-        this.definition = newDefinition;
-    }
-    
-    public String getDescription() {
-        return this.description;
-    }
-    
-    public void setDescription(String newDescription) {
-        if ("".equals(newDescription.trim()))
-            throw new InvalidInputException("Input can't be empty.");
-        this.description = newDescription;
-    }
-    
-    public KnowledgeNodeList getSources() {
-        return this.sources;
-    }
-    
-    public KnowledgeNodeList getDestinations() {
-        return this.destinations;
-    }
-    
-    public KnowledgeNodeList getNeighbors() {
-        return this.neighbors;
-    }
-    
-    public boolean hasSource(String name) {
-        return this.sources.contains(name);
-    }
-    
-    public boolean hasDestination(String name) {
-        return this.destinations.contains(name);
-    }
-    
-    public boolean hasNeighbor(String name) {
-        return this.neighbors.contains(name);
-    }
-    
-    public void addSource(KnowledgeNode k) {
-        if (hasSource(k.getName()) || this == k) return;
-        this.sources.add(k);
-        k.addDestination(this);
-        for (KnowledgeNode s : this.sources)
-            k.addNeighbor(s);
-    }
-    
-    public void removeSource(KnowledgeNode k) {
-        removeSource(k.name);
-    }
-    
-    public void removeSource(String name) {
-        if (!hasSource(name)) return;
-        KnowledgeNode s = this.sources.getKnowledge(name);
-        this.sources.remove(name);
-        s.destinations.remove(name);
-        this.significance--;
-        for (KnowledgeNode left : this.sources)
-            left.removeNeighbor(name);
-    }
-    
-    public void addDestination(KnowledgeNode k) {
-        if (hasDestination(k.getName()) || this == k) return;
-        this.destinations.add(k);
-        k.significance++;
-        k.addSource(this);
-    }
-    
-    public void removeDestination(KnowledgeNode k) {
-        removeDestination(k.name);
-    }
-    
-    public void removeDestination(String name) {
-        if (!hasDestination(name)) return;
-        KnowledgeNode d = this.destinations.getKnowledge(name);
-        this.destinations.remove(name);
-        d.removeSource(this.name);
-    }
-    
-    public void addNeighbor(KnowledgeNode k) {
-        if (this == k ||
-            !this.catagory.equals(k.catagory)) return;
-        this.neighbors.add(k);
-        k.neighbors.add(this);
-    }
-    
-    public void removeNeighbor(KnowledgeNode k) {
-        removeNeighbor(k.name);
-    }
-    
-    public void removeNeighbor(String name) {
-        if (!hasNeighbor(name)) return;
-        KnowledgeNode n = this.neighbors.getKnowledge(name);
-        this.neighbors.remove(name);
-        n.neighbors.remove(this.name);
-    }
-    
-    public String chineseFormattedInformation() {
-        return "名称: " + name + "\n\n类别: " + catagory + "\n\n定义: " + definition +
-                "\n\n描述: " + description + "\n\n" + sources.getName() + ":\n" +
-                sources.membersInString() + "\n\n" + destinations.getName() + ":\n" +
-                destinations.membersInString() + "\n\n" + neighbors.getName() + ":\n" +
-                neighbors.membersInString();
-    }
-    
-    public String toString() {
-        return name + " (" + catagory + ", referred: " + significance + ")";
-    }
-    
     public static final Comparator<KnowledgeNode> comparatorByCatagory() {
         return (Comparator<KnowledgeNode>) (KnowledgeNode k1, KnowledgeNode k2) -> k1.catagory.compareTo(k2.catagory);
     }
@@ -221,6 +83,119 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         return (Comparator<KnowledgeNode>) (KnowledgeNode k1, KnowledgeNode k2) -> k1.name.compareTo(k2.name);
     }
     
+    public int getSignificance() { return this.significance; }
+    public String getName() { return this.name; }
+    public String getCatagory() { return this.catagory; }
+    public String getDefinition() { return this.definition; }
+    public String getDescription() { return this.description; }
+    public KnowledgeNodeList getSources() { return this.sources; }
+    public KnowledgeNodeList getDestinations() { return this.destinations; }
+    public KnowledgeNodeList getNeighbors() { return this.neighbors; }
+    public boolean hasSource(String name) { return this.sources.contains(name); }
+    public boolean hasDestination(String name) { return this.destinations.contains(name); }
+    public boolean hasNeighbor(String name) { return this.neighbors.contains(name); }
+    public boolean hasSource(KnowledgeNode k) { return this.sources.contains(k); }
+    public boolean hasDestination(KnowledgeNode k) { return this.destinations.contains(k); }
+    public boolean hasNeighbor(KnowledgeNode k) { return this.neighbors.contains(k); }
+    
+    public void setName(String newName) {
+        if ("".equals(newName.trim()))
+            throw new InvalidInputException("Input can't be empty.");
+        this.name = newName;
+    }
+    
+    public void setCatagory(String newName) {
+        if ("".equals(newName.trim()))
+            throw new InvalidInputException("Input can't be empty.");
+        this.catagory = newName;
+    }
+    
+    public void setDefinition(String newDefinition) {
+        if ("".equals(newDefinition.trim()))
+            throw new InvalidInputException("Input can't be empty.");
+        this.definition = newDefinition;
+    }
+    
+    public void setDescription(String newDescription) {
+        if ("".equals(newDescription.trim()))
+            throw new InvalidInputException("Input can't be empty.");
+        this.description = newDescription;
+    }
+    
+    public void addSource(KnowledgeNode k) {
+        if (this == k || this.name.equals(k.name)) // must be a different node
+            throw new InvalidInputException("Can't add self as a source.");
+        
+        this.sources.add(k);
+        k.destinations.add(this);
+        significance++;
+        for (KnowledgeNode s : this.sources) 
+            k.addNeighbor(s);
+    }
+    
+    public void addDestination(KnowledgeNode k) {
+        if (this == k || this.name.equals(k.name)) // must be a different node
+            throw new InvalidInputException("Can't add self as a destination.");
+        
+        this.destinations.add(k);
+        k.sources.add(this);
+        k.significance++;
+        for (KnowledgeNode s : k.sources) 
+            this.addNeighbor(s);
+    }
+    
+    public void addNeighbor(KnowledgeNode k) {
+        if (k == this || // k is iteself
+            k.name.equals(this.name) || // k has same name
+            !this.catagory.equals(k.catagory)) // k is from a different catagory
+            return;  // do not add k as a neighbor
+        this.neighbors.add(k);
+        k.neighbors.add(this);
+    }
+    
+    public void removeSource(KnowledgeNode k) {
+        if (this == k || this.name.equals(k.name))
+            throw new InvalidInputException("Can't remove self as a source.");
+        this.sources.remove(k);
+        k.destinations.remove(this);
+        significance--;
+        for (KnowledgeNode s : this.sources)
+            this.removeNeighbor(s);
+    }
+    
+    public void removeDestination(KnowledgeNode k) {
+        if (this == k || this.name.equals(k.name))
+            throw new InvalidInputException("Can't remove self as a destination.");
+        this.destinations.remove(k);
+        k.sources.remove(this);
+        k.significance--;
+        for (KnowledgeNode s : k.sources)
+            s.removeNeighbor(this);
+    }
+    
+    public void removeNeighbor(KnowledgeNode k) {
+        if (k == this || // k is iteself
+            k.name.equals(this.name) || // k has same name
+            !this.catagory.equals(k.catagory)) // k is from a different catagory
+            return;  // do not remove k as a neighbor
+        this.neighbors.remove(k);
+        k.neighbors.remove(this);
+    }
+    
+    
+    public String chineseFormattedInformation() {
+        return "名称: " + name + "\n\n类别: " + catagory + "\n\n定义: " + definition +
+                "\n\n描述: " + description + "\n\n引用次数: " + significance +
+                "\n\n" + sources.getName() + ":\n" +
+                sources.membersInString() + "\n\n" + destinations.getName() + ":\n" +
+                destinations.membersInString() + "\n\n" + neighbors.getName() + ":\n" +
+                neighbors.membersInString();
+    }
+    
+    public String toString() {
+        return name + " (" + catagory + ", referred: " + significance + ")";
+    }
+    
     // unit test
     public static void main(String[] args) {
         KnowledgeNode a = new KnowledgeNode("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
@@ -229,11 +204,15 @@ public class KnowledgeNode implements Comparator<KnowledgeNode>,
         KnowledgeNode d = new KnowledgeNode("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
         KnowledgeNode e = new KnowledgeNode("E", "Character", "E", "Fourth", "Source", "Destination", "Neighbor");
         KnowledgeNode f = new KnowledgeNode("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
-        
-        a.addDestination(f);
-        System.out.println(a.chineseFormattedInformation());
-        a.removeDestination(f);
-        System.out.println(a.chineseFormattedInformation());
+        a.addDestination(d);
+        a.addDestination(d);
+        e.addDestination(d);
+        System.out.println(a.destinations.membersInString());
+        System.out.println(d.chineseFormattedInformation());
+        a.removeDestination(d);
+        System.out.println(a.destinations.membersInString());
+        a.addDestination(d);
+        System.out.println(a.destinations.membersInString());
         
     }
 }

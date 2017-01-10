@@ -116,13 +116,15 @@ public class TreeNodeTest extends javax.swing.JFrame {
     }//GEN-LAST:event_jTree1ValueChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedTreeNode.getParent();
-             ((DefaultTreeModel) jTree1.getModel()).insertNodeInto(new DefaultMutableTreeNode("Test"), parent, parent.getChildCount());
+//        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedTreeNode.getParent();
+//        ((DefaultTreeModel) jTree1.getModel()).insertNodeInto(new DefaultMutableTreeNode("Test"), parent, parent.getChildCount());
 //            String rootName = JOptionPane.showInputDialog("New Root Name");
 //            ((KnowledgeNodeList) selectedTreeNode.getUserObject()).setName(rootName);
 //            ((DefaultTreeModel) jTree1.getModel()).nodeChanged(selectedTreeNode);
 //            System.out.println("Added");
-        
+        DefaultTreeModel m = new DefaultTreeModel(new DefaultMutableTreeNode("New"));
+        jTree1.setModel(m);
+        m.reload((DefaultMutableTreeNode) m.getRoot());
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void updateTree() {

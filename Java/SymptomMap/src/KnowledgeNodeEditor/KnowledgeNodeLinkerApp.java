@@ -11,20 +11,6 @@ import javax.swing.DefaultComboBoxModel;
  * @author Gavin
  */
 public class KnowledgeNodeLinkerApp extends javax.swing.JDialog { 
-    public static final void run(KnowledgeMap map, KnowledgeNode node) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KnowledgeNodeLinkerApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        new KnowledgeNodeLinkerApp(map, node).setVisible(true);
-    }
     
     private KnowledgeMap map;
     private KnowledgeNode node, selected;
@@ -198,6 +184,8 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         selected = jList1.getSelectedValue();
+        if (selected == null) return;
+        jLabel1.setText("Add " + selected.getName() + " to " + node.getName() + " as");
         if (evt.getClickCount() == 2) 
             KnowledgeNodeWikiApp.run(selected);
     }//GEN-LAST:event_jList1MouseClicked
@@ -205,19 +193,14 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     private void checkBeforeSubmit() {
         if (selected == null)
             throw new InvalidInputException("Select a node before submit");
-        if (selected == node)
+        else if (selected == node)
             throw new InvalidInputException("Must not be a same node");
+        else
+            chosen = true;
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             checkBeforeSubmit();
-            if (this.sourceRaido.isSelected()) 
-                node.addSource(selected);
-            else if (this.destinationRadio.isSelected())
-                node.addDestination(selected);
-            else
-                node.addNeighbor(selected);
-            chosen = true;
             dispose();
         } catch(InvalidInputException e) {
             GeneralController.errorMessageBox(e.toString());

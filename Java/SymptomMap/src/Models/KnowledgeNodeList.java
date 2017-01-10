@@ -27,20 +27,27 @@ public class KnowledgeNodeList implements Iterable<KnowledgeNode>,
         }
     }
     
+    int size;
     private String catagoryName, listType;
-    private ArrayList<KnowledgeNode> list;
-    private HashMap<KnowledgeNode, Integer> hist = new HashMap<>();
+    private HashMap<KnowledgeNode, Integer> hist;
+    private HashMap<String, Integer> nameHist;
     
     public KnowledgeNodeList(String catagoryName) {
+        this.size = 0;
         this.catagoryName = catagoryName;
         this.listType = null;
-        this.list = new ArrayList<>();
+        this.hist = new HashMap<>();
+        this.nameHist = new HashMap<>();
+    }
+    
+    public KnowledgeNodeList() {
+        this(null);
     }
     
     public Object clone() throws CloneNotSupportedException {
         try {
             KnowledgeNodeList cloned = (KnowledgeNodeList) super.clone();
-            cloned.list = (ArrayList<KnowledgeNode>) list.clone();
+            cloned.nameHist = (HashMap<String, Integer>) nameHist.clone();
             cloned.hist = (HashMap<KnowledgeNode, Integer>) hist.clone();
             return cloned;
         } catch (CloneNotSupportedException e) {
@@ -48,29 +55,41 @@ public class KnowledgeNodeList implements Iterable<KnowledgeNode>,
         }
     }
     
-    public KnowledgeNodeList() {
-        this(null);
+    public static final Comparator<KnowledgeNode> comparatorByRelativity(
+            final HashMap<KnowledgeNode, Integer> hist) {
+        return new Comparator<KnowledgeNode>() {
+          public int compare(KnowledgeNode k1, KnowledgeNode k2) {
+              return hist.get(k1).compareTo(hist.get(k2));
+          }  
+        };
     }
     
-    public int size() {
-        return this.list.size();
-    }
+    public int size() { return this.size; }
+    public boolean contains(KnowledgeNode k) { return hist.containsKey(k) && hist.get(k) > 0; }
+    public boolean contains(String name) { return nameHist.containsKey(name) && nameHist.get(name) > 0; }
+    public String getListType() { return this.listType; }
+    public HashMap<KnowledgeNode, Integer> getHist() { return this.hist; };
+    public Iterator<KnowledgeNode> iterator() { return getList().iterator(); }
     
     public void add(KnowledgeNode k) {
-        this.list.add(k);
-        hist.putIfAbsent(k, 0);
-        hist.put(k, hist.get(k) + 1);
-    }
-    
-    public void remove(String name) {
-        KnowledgeNode k = getKnowledge(name);
-        if (k == null) return;
-        remove(k);
+        if (k == null)
+            throw new InvalidInputException("Input cannot be null");
+        
+        if (!contains(k)) {
+            hist.put(k, 1);
+            nameHist.put(k.getName(), 1);
+            size++;
+        } else {
+            hist.put(k, hist.get(k) + 1);
+            nameHist.put(k.getName(), nameHist.get(k.getName()) + 1);
+        }
     }
     
     public void remove(KnowledgeNode k) {
-        this.list.remove(k);
+        if (!contains(k)) return;
         hist.put(k, hist.get(k) - 1);
+        nameHist.put(k.getName(), nameHist.get(k.getName()) - 1);
+        if (hist.get(k) == 0) size--;
     }
     
     public String getName() {
@@ -85,10 +104,6 @@ public class KnowledgeNodeList implements Iterable<KnowledgeNode>,
         this.catagoryName = newName;
     }
     
-    public String getListType() {
-        return this.listType;
-    }
-    
     public void setType(String newName) {
         if ("".equals(newName.trim()))
             throw new InvalidInputException("Input can't be empty.");
@@ -96,15 +111,16 @@ public class KnowledgeNodeList implements Iterable<KnowledgeNode>,
     }
     
     public ArrayList<KnowledgeNode> getList() {
-        return list;
-    }
-    
-    public boolean contains(String name) {
-        return this.list.stream().anyMatch((k) -> (k.getName().equals(name)));
+        ArrayList<KnowledgeNode> a = new ArrayList<>();
+        for (KnowledgeNode k : hist.keySet()) {
+            if (hist.get(k) > 0)
+                a.add(k);
+        }
+        return a;
     }
     
     public KnowledgeNode getKnowledge(String name) {
-        for (KnowledgeNode k : this.list) {
+        for (KnowledgeNode k : getList()) {
             if (name.equals(k.getName()))
                 return k;
         }
@@ -113,36 +129,23 @@ public class KnowledgeNodeList implements Iterable<KnowledgeNode>,
     
     public String toString() {
         String res = "";
-        for (KnowledgeNode s : list)
-            res += s.getName() + " ";
+        ArrayList<KnowledgeNode> a = getList();
+        Collections.sort(a, KnowledgeNode.comparatorBySignificance());
+        res = a.stream().map((s) -> s.getName() + " ").reduce(res, String::concat);
         return res;
     }
     
     public String membersInString() {
         String res = "";
-        ArrayList<KnowledgeNode> uniqueList = new ArrayList<>(hist.keySet());
+        ArrayList<KnowledgeNode> uniqueList = getList();
         Collections.sort(uniqueList, KnowledgeNodeList.comparatorByRelativity(hist));
         for (int i = 0; i < uniqueList.size(); i++) {
             KnowledgeNode node = uniqueList.get(i);
-            if (hist.get(node) < 1) continue;
-            res += node.getName() + " (" + hist.get(node) + ")";
+            res += node.getName() + " (" + node.getSignificance() + ")";
             if (i < uniqueList.size()-1)
                 res += "\n";
         }
         return res;
-    }
-    
-    public Iterator<KnowledgeNode> iterator() {
-        return this.list.iterator();
-    }
-    
-    public static final Comparator<KnowledgeNode> comparatorByRelativity(
-            final HashMap<KnowledgeNode, Integer> hist) {
-        return new Comparator<KnowledgeNode>() {
-          public int compare(KnowledgeNode k1, KnowledgeNode k2) {
-              return hist.get(k1).compareTo(hist.get(k2));
-          }  
-        };
     }
     
     public static void main(String[] args) {
