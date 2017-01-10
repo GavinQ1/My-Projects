@@ -1,6 +1,8 @@
 package KnowledgeNodeEditor;
 
 import Models.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -44,6 +46,11 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         initComponents();
         controller.initialize();
         setModal(true);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                controller.cancelActionPerformed();
+            }
+        });
     }
     
     DefaultTreeModel createTreeModel(KnowledgeNode node) {
@@ -87,7 +94,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         editKnowledgeNodeButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Knowledge Node Editor");
 
         knowledgeNodeInfoPane.setEditable(false);
