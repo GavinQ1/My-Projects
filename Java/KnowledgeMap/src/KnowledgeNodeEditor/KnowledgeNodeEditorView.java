@@ -1,6 +1,7 @@
 package KnowledgeNodeEditor;
 
 import Models.*;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -52,6 +53,8 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
                 controller.exitActionPerformed();
             }
         });
+        getContentPane().setBackground(Color.lightGray);
+        knowledgeNodeInfoPane.setBackground(Color.WHITE);
     }
     
     void setSelectedTreeNode(MyTreeNode k) { 
@@ -101,29 +104,8 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
     
      // unit test
     public static void main(String args[]) throws CloneNotSupportedException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KnowledgeNodeEditorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KnowledgeNodeEditorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KnowledgeNodeEditorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KnowledgeNodeEditorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
+        EnhanceAppView.enhanceVision();
+        
         /* Create and display the form */
         KnowledgeNode a = new KnowledgeNode("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
         KnowledgeNode b = new KnowledgeNode("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
@@ -156,10 +138,10 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         knowledgeNodeInfoPane = new javax.swing.JTextPane();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        catagoryLabel = new javax.swing.JLabel();
+        definitionLabel = new javax.swing.JLabel();
+        descriptionLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         catagoryTextField = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -168,7 +150,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         definitionTextArea = new javax.swing.JTextArea();
         cancelButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        relatedNodeLabel = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         knowledgeTree = new javax.swing.JTree(createTreeModel(node));
         addNodeButton = new javax.swing.JButton();
@@ -180,36 +162,60 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Knowledge Node Editor");
+        setBackground(new java.awt.Color(255, 204, 0));
+        setIconImage(null);
+        setModal(true);
 
         knowledgeNodeInfoPane.setEditable(false);
+        knowledgeNodeInfoPane.setBackground(new java.awt.Color(255, 255, 255));
+        knowledgeNodeInfoPane.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 102, 102)));
         knowledgeNodeInfoPane.setFont(new java.awt.Font("华文细黑", 0, 15)); // NOI18N
-        knowledgeNodeInfoPane.setEnabled(false);
         jScrollPane1.setViewportView(knowledgeNodeInfoPane);
 
-        jLabel1.setText("Name:");
+        nameLabel.setBackground(new java.awt.Color(102, 102, 102));
+        nameLabel.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(102, 102, 102));
+        nameLabel.setText("Name:");
 
-        jLabel2.setText("Catagory");
+        catagoryLabel.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        catagoryLabel.setForeground(new java.awt.Color(102, 102, 102));
+        catagoryLabel.setText("Catagory:");
 
-        jLabel3.setText("Definition");
+        definitionLabel.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        definitionLabel.setForeground(new java.awt.Color(102, 102, 102));
+        definitionLabel.setText("Definition:");
 
-        jLabel4.setText("Description");
+        descriptionLabel.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        descriptionLabel.setForeground(new java.awt.Color(102, 102, 102));
+        descriptionLabel.setText("Description:");
 
+        nameTextField.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
         nameTextField.setText("jTextField1");
+        nameTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 102, 102)));
 
+        catagoryTextField.setFont(nameTextField.getFont());
         catagoryTextField.setText("jTextField2");
+        catagoryTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 102, 102)));
 
         descriptionTextArea.setColumns(20);
+        descriptionTextArea.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
         descriptionTextArea.setLineWrap(true);
         descriptionTextArea.setRows(5);
         descriptionTextArea.setWrapStyleWord(true);
+        descriptionTextArea.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 102, 102)));
         jScrollPane2.setViewportView(descriptionTextArea);
 
         definitionTextArea.setColumns(20);
+        definitionTextArea.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
         definitionTextArea.setLineWrap(true);
         definitionTextArea.setRows(5);
         definitionTextArea.setWrapStyleWord(true);
+        definitionTextArea.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 102, 102)));
         jScrollPane3.setViewportView(definitionTextArea);
 
+        cancelButton.setBackground(new java.awt.Color(102, 102, 102));
+        cancelButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(204, 204, 204));
         cancelButton.setText("Exit");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,6 +223,9 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             }
         });
 
+        saveButton.setBackground(new java.awt.Color(102, 102, 102));
+        saveButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+        saveButton.setForeground(new java.awt.Color(204, 204, 204));
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,10 +233,16 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setText("Related Nodes");
+        relatedNodeLabel.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        relatedNodeLabel.setForeground(new java.awt.Color(102, 102, 102));
+        relatedNodeLabel.setText("Related Nodes:");
 
         knowledgeTree.setRootVisible(false);
+        knowledgeTree.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(102, 102, 102)));
+        knowledgeTree.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
+        knowledgeTree.setForeground(new java.awt.Color(102, 102, 102));
         knowledgeTree.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        knowledgeTree.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         knowledgeTree.setRootVisible(false);
         knowledgeTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -241,6 +256,9 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         });
         jScrollPane4.setViewportView(knowledgeTree);
 
+        addNodeButton.setBackground(new java.awt.Color(102, 102, 102));
+        addNodeButton.setFont(new java.awt.Font("华文琥珀", 0, 15)); // NOI18N
+        addNodeButton.setForeground(new java.awt.Color(204, 204, 204));
         addNodeButton.setText("Add");
         addNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +266,9 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             }
         });
 
+        removeNodeButton.setBackground(new java.awt.Color(102, 102, 102));
+        removeNodeButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+        removeNodeButton.setForeground(new java.awt.Color(204, 204, 204));
         removeNodeButton.setText("Remove");
         removeNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,6 +276,9 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             }
         });
 
+        renameRootButton.setBackground(new java.awt.Color(102, 102, 102));
+        renameRootButton.setFont(new java.awt.Font("华文琥珀", 0, 15)); // NOI18N
+        renameRootButton.setForeground(new java.awt.Color(204, 204, 204));
         renameRootButton.setText("Rename Root");
         renameRootButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,10 +286,14 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("华文细黑", 1, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("华文琥珀", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 51, 51));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("知识点编辑器");
 
+        editKnowledgeNodeButton.setBackground(new java.awt.Color(102, 102, 102));
+        editKnowledgeNodeButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+        editKnowledgeNodeButton.setForeground(new java.awt.Color(204, 204, 204));
         editKnowledgeNodeButton.setText("Edit");
         editKnowledgeNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,6 +301,9 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             }
         });
 
+        newNodeButton.setBackground(new java.awt.Color(102, 102, 102));
+        newNodeButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+        newNodeButton.setForeground(new java.awt.Color(204, 204, 204));
         newNodeButton.setText("New");
         newNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,47 +320,40 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(catagoryLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                        .addComponent(definitionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(catagoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(relatedNodeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(addNodeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(removeNodeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(editKnowledgeNodeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(renameRootButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(newNodeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(catagoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane2))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(editKnowledgeNodeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(renameRootButton, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                                            .addComponent(addNodeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(removeNodeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(358, 358, 358)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,32 +364,32 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(catagoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(catagoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(definitionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(renameRootButton))
+                                .addComponent(relatedNodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(renameRootButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(addNodeButton)
                                 .addGap(18, 18, 18)
                                 .addComponent(removeNodeButton)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(editKnowledgeNodeButton)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
@@ -374,7 +398,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
                             .addComponent(saveButton)
                             .addComponent(newNodeButton)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -421,24 +445,24 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNodeButton;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel catagoryLabel;
     private javax.swing.JTextField catagoryTextField;
+    private javax.swing.JLabel definitionLabel;
     private javax.swing.JTextArea definitionTextArea;
+    private javax.swing.JLabel descriptionLabel;
     private javax.swing.JTextArea descriptionTextArea;
     private javax.swing.JButton editKnowledgeNodeButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextPane knowledgeNodeInfoPane;
     private javax.swing.JTree knowledgeTree;
+    private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JButton newNodeButton;
+    private javax.swing.JLabel relatedNodeLabel;
     private javax.swing.JButton removeNodeButton;
     private javax.swing.JButton renameRootButton;
     private javax.swing.JButton saveButton;

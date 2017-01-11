@@ -202,7 +202,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
     // function for rename a root
     public void knowledgeTreeRenameRootActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getKnowledgeTree().getLastSelectedPathComponent();
-        if (n.getUserObject() instanceof KnowledgeNodeList) {
+        if (n != null && n.getUserObject() instanceof KnowledgeNodeList) {
             String newRootName = JOptionPane.showInputDialog("New Root Name");
             if ("".equals(newRootName.trim())) {
                 return;
@@ -221,7 +221,6 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         map.addKnowledgeNodeTo(newNode.getCatagory(), newNode);
         updateInfoPane();
         refreshTree();
-        needSave = true;
     }
     
     // function for "Save" button
