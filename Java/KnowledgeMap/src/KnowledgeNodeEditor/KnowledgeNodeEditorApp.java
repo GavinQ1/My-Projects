@@ -8,15 +8,15 @@ import Models.*;
  */
 public class KnowledgeNodeEditorApp {
     
-    public static final KnowledgeNode edit(KnowledgeMap map, KnowledgeNode node) {
+    public static KnowledgeNodeEditorView edit(KnowledgeMap map, KnowledgeNode node) {
         return KnowledgeNodeEditorApp.edit(map, node, true);
     }
     
-    public static final KnowledgeNode create(KnowledgeMap map) {
+    public static KnowledgeNodeEditorView create(KnowledgeMap map) {
         return KnowledgeNodeEditorApp.create(map, false);
     }
     
-    public static final KnowledgeNode edit(KnowledgeMap map, KnowledgeNode node, boolean center) {
+    public static KnowledgeNodeEditorView edit(KnowledgeMap map, KnowledgeNode node, boolean center) {
         EnhanceAppView.enhanceVision();
         
         if (node == null)
@@ -26,12 +26,11 @@ public class KnowledgeNodeEditorApp {
         KnowledgeNodeEditorView view = new KnowledgeNodeEditorView(controller); 
         if (center)
             view.setLocationRelativeTo(null);
-        view.setVisible(true);
         
-        return node;
+        return view;
     }
     
-    public static final KnowledgeNode create(KnowledgeMap map, boolean center) {
+    public static KnowledgeNodeEditorView create(KnowledgeMap map, boolean center) {
         EnhanceAppView.enhanceVision();
         
         KnowledgeNode node = new KnowledgeNode();
@@ -39,8 +38,7 @@ public class KnowledgeNodeEditorApp {
         KnowledgeNodeEditorView view = new KnowledgeNodeEditorView(controller); 
         if (center)
             view.setLocationRelativeTo(null);
-        view.setVisible(true);
         
-        return node;
+        return view;
     }
 }

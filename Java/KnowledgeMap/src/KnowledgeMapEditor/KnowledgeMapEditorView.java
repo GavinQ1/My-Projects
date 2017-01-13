@@ -1,5 +1,9 @@
 package KnowledgeMapEditor;
 
+import KnowledgeNodeEditor.*;
+import Models.KnowledgeMap;
+import Models.KnowledgeNode;
+
 /**
  *
  * @author Gavin
@@ -11,6 +15,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
      */
     public KnowledgeMapEditorView() {
         initComponents();
+        setTitle("Knowledge Map");
     }
 
     /**
@@ -21,84 +26,372 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        nodeTreeSplitPane = new javax.swing.JSplitPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        nodeToolBar = new javax.swing.JToolBar();
+        nodeOpenButton = new javax.swing.JButton();
+        nodeEditButton = new javax.swing.JButton();
+        nodeAddButton = new javax.swing.JButton();
+        nodeDeleteButton = new javax.swing.JButton();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        jSplitPane3 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        selectedNodesLabel = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        selectedNodesList = new javax.swing.JList<>();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        relatedNodesList = new javax.swing.JList<>();
+        relatedNodesLabel = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree2 = new javax.swing.JTree();
-        jSeparator1 = new javax.swing.JSeparator();
+        jList1 = new javax.swing.JList<>();
+        forwardButton = new javax.swing.JButton();
+        backwardButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        viewPathButton = new javax.swing.JButton();
+        exportPathButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        fileNewMapItem = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        fileOpenMapItem = new javax.swing.JMenuItem();
+        fileCloseMapItem = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        fileSaveItem = new javax.swing.JMenuItem();
+        fileSaveAsItem = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        fileExitItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.CardLayout());
 
-        jScrollPane1.setViewportView(jTree2);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("JTree");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Map 1");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("症状");
+        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("体质");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("药方");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Map 2");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("症状");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("体质");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("药方");
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
+        treeNode3.add(treeNode4);
+        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
+        treeNode3.add(treeNode4);
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jTree1.setRootVisible(false);
+        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTree1MouseClicked(evt);
+            }
+        });
+        jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                jTree1ValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTree1);
 
-        jLabel1.setText("jLabel1");
+        nodeTreeSplitPane.setRightComponent(jScrollPane2);
 
-        jButton1.setText("Open");
+        nodeToolBar.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        nodeToolBar.setRollover(true);
+        nodeToolBar.setName(""); // NOI18N
 
-        jButton2.setText("Edit");
+        nodeOpenButton.setText("Open");
+        nodeOpenButton.setFocusable(false);
+        nodeOpenButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        nodeOpenButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        nodeOpenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nodeOpenButtonActionPerformed(evt);
+            }
+        });
+        nodeToolBar.add(nodeOpenButton);
 
-        jButton3.setText("Create");
+        nodeEditButton.setText("Edit");
+        nodeEditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nodeEditButtonActionPerformed(evt);
+            }
+        });
+        nodeToolBar.add(nodeEditButton);
 
-        jButton4.setText("Delete");
+        nodeAddButton.setText("Add");
+        nodeAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nodeAddButtonActionPerformed(evt);
+            }
+        });
+        nodeToolBar.add(nodeAddButton);
 
-        jMenu1.setText("File");
+        nodeDeleteButton.setText("Delete");
+        nodeDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nodeDeleteButtonActionPerformed(evt);
+            }
+        });
+        nodeToolBar.add(nodeDeleteButton);
+
+        nodeTreeSplitPane.setLeftComponent(nodeToolBar);
+
+        jSplitPane1.setLeftComponent(nodeTreeSplitPane);
+
+        jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jScrollPane3, java.awt.BorderLayout.PAGE_START);
+
+        selectedNodesLabel.setText("Selected Nodes");
+        jPanel1.add(selectedNodesLabel, java.awt.BorderLayout.CENTER);
+
+        selectedNodesList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane7.setViewportView(selectedNodesList);
+
+        jPanel1.add(jScrollPane7, java.awt.BorderLayout.PAGE_END);
+
+        jSplitPane3.setLeftComponent(jPanel1);
+
+        jPanel2.setLayout(new java.awt.CardLayout());
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        relatedNodesList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane5.setViewportView(relatedNodesList);
+
+        jPanel3.add(jScrollPane5, java.awt.BorderLayout.CENTER);
+
+        relatedNodesLabel.setText("Related Nodes");
+        jPanel3.add(relatedNodesLabel, java.awt.BorderLayout.PAGE_START);
+
+        jPanel2.add(jPanel3, "card2");
+
+        jSplitPane3.setRightComponent(jPanel2);
+
+        jSplitPane2.setLeftComponent(jSplitPane3);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        forwardButton.setText("Forward");
+
+        backwardButton.setText("Backward");
+
+        jLabel1.setText("Corresponding Results");
+
+        viewPathButton.setText("View Path");
+
+        exportPathButton.setText("Export Path");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewPathButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(exportPathButton, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(backwardButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(forwardButton))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(99, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(viewPathButton)
+                        .addGap(26, 26, 26)
+                        .addComponent(exportPathButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(forwardButton)
+                    .addComponent(backwardButton))
+                .addGap(48, 48, 48))
+        );
+
+        jSplitPane2.setRightComponent(jPanel4);
+
+        jSplitPane1.setRightComponent(jSplitPane2);
+
+        getContentPane().add(jSplitPane1, "card2");
+
+        fileMenu.setText("File");
+
+        fileNewMapItem.setText("New Map");
+        fileNewMapItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileNewMapItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileNewMapItem);
+        fileMenu.add(jSeparator1);
+
+        fileOpenMapItem.setText("Open Map");
+        fileOpenMapItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileOpenMapItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileOpenMapItem);
+
+        fileCloseMapItem.setText("Close Map");
+        fileCloseMapItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileCloseMapItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileCloseMapItem);
+        fileMenu.add(jSeparator2);
+
+        fileSaveItem.setText("Save");
+        fileSaveItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileSaveItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileSaveItem);
+
+        fileSaveAsItem.setText("Save As...");
+        fileSaveAsItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileSaveAsItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileSaveAsItem);
+        fileMenu.add(jSeparator3);
+
+        fileExitItem.setText("Exit");
+        fileExitItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileExitItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(fileExitItem);
+
+        jMenuBar1.add(fileMenu);
+
+        jMenu1.setText("About");
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 42, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTree1MouseClicked
+
+    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTree1ValueChanged
+
+    private void nodeOpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeOpenButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nodeOpenButtonActionPerformed
+
+    private void nodeEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeEditButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nodeEditButtonActionPerformed
+
+    private void nodeAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeAddButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nodeAddButtonActionPerformed
+
+    private void nodeDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeDeleteButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nodeDeleteButtonActionPerformed
+
+    private void fileNewMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNewMapItemActionPerformed
+        
+    }//GEN-LAST:event_fileNewMapItemActionPerformed
+
+    private void fileOpenMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileOpenMapItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileOpenMapItemActionPerformed
+
+    private void fileCloseMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCloseMapItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileCloseMapItemActionPerformed
+
+    private void fileSaveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileSaveItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileSaveItemActionPerformed
+
+    private void fileSaveAsItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileSaveAsItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileSaveAsItemActionPerformed
+
+    private void fileExitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileExitItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileExitItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,16 +429,47 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton backwardButton;
+    private javax.swing.JButton exportPathButton;
+    private javax.swing.JMenuItem fileCloseMapItem;
+    private javax.swing.JMenuItem fileExitItem;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem fileNewMapItem;
+    private javax.swing.JMenuItem fileOpenMapItem;
+    private javax.swing.JMenuItem fileSaveAsItem;
+    private javax.swing.JMenuItem fileSaveItem;
+    private javax.swing.JButton forwardButton;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTree jTree2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JSplitPane jSplitPane3;
+    private javax.swing.JTree jTree1;
+    private javax.swing.JButton nodeAddButton;
+    private javax.swing.JButton nodeDeleteButton;
+    private javax.swing.JButton nodeEditButton;
+    private javax.swing.JButton nodeOpenButton;
+    private javax.swing.JToolBar nodeToolBar;
+    private javax.swing.JSplitPane nodeTreeSplitPane;
+    private javax.swing.JLabel relatedNodesLabel;
+    private javax.swing.JList<String> relatedNodesList;
+    private javax.swing.JLabel selectedNodesLabel;
+    private javax.swing.JList<String> selectedNodesList;
+    private javax.swing.JButton viewPathButton;
     // End of variables declaration//GEN-END:variables
 }

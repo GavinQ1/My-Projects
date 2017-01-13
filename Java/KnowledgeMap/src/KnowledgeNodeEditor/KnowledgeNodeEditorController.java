@@ -216,7 +216,9 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
     
     // function for create a new node
     public void newNodeActionPerformed() {
-        KnowledgeNode newNode = KnowledgeNodeEditorApp.create(map);
+        KnowledgeNodeEditorView newView = KnowledgeNodeEditorApp.create(map);
+        newView.setVisible(true);
+        KnowledgeNode newNode = newView.getNode();
         map.addCatagory(newNode.getCatagory());
         map.addKnowledgeNodeTo(newNode.getCatagory(), newNode);
         updateInfoPane();

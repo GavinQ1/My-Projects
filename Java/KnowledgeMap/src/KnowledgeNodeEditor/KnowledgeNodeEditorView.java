@@ -58,6 +58,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         });
         getContentPane().setBackground(Color.white);
         knowledgeNodeInfoPane.setBackground(Color.WHITE);
+        this.newNodeButton.setVisible(false);
     }
 
     void setSelectedTreeNode(MyTreeNode k) {
@@ -84,6 +85,10 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             n.setAllowsChildren(false);
             root.add(n);
         }
+    }
+    
+    public KnowledgeNode getNode() {
+        return node;
     }
 
     public DefaultTreeModel getTreeModel() {
@@ -207,10 +212,9 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         editKnowledgeNodeButton = new javax.swing.JButton();
         newNodeButton = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 204, 204));
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Knowledge Node Editor");
-        setBackground(new java.awt.Color(204, 204, 204));
-        setIconImage(null);
 
         knowledgeNodeInfoPane.setEditable(false);
         knowledgeNodeInfoPane.setBackground(new java.awt.Color(255, 255, 255));
