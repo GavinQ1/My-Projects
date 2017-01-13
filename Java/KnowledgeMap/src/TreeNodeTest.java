@@ -31,7 +31,7 @@ public class TreeNodeTest extends javax.swing.JFrame {
             if (getUserObject() instanceof KnowledgeNode)
                 return ((KnowledgeNode) getUserObject()).getName();
             if (getUserObject() instanceof KnowledgeNodeList)
-                return ((KnowledgeNodeList) getUserObject()).getName();
+                return ((KnowledgeNodeListImpl) getUserObject()).getName();
             return super.toString();
         }
     }
@@ -119,7 +119,7 @@ public class TreeNodeTest extends javax.swing.JFrame {
 //        DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedTreeNode.getParent();
 //        ((DefaultTreeModel) jTree1.getModel()).insertNodeInto(new DefaultMutableTreeNode("Test"), parent, parent.getChildCount());
 //            String rootName = JOptionPane.showInputDialog("New Root Name");
-//            ((KnowledgeNodeList) selectedTreeNode.getUserObject()).setName(rootName);
+//            ((KnowledgeNodeListImpl) selectedTreeNode.getUserObject()).setName(rootName);
 //            ((DefaultTreeModel) jTree1.getModel()).nodeChanged(selectedTreeNode);
 //            System.out.println("Added");
         DefaultTreeModel m = new DefaultTreeModel(new DefaultMutableTreeNode("New"));
@@ -160,10 +160,10 @@ public class TreeNodeTest extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        KnowledgeNode a = new KnowledgeNode("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
-        KnowledgeNode b = new KnowledgeNode("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
-        KnowledgeNode c = new KnowledgeNode("C", "Character", "C", "Third", "Source", "Destination", "Neighbor");
-        KnowledgeNode d = new KnowledgeNode("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode a = new KnowledgeNodeImpl("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
+        KnowledgeNode b = new KnowledgeNodeImpl("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
+        KnowledgeNode c = new KnowledgeNodeImpl("C", "Character", "C", "Third", "Source", "Destination", "Neighbor");
+        KnowledgeNode d = new KnowledgeNodeImpl("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
         a.addDestination(d);
         d.addSource(c);
         d.addSource(b);

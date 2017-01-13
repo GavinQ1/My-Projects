@@ -160,12 +160,12 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         EnhanceAppView.enhanceVision();
 
         /* Create and display the form */
-        KnowledgeNode a = new KnowledgeNode("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
-        KnowledgeNode b = new KnowledgeNode("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
-        KnowledgeNode c = new KnowledgeNode("C", "Character", "C", "Third", "Source", "Destination", "Neighbor");
-        KnowledgeNode d = new KnowledgeNode("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
-        KnowledgeNode e = new KnowledgeNode("E", "Character", "E", "Fourth", "Source", "Destination", "Neighbor");
-        KnowledgeNode f = new KnowledgeNode("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode a = new KnowledgeNodeImpl("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
+        KnowledgeNode b = new KnowledgeNodeImpl("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
+        KnowledgeNode c = new KnowledgeNodeImpl("C", "Character", "C", "Third", "Source", "Destination", "Neighbor");
+        KnowledgeNode d = new KnowledgeNodeImpl("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode e = new KnowledgeNodeImpl("E", "Character", "E", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode f = new KnowledgeNodeImpl("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
         a.addDestination(d);
         e.addDestination(d);
         c.addDestination(a);

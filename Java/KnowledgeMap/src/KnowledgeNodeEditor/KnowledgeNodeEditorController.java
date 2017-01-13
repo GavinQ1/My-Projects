@@ -371,12 +371,12 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             java.util.logging.Logger.getLogger(KnowledgeNodeEditorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        KnowledgeNode a = new KnowledgeNode("症状1", "症状", "A", "First", "Source", "相关的结果", "相关的症状");
-        KnowledgeNode b = new KnowledgeNode("体质1", "体质", "B", "Second", "Source", "相关的结果", "相关的体质");
-        KnowledgeNode c = new KnowledgeNode("药方1", "药方", "C", "Third", "Source", "相关的结果", "相关的药方");
-        KnowledgeNode d = new KnowledgeNode("药方2", "药方", "D", "Fourth", "Source", "相关的结果", "相关的药方");
-        KnowledgeNode e = new KnowledgeNode("体质2", "体质", "E", "Fourth", "Source", "相关的结果", "相关的体质");
-        KnowledgeNode f = new KnowledgeNode("症状2", "症状", "F", "Fourth", "Source", "相关的结果", "相关的症状");
+        KnowledgeNode a = new KnowledgeNodeImpl("症状1", "症状", "A", "First", "Source", "相关的结果", "相关的症状");
+        KnowledgeNode b = new KnowledgeNodeImpl("体质1", "体质", "B", "Second", "Source", "相关的结果", "相关的体质");
+        KnowledgeNode c = new KnowledgeNodeImpl("药方1", "药方", "C", "Third", "Source", "相关的结果", "相关的药方");
+        KnowledgeNode d = new KnowledgeNodeImpl("药方2", "药方", "D", "Fourth", "Source", "相关的结果", "相关的药方");
+        KnowledgeNode e = new KnowledgeNodeImpl("体质2", "体质", "E", "Fourth", "Source", "相关的结果", "相关的体质");
+        KnowledgeNode f = new KnowledgeNodeImpl("症状2", "症状", "F", "Fourth", "Source", "相关的结果", "相关的症状");
 
         a.addDestination(b);
         b.addDestination(c);

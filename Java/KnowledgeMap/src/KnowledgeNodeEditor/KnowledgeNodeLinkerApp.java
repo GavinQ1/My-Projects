@@ -163,7 +163,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
             a = map.getAllKnowledgeNodes();
         else {
             a = map.getCatagory(scope);
-            Collections.sort(a, KnowledgeNode.comparatorBySignificance());
+            Collections.sort(a, KnowledgeNodeList.comparatorBySignificance());
         }
         jList1.setModel(listModelFactory(a));
     }
@@ -231,12 +231,12 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     
     // unit test
     public static void main(String args[]) {
-        KnowledgeNode a = new KnowledgeNode("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
-        KnowledgeNode b = new KnowledgeNode("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
-        KnowledgeNode c = new KnowledgeNode("C", "String", "C", "Third", "Source", "Destination", "Neighbor");
-        KnowledgeNode d = new KnowledgeNode("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
-        KnowledgeNode e = new KnowledgeNode("E", "Character", "E", "Fourth", "Source", "Destination", "Neighbor");
-        KnowledgeNode f = new KnowledgeNode("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode a = new KnowledgeNodeImpl("A", "Character", "A", "First", "Source", "Destination", "Neighbor");
+        KnowledgeNode b = new KnowledgeNodeImpl("B", "Character", "B", "Second", "Source", "Destination", "Neighbor");
+        KnowledgeNode c = new KnowledgeNodeImpl("C", "String", "C", "Third", "Source", "Destination", "Neighbor");
+        KnowledgeNode d = new KnowledgeNodeImpl("D", "Character", "D", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode e = new KnowledgeNodeImpl("E", "Character", "E", "Fourth", "Source", "Destination", "Neighbor");
+        KnowledgeNode f = new KnowledgeNodeImpl("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
 
         
         KnowledgeMap map = new KnowledgeMap("K");
@@ -258,7 +258,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<KnowledgeNode> jList1;
+    private javax.swing.JList<Models.KnowledgeNode> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton neighborRadio;
     private javax.swing.JRadioButton sourceRaido;

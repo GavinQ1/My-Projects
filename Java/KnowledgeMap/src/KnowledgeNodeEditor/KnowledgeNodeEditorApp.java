@@ -20,7 +20,7 @@ public class KnowledgeNodeEditorApp {
         EnhanceAppView.enhanceVision();
         
         if (node == null)
-            node = new KnowledgeNode();
+            node = new KnowledgeNodeImpl();
         KnowledgeNodeEditorController controller = new KnowledgeNodeEditorController(map, node);
         
         KnowledgeNodeEditorView view = new KnowledgeNodeEditorView(controller); 
@@ -33,7 +33,7 @@ public class KnowledgeNodeEditorApp {
     public static KnowledgeNodeEditorView create(KnowledgeMap map, boolean center) {
         EnhanceAppView.enhanceVision();
         
-        KnowledgeNode node = new KnowledgeNode();
+        KnowledgeNode node = new KnowledgeNodeImpl();
         KnowledgeNodeEditorController controller = new KnowledgeNodeEditorController(map, node);
         KnowledgeNodeEditorView view = new KnowledgeNodeEditorView(controller); 
         if (center)

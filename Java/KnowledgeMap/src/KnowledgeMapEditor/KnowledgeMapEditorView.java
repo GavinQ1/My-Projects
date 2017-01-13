@@ -2,7 +2,7 @@ package KnowledgeMapEditor;
 
 import KnowledgeNodeEditor.*;
 import Models.KnowledgeMap;
-import Models.KnowledgeNode;
+import Models.KnowledgeNodeImpl;
 
 /**
  *

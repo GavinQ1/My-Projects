@@ -108,7 +108,7 @@ public class KnowledgeMapManager {
         
         map.addCatagory("Test");
         System.out.println(map.containsCatagory("Test"));
-        map.addKnowledgeNodeTo("Test", new KnowledgeNode("a", "Symptom", "", "", "", "", ""));
+        map.addKnowledgeNodeTo("Test", new KnowledgeNodeImpl("a", "Symptom", "", "", "", "", ""));
         
         manager.saveMap();
         

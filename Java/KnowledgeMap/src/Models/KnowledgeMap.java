@@ -101,7 +101,7 @@ public class KnowledgeMap implements Serializable, Cloneable {
         ArrayList<KnowledgeNode> a = new ArrayList<>();
         for (String key : map.keySet()) 
             a.addAll(new HashSet<>(map.get(key)));
-        Collections.sort(a, KnowledgeNode.comparatorBySignificance());
+        Collections.sort(a, KnowledgeNodeList.comparatorBySignificance());
         return a;
     }
     
@@ -110,7 +110,7 @@ public class KnowledgeMap implements Serializable, Cloneable {
         KnowledgeMap map = new KnowledgeMap("K");
         map.addCatagory("Test");
         System.out.println(map.containsCatagory("Test"));
-        map.addKnowledgeNodeTo("Test", new KnowledgeNode("a", "Solution", "", "", "", "", ""));
+        map.addKnowledgeNodeTo("Test", new KnowledgeNodeImpl("a", "Solution", "", "", "", "", ""));
         System.out.println(map.getKnowldegeNodeFrom("Test", "a").chineseFormattedInformation());
         map.deleteKnowledgeNodeFrom("Test", "a");
     }
