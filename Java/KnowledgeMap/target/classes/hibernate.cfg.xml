@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
+    <property name="connection.driver_class">org.sqlite.JDBC</property>
+    <property name="connection.url">jdbc:sqlite:./test.db</property>
+    <property name="connection.username"/>
+    <property name="connection.password"/>
+    <!--<property name="hibernate.hbm2ddl.auto">update</property>-->
+    <!-- Drop and re-create the database schema on startup -->
+    <property name="hbm2ddl.auto">create</property>
+    <mapping class="Models.KnowledgeNode"/>
+    <mapping class="Models.KnowledgeNodeImpl"/>
+    <mapping class="Models.KnowledgeNodeList"/>
+    <mapping class="Models.KnowledgeNodeListImpl"/>
+    <!--<mapping resource="Cont.hbm.xml"/>-->
+    <!--<mapping resource="Contact.hbm.xml"/>-->
+  </session-factory>
+</hibernate-configuration>
