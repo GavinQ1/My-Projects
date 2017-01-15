@@ -4,6 +4,7 @@ import Models.*;
 import KnowledgeNodeEditor.KnowledgeNodeEditorView.MyTreeNode;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -14,7 +15,8 @@ import javax.swing.tree.DefaultTreeModel;
  * @author Gavin
  */
 public class KnowledgeNodeEditorController extends GeneralController implements KnowledgeNodeEditorControl {
-    private boolean needSave = false;
+
+    private boolean needSave = false, saved = false, savePressed = false;
     private KnowledgeMap map;
     private KnowledgeNode node;
     private KnowledgeNodeEditorView view;
@@ -27,17 +29,35 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         this.destinationsCache = new HashMap<>();
         this.neighborsCache = new HashMap<>();
     }
-    
+
     // function register controller to view
     public void register(KnowledgeNodeEditorView view) {
         this.view = view;
     }
-    
+
     // function for getting node
     public KnowledgeNode getNode() {
         return this.node;
     }
+
+    public boolean isSaved() {
+        return saved || savePressed;
+    }
     
+    // function for initialize the view
+    public void initialize() {
+        view.getNameTextField().setText(node.getName());
+        view.getCatagoryTextField().setText(node.getCatagory());
+        view.getDefinitionTextArea().setText(node.getDefinition());
+        view.getDescriptionTextArea().setText(node.getDescription());
+        ArrayList<String> cataNames = new ArrayList<>(map.getMap().keySet());
+        Collections.sort(cataNames);
+        cataNames.stream().forEach((s) -> {
+            view.getCatagoryComboBox().addItem(s);
+        });
+        updateInfoPane();
+    }
+
     // function for treeValueChanged evt
     public void knowledgeTreeValueChangedAction(MyTreeNode selected) {
         view.setSelectedTreeNode((MyTreeNode) view.getKnowledgeTree().getLastSelectedPathComponent());
@@ -49,12 +69,13 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         KnowledgeNodeLinkerApp dialog = new KnowledgeNodeLinkerApp(map, node);
         dialog.run(true);
         KnowledgeNode added = dialog.getSelected();
-        if (added == null) 
+        if (added == null) {
             return;
-        
+        }
+
         int signal = dialog.getExpandedGroup();
         MyTreeNode leaf = new MyTreeNode(added);
-        
+
         // update changes
         switch (signal) {
             case 1:
@@ -124,7 +145,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         updateInfoPane();
         needSave = true;
     }
-    
+
     // function for removing a node
     public void knowledgeTreeRemoveActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getKnowledgeTree().getLastSelectedPathComponent();
@@ -166,12 +187,13 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             needSave = true;
         }
     }
-    
+
     // function for edit a node
     public void editKnowledgeNodeActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getKnowledgeTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
-            KnowledgeNodeEditorApp.edit(map, (KnowledgeNode) n.getUserObject());
+            KnowledgeNode target = (KnowledgeNode) n.getUserObject();
+            target = KnowledgeNodeEditorApp.edit(map, target);
 
             updateInfoPane();
             refreshTree();
@@ -179,16 +201,6 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         }
     }
 
-    
-    // function for initialize the view
-    public void initialize() {
-        view.getNameTextField().setText(node.getName());
-        view.getCatagoryTextField().setText(node.getCatagory());
-        view.getDefinitionTextArea().setText(node.getDefinition());
-        view.getDescriptionTextArea().setText(node.getDescription());
-        updateInfoPane();
-    }
-    
     // function for detaild node info
     public void knowledgeTreeNodeMouseDoubleClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
@@ -198,7 +210,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             }
         }
     }
-    
+
     // function for rename a root
     public void knowledgeTreeRenameRootActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getKnowledgeTree().getLastSelectedPathComponent();
@@ -214,24 +226,30 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         }
     }
     
+    // function for Catagory name hints
+    public void catagoryComboBoxActionPerformed() {
+        String input = (String) view.getCatagoryComboBox().getSelectedItem();
+        if (input.equals(KnowledgeNodeEditorView.CATA_COMBO_BOX_DEFAULT_OPTION))
+            input = view.getCatagoryTextField().getText().trim();
+        view.getCatagoryTextField().setText(input);
+    }
+
     // function for create a new node
     public void newNodeActionPerformed() {
-        KnowledgeNodeEditorView newView = KnowledgeNodeEditorApp.create(map);
-        newView.setVisible(true);
-        KnowledgeNode newNode = newView.getNode();
-        map.addCatagory(newNode.getCatagory());
+        KnowledgeNode newNode = KnowledgeNodeEditorApp.create(map);
+        if (newNode == null) {
+            return;
+        }
         map.addKnowledgeNodeTo(newNode.getCatagory(), newNode);
         updateInfoPane();
         refreshTree();
     }
-    
+
     // function for "Save" button
     public void saveActionPerformed() {
         try {
-            saveInTo(node);
-            updateInfoPane();
-            clearCache();
-            needSave = false;
+            saveAction();
+            savePressed = true;
         } catch (InvalidInputException e) {
             KnowledgeNodeEditorController.errorMessageBox(e.toString());
         }
@@ -239,23 +257,30 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
     
     // function for the "EXIT" button
     public void exitActionPerformed() {
-        if (noTextFieldChanged() && !needSave) {
-            view.dispose();
-        } else {
-            int dialogResult = JOptionPane.showConfirmDialog(null,
-                    "Would You Like to Save your changes before you leave?"
-            );
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                saveActionPerformed();
+        try {
+            if (nothingFieldChanged() && !needSave) {
+                saved = false;
                 view.dispose();
+            } else {
+                int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "Would You Like to Save your changes before you leave?"
+                );
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    saveAction();
+                    saved = true;
+                    view.dispose();
+                }
+                if (dialogResult == JOptionPane.NO_OPTION) {
+                    restoreNodeChanges();
+                    saved = false;
+                    view.dispose();
+                }
             }
-            if (dialogResult == JOptionPane.NO_OPTION) {
-                restoreNodeChanges();
-                view.dispose();
-            }
+        } catch (InvalidInputException e) {
+            KnowledgeNodeEditorController.errorMessageBox(e.toString());
         }
     }
-    
+
     // check if name is usable
     private void checkNameAvaliability(String name) {
         for (KnowledgeNode k : map.getAllKnowledgeNodes()) {
@@ -264,14 +289,14 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             }
         }
     }
-    
+
     // clear cache
     private void clearCache() {
         sourcesCache = new HashMap<>();
         destinationsCache = new HashMap<>();
         neighborsCache = new HashMap<>();
     }
-    
+
     // save text field info into a node
     private void saveInTo(KnowledgeNode node) throws InvalidInputException {
         String temp = view.getNameTextField().getText().trim();
@@ -285,14 +310,28 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         node.setDescription(temp);
     }
     
+    // save action function
+    private void saveAction()  throws InvalidInputException {
+        saveInTo(node);
+        updateInfoPane();
+        clearCache();
+        needSave = false;
+    }
+
     // return true if no textfield changes
-    private boolean noTextFieldChanged() {
-        return node.getName().equals(view.getNameTextField().getText().trim())
+    private boolean nothingFieldChanged() {
+        int sum = 0;
+        sum += sourcesCache.values().stream().map((i) -> i).reduce(sum, Integer::sum);
+        sum += destinationsCache.values().stream().map((i) -> i).reduce(sum, Integer::sum);
+        sum += neighborsCache.values().stream().map((i) -> i).reduce(sum, Integer::sum);
+        
+        return  sum == 0 
+                && node.getName().equals(view.getNameTextField().getText().trim())
                 && node.getCatagory().equals(view.getCatagoryTextField().getText().trim())
                 && node.getDefinition().equals(view.getDefinitionTextArea().getText().trim())
                 && node.getDescription().equals(view.getDescriptionTextArea().getText().trim());
     }
-    
+
     // remove node from tree
     private void removeNodeFromTree(MyTreeNode node) {
         view.getTreeModel().removeNodeFromParent(node);
@@ -302,12 +341,12 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
     private void updateInfoPane(KnowledgeNode k) {
         view.getKnowledgeNodeInfoPane().setText(k.chineseFormattedInformation());
     }
-    
+
     // update info pane
     private void updateInfoPane() {
         updateInfoPane(node);
     }
-    
+
     // refresh tree
     private void refreshTree() {
         DefaultTreeModel m = view.createTreeModel(node);
@@ -357,7 +396,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             }
         }
     }
-    
+
     // unit test
     public static void main(String args[]) throws CloneNotSupportedException {
         try {
@@ -384,7 +423,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         a.addDestination(e);
         f.addDestination(e);
 
-        KnowledgeMap map = new KnowledgeMap("K");
+        KnowledgeMap map = new KnowledgeMapImpl("K");
         map.addCatagory("症状");
         map.addCatagory("体质");
         map.addCatagory("药方");
@@ -397,7 +436,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
 
         System.out.println(a.getDestinations());
         KnowledgeNodeEditorController controller = new KnowledgeNodeEditorController(map, a);
-        KnowledgeNodeEditorView view = new KnowledgeNodeEditorView(controller); 
+        KnowledgeNodeEditorView view = new KnowledgeNodeEditorView(controller);
         view.setLocationRelativeTo(null);
         view.setVisible(true);
         System.out.println(a.getDestinations());

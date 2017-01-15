@@ -239,7 +239,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         KnowledgeNode f = new KnowledgeNodeImpl("F", "Character", "F", "Fourth", "Source", "Destination", "Neighbor");
 
         
-        KnowledgeMap map = new KnowledgeMap("K");
+        KnowledgeMap map = new KnowledgeMapImpl("K");
         map.addCatagory("Character");
         map.addCatagory("String");
         map.addKnowledgeNodeTo("Character", a);

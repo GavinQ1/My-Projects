@@ -1,6 +1,5 @@
 package Models;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 
 
@@ -143,28 +142,26 @@ public class KnowledgeNodeImpl implements
     @Override
     public void setName(String newName) {
         if ("".equals(newName.trim()))
-            throw new InvalidInputException("Input can't be empty.");
+            throw new InvalidInputException("名称栏不能为空");
         this.name = newName;
     }
     
     @Override
     public void setCatagory(String newName) {
         if ("".equals(newName.trim()))
-            throw new InvalidInputException("Input can't be empty.");
+            throw new InvalidInputException("类别栏不能为空");
         this.catagory = newName;
     }
     
     @Override
     public void setDefinition(String newDefinition) {
         if ("".equals(newDefinition.trim()))
-            throw new InvalidInputException("Input can't be empty.");
+            throw new InvalidInputException("定义栏不能为空");
         this.definition = newDefinition;
     }
     
     @Override
     public void setDescription(String newDescription) {
-        if ("".equals(newDescription.trim()))
-            throw new InvalidInputException("Input can't be empty.");
         this.description = newDescription;
     }
     
@@ -249,6 +246,30 @@ public class KnowledgeNodeImpl implements
         k.getNeighbors().remove(this);
     }
     
+    @Override
+    public void removeAllRelated() {
+        removeAllSources();
+        removeAllDestinations();
+        removeAllNeighbors();
+    }
+    
+    @Override
+    public void removeAllSources() {
+        for (KnowledgeNode k : sources)
+            removeSource(k);
+    }
+    
+    @Override
+    public void removeAllDestinations() {
+        for (KnowledgeNode k: destinations)
+            removeDestination(k);
+    }
+    
+    @Override
+    public void removeAllNeighbors() {
+        for (KnowledgeNode k : neighbors)
+            removeNeighbor(k);
+    }
     
     @Override
     public String chineseFormattedInformation() {

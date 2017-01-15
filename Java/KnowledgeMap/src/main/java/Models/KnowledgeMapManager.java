@@ -102,7 +102,7 @@ public class KnowledgeMapManager {
     public static void main(String[] args) {
         KnowledgeMapManager manager = new KnowledgeMapManager();
         
-        KnowledgeMap map = new KnowledgeMap("Test");
+        KnowledgeMap map = new KnowledgeMapImpl("Test");
        
         manager.register(map);
         

@@ -33,6 +33,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
     private KnowledgeNodeEditorControl controller;
     private KnowledgeNode node;
     private MyTreeNode selectedTreeNode, sources, destinations, neighbors;
+    static final String CATA_COMBO_BOX_DEFAULT_OPTION = "Custom"; 
 
     /**
      * Creates new form KnowledgeNodeEditorView
@@ -45,10 +46,8 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         this.controller = controller;
         this.selectedTreeNode = null;
 
-        controller.register(this);
         this.node = controller.getNode();
         initComponents();
-        controller.initialize();
         setModal(true);
         setResizable(false);
         addWindowListener(new WindowAdapter() {
@@ -58,7 +57,10 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         });
         getContentPane().setBackground(Color.white);
         knowledgeNodeInfoPane.setBackground(Color.WHITE);
-        this.newNodeButton.setVisible(false);
+        newNodeButton.setVisible(false);
+        
+        getRegistered();
+        controller.initialize();
     }
 
     void setSelectedTreeNode(MyTreeNode k) {
@@ -87,8 +89,16 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         }
     }
     
+    private void getRegistered() {
+        this.controller.register(this);
+    }
+    
     public KnowledgeNode getNode() {
         return node;
+    }
+    
+    public boolean isSaved() {
+        return controller.isSaved();
     }
 
     public DefaultTreeModel getTreeModel() {
@@ -154,6 +164,10 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
     public javax.swing.JButton getSubmitButton() {
         return saveButton;
     }
+    
+    public javax.swing.JComboBox getCatagoryComboBox() {
+        return catagoryComboBox;
+    }
 
     // unit test
     public static void main(String args[]) throws CloneNotSupportedException {
@@ -170,7 +184,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         e.addDestination(d);
         c.addDestination(a);
 
-        KnowledgeMap map = new KnowledgeMap("K");
+        KnowledgeMap map = new KnowledgeMapImpl("K");
         map.addCatagory("Character");
         map.addCatagory("String");
         map.addKnowledgeNodeTo("Character", a);
@@ -211,10 +225,11 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         editKnowledgeNodeButton = new javax.swing.JButton();
         newNodeButton = new javax.swing.JButton();
+        catagoryComboBox = new javax.swing.JComboBox<>();
 
-        setBackground(new java.awt.Color(204, 204, 204));
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Knowledge Node Editor");
+        setBackground(new java.awt.Color(204, 204, 204));
 
         knowledgeNodeInfoPane.setEditable(false);
         knowledgeNodeInfoPane.setBackground(new java.awt.Color(255, 255, 255));
@@ -240,11 +255,9 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         descriptionLabel.setText("Description:");
 
         nameTextField.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
-        nameTextField.setText("jTextField1");
         nameTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 102, 255)));
 
         catagoryTextField.setFont(nameTextField.getFont());
-        catagoryTextField.setText("jTextField2");
         catagoryTextField.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 102, 255)));
 
         descriptionTextArea.setColumns(20);
@@ -291,6 +304,20 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         knowledgeTree.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 102, 255)));
         knowledgeTree.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
         knowledgeTree.setForeground(new java.awt.Color(102, 102, 102));
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Sources");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("S1");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Destinations");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("D1");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Neighbors");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("N1");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        knowledgeTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         knowledgeTree.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         knowledgeTree.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         knowledgeTree.setRootVisible(false);
@@ -361,6 +388,13 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
             }
         });
 
+        catagoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Custom" }));
+        catagoryComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                catagoryComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -380,7 +414,10 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(catagoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(catagoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(catagoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -418,7 +455,8 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(catagoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(catagoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(catagoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(catagoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(definitionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -489,10 +527,15 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         this.controller.newNodeActionPerformed();
     }//GEN-LAST:event_newNodeButtonActionPerformed
 
+    private void catagoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_catagoryComboBoxActionPerformed
+        this.controller.catagoryComboBoxActionPerformed();
+    }//GEN-LAST:event_catagoryComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNodeButton;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JComboBox<String> catagoryComboBox;
     private javax.swing.JLabel catagoryLabel;
     private javax.swing.JTextField catagoryTextField;
     private javax.swing.JLabel definitionLabel;

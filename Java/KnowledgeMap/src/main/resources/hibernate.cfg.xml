@@ -16,7 +16,5 @@
     <mapping class="Models.KnowledgeNodeImpl"/>
     <mapping class="Models.KnowledgeNodeList"/>
     <mapping class="Models.KnowledgeNodeListImpl"/>
-    <!--<mapping resource="Cont.hbm.xml"/>-->
-    <!--<mapping resource="Contact.hbm.xml"/>-->
   </session-factory>
 </hibernate-configuration>

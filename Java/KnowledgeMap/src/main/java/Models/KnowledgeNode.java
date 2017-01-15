@@ -72,6 +72,14 @@ public interface KnowledgeNode extends Cloneable, Comparable<KnowledgeNode>, Com
     boolean hasSource(String name);
 
     boolean hasSource(KnowledgeNode k);
+    
+    void removeAllRelated();
+    
+    void removeAllSources();
+    
+    void removeAllDestinations();
+    
+    void removeAllNeighbors();
 
     void removeDestination(KnowledgeNode k);
 
