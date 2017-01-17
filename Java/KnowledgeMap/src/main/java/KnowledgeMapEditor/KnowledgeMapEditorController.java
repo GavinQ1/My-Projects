@@ -70,7 +70,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             KnowledgeNodeWikiApp.run((KnowledgeNode) n.getUserObject());
         }
     }
-    
+
     public void editNodeButtonActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getNodesTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
@@ -78,22 +78,33 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             refreshTree();
         }
     }
-    
+
     public void createNodeButtonActionPerformed() {
         KnowledgeNode newNode = KnowledgeNodeEditorApp.create(map);
-        if (newNode == null) 
+        if (newNode == null) {
             return;
-        
+        }
+
         map.addKnowledgeNodeTo(newNode.getCatagory(), newNode);
         refreshTree();
     }
-    
+
     public void deleteNodeButtonActionPerformed() {
+        deleteNodeFromTreeAction();
+    }
+
+    private void deleteNodeFromTreeAction() {
         MyTreeNode n = (MyTreeNode) view.getNodesTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
             KnowledgeNode k = (KnowledgeNode) n.getUserObject();
-            map.deleteKnowledgeNodeFrom(k.getCatagory(), k);
-            ((DefaultTreeModel) view.getNodesTree().getModel()).removeNodeFromParent(n);
+            int dialogResult = JOptionPane.showConfirmDialog(null,
+                    "Are you sure that you want to delete Node " + k.getName() 
+                            + "? This action can't be restored." 
+            );
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                map.deleteKnowledgeNodeFrom(k.getCatagory(), k);
+                ((DefaultTreeModel) view.getNodesTree().getModel()).removeNodeFromParent(n);
+            }
         }
     }
 
@@ -106,7 +117,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             }
         }
     }
-    
+
     private void refreshTree() {
         DefaultTreeModel m = view.createTreeModel(map);
         view.getNodesTree().setModel(m);
@@ -136,21 +147,20 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             add(this.delete);
 
             this.addSelectMouseListener();
-            
+
             this.viewB.addActionListener((ActionEvent evt) -> {
                 KnowledgeNodeWikiApp.run(selectedNode);
             });
-            
+
             this.edit.addActionListener((ActionEvent evt) -> {
                 KnowledgeNodeEditorApp.edit(map, selectedNode);
                 refreshTree();
             });
-            
+
             this.delete.addActionListener((ActionEvent evt) -> {
-                map.deleteKnowledgeNodeFrom(selectedNode.getCatagory(), selectedNode);
-                ((DefaultTreeModel) view.getNodesTree().getModel()).removeNodeFromParent(selectedTreeNode);
+                deleteNodeFromTreeAction();
             });
-            
+
             setVisible(true);
         }
 

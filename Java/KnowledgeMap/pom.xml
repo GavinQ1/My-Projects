@@ -58,5 +58,10 @@
             <artifactId>sqlite-dialect</artifactId>
             <version>0.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,7 @@
 package KnowledgeNodeEditor;
 
 import Models.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.AbstractListModel;
@@ -24,6 +25,8 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         this.selected = null;
         initComponents();
         setModal(true);
+        
+        getContentPane().setBackground(Color.white);
     }
 
     /**
@@ -34,6 +37,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -48,19 +52,36 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Knowledge Node Linker");
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         DefaultComboBoxModel<String> comboBoxModel = new javax.swing.DefaultComboBoxModel<>();
         comboBoxModel.addElement("Choose a catagory");
         for (String s : map.getMap().keySet()) comboBoxModel.addElement(s);
+        jComboBox1.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
         jComboBox1.setModel(comboBoxModel);
+        jComboBox1.setBorder(null);
+        jComboBox1.setMinimumSize(new java.awt.Dimension(50, 30));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(50, 30));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 130;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        getContentPane().add(jComboBox1, gridBagConstraints);
 
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(256, 128));
+
+        jList1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        jList1.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
         jList1.setModel(listModelFactory((ArrayList<KnowledgeNode>) map.getAllKnowledgeNodes())
         );
+        jList1.setName(""); // NOI18N
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jList1MouseClicked(evt);
@@ -68,83 +89,101 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jList1);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 250;
+        gridBagConstraints.ipady = 387;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 70, 0);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        sourceRaido.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(sourceRaido);
-        sourceRaido.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
+        sourceRaido.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        sourceRaido.setForeground(new java.awt.Color(153, 153, 153));
         sourceRaido.setSelected(true);
         sourceRaido.setText(node.getSources().getName());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 24, 0, 0);
+        getContentPane().add(sourceRaido, gridBagConstraints);
 
+        jButton1.setBackground(new java.awt.Color(102, 102, 102));
+        jButton1.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Submit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 32;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(335, 66, 0, 85);
+        getContentPane().add(jButton1, gridBagConstraints);
 
-        jLabel1.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Add to " + node.getName() + " as a");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 87;
+        gridBagConstraints.ipady = 24;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(52, 24, 0, 85);
+        getContentPane().add(jLabel1, gridBagConstraints);
 
+        destinationRadio.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(destinationRadio);
-        destinationRadio.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
+        destinationRadio.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        destinationRadio.setForeground(new java.awt.Color(153, 153, 153));
         destinationRadio.setText(node.getDestinations().getName());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
+        getContentPane().add(destinationRadio, gridBagConstraints);
 
+        neighborRadio.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(neighborRadio);
-        neighborRadio.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
+        neighborRadio.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+        neighborRadio.setForeground(new java.awt.Color(153, 153, 153));
         neighborRadio.setText(node.getNeighbors().getName());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
+        getContentPane().add(neighborRadio, gridBagConstraints);
 
-        jLabel2.setFont(new java.awt.Font("华文细黑", 0, 12)); // NOI18N
+        jLabel2.setBackground(new java.awt.Color(102, 102, 102));
+        jLabel2.setFont(new java.awt.Font("华文琥珀", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setLabelFor(jList1);
         jLabel2.setText("Avaliable Nodes");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBox1, 0, 120, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(destinationRadio)
-                                    .addComponent(sourceRaido)
-                                    .addComponent(neighborRadio)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(70, 70, 70))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sourceRaido)
-                        .addGap(18, 18, 18)
-                        .addComponent(destinationRadio)
-                        .addGap(18, 18, 18)
-                        .addComponent(neighborRadio)
-                        .addGap(68, 68, 68)
-                        .addComponent(jButton1))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(34, 6, 0, 0);
+        getContentPane().add(jLabel2, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -186,7 +225,17 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         selected = jList1.getSelectedValue();
         if (selected == null) return;
         jLabel1.setText("Add " + selected.getName() + " to " + node.getName() + " as");
-        if (evt.getClickCount() == 2) 
+        if (evt.isControlDown()) {
+            String nodelist = "";
+            int listSize = jList1.getSelectedValuesList().size();
+            for (int i = 0; i < listSize-1; i++) {
+                KnowledgeNode k = jList1.getSelectedValuesList().get(i);
+                nodelist += k.getName() + ", ";
+            }
+            nodelist += jList1.getSelectedValuesList().get(listSize-1).getName();
+
+            jLabel1.setText("Add " + nodelist + " to " + node.getName() + " as");
+        } else if (evt.getClickCount() == 2) 
             KnowledgeNodeWikiApp.run(selected);
     }//GEN-LAST:event_jList1MouseClicked
 
