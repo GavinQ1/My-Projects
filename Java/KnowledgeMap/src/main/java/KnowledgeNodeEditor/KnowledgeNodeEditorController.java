@@ -64,86 +64,21 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         // call Linker
         KnowledgeNodeLinkerApp dialog = new KnowledgeNodeLinkerApp(map, node);
         dialog.run(true);
-        KnowledgeNode added = dialog.getSelected();
+        ArrayList<KnowledgeNode> added = dialog.getSelected();
         if (added == null) {
             return;
         }
 
         int signal = dialog.getExpandedGroup();
-        MyTreeNode leaf = new MyTreeNode(added);
-
-        // update changes
-        switch (signal) {
-            case 1:
-                if (node.getSources().contains(added)) {
-                    GeneralController.errorMessageBox("Node is already added");
-                    return;
-                }
-
-                node.addSource(added);
-
-                // record
-                sourcesCache.putIfAbsent(added, 0);
-                sourcesCache.put(added, sourcesCache.get(added) + 1);
-
-                view.getTreeModel().insertNodeInto(
-                        leaf, view.getSourcesTreeNode(),
-                        view.getSourcesTreeNode().getChildCount()
-                );
-                break;
-            case 2:
-                if (node.getDestinations().contains(added)) {
-                    GeneralController.errorMessageBox("Node is already added");
-                    return;
-                }
-
-                node.addDestination(added);
-
-                // record
-                destinationsCache.putIfAbsent(added, 0);
-                destinationsCache.put(added, destinationsCache.get(added) + 1);
-
-                view.getTreeModel().insertNodeInto(
-                        leaf, view.getDestinationsTreeNode(),
-                        view.getDestinationsTreeNode().getChildCount()
-                );
-
-                MyTreeNode neighborsTreeNode = view.getNeighborsTreeNode();
-                ArrayList<KnowledgeNode> nodeOnTree = new ArrayList<>();
-                for (Enumeration<MyTreeNode> e = view.getNeighborsTreeNode().children();
-                        e.hasMoreElements();) {
-                    MyTreeNode neighborNode = e.nextElement();
-                    KnowledgeNode neighbor = (KnowledgeNode) neighborNode.getUserObject();
-                    /*
-                    if (node.getCatagory().equals(neighbor.getCatagory())) {
-                        nodeOnTree.add(neighbor);
-                    }
-                     */
-                    nodeOnTree.add(neighbor);
-                }
-                for (KnowledgeNode k : node.getNeighbors()) {
-                    if (!nodeOnTree.contains(k)) {
-                        view.getTreeModel().insertNodeInto(new MyTreeNode(k), neighborsTreeNode, neighborsTreeNode.getChildCount());
-                    }
-                }
-
-                break;
-            default:
-                node.addNeighbor(added);
-
-                // record
-                neighborsCache.putIfAbsent(added, 0);
-                neighborsCache.put(added, neighborsCache.get(added) + 1);
-
-                view.getTreeModel().insertNodeInto(
-                        leaf, view.getNeighborsTreeNode(),
-                        view.getNeighborsTreeNode().getChildCount()
-                );
-                break;
-        }
-        updateInfoPane();
-        needSave = true;
+        added.stream().forEach((k) -> {
+            try {
+                knowledgeTreeAddAction(signal, k);
+            } catch (InvalidInputException e) {
+                GeneralController.errorMessageBox("Cannot add Node " + k.getName() +" because " + e.getMessage());
+            }
+        });
     }
+
 
     // function for removing a node
     public void knowledgeTreeRemoveActionPerformed() {
@@ -397,6 +332,83 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
                 }
             }
         }
+    }
+    
+    // function for adding nodes
+    private void knowledgeTreeAddAction(int signal, KnowledgeNode added) {
+        MyTreeNode leaf = new MyTreeNode(added);
+
+        // update changes
+        switch (signal) {
+            case 1:
+                if (node.getSources().contains(added)) {
+                    GeneralController.errorMessageBox("Node" + added.getName() +" is already added");
+                    return;
+                }
+
+                node.addSource(added);
+
+                // record
+                sourcesCache.putIfAbsent(added, 0);
+                sourcesCache.put(added, sourcesCache.get(added) + 1);
+
+                view.getTreeModel().insertNodeInto(
+                        leaf, view.getSourcesTreeNode(),
+                        view.getSourcesTreeNode().getChildCount()
+                );
+                break;
+            case 2:
+                if (node.getDestinations().contains(added)) {
+                    GeneralController.errorMessageBox("Node" + added.getName() +" is already added");
+                    return;
+                }
+
+                node.addDestination(added);
+
+                // record
+                destinationsCache.putIfAbsent(added, 0);
+                destinationsCache.put(added, destinationsCache.get(added) + 1);
+
+                view.getTreeModel().insertNodeInto(
+                        leaf, view.getDestinationsTreeNode(),
+                        view.getDestinationsTreeNode().getChildCount()
+                );
+
+                MyTreeNode neighborsTreeNode = view.getNeighborsTreeNode();
+                ArrayList<KnowledgeNode> nodeOnTree = new ArrayList<>();
+                for (Enumeration<MyTreeNode> e = view.getNeighborsTreeNode().children();
+                        e.hasMoreElements();) {
+                    MyTreeNode neighborNode = e.nextElement();
+                    KnowledgeNode neighbor = (KnowledgeNode) neighborNode.getUserObject();
+                    /*
+                    if (node.getCatagory().equals(neighbor.getCatagory())) {
+                        nodeOnTree.add(neighbor);
+                    }
+                     */
+                    nodeOnTree.add(neighbor);
+                }
+                for (KnowledgeNode k : node.getNeighbors()) {
+                    if (!nodeOnTree.contains(k)) {
+                        view.getTreeModel().insertNodeInto(new MyTreeNode(k), neighborsTreeNode, neighborsTreeNode.getChildCount());
+                    }
+                }
+
+                break;
+            default:
+                node.addNeighbor(added);
+
+                // record
+                neighborsCache.putIfAbsent(added, 0);
+                neighborsCache.put(added, neighborsCache.get(added) + 1);
+
+                view.getTreeModel().insertNodeInto(
+                        leaf, view.getNeighborsTreeNode(),
+                        view.getNeighborsTreeNode().getChildCount()
+                );
+                break;
+        }
+        updateInfoPane();
+        needSave = true;
     }
 
     // unit test
