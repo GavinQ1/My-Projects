@@ -186,7 +186,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             saveAction();
             savePressed = true;
         } catch (InvalidInputException e) {
-            KnowledgeNodeEditorController.errorMessageBox(e.toString());
+            KnowledgeNodeEditorController.errorMessageBox(e.getMessage());
         }
     }
 
@@ -212,7 +212,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
                 }
             }
         } catch (InvalidInputException e) {
-            KnowledgeNodeEditorController.errorMessageBox(e.toString());
+            KnowledgeNodeEditorController.errorMessageBox(e.getMessage());
         }
     }
 
@@ -446,7 +446,6 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         map.addKnowledgeNodeTo(e.getCatagory(), e);
         map.addKnowledgeNodeTo(f.getCatagory(), f);
 
-        System.out.println(a.getDestinations());
         KnowledgeNodeEditorController controller = new KnowledgeNodeEditorController(map, a);
         KnowledgeNodeEditorView view = new KnowledgeNodeEditorView(controller);
         view.setLocationRelativeTo(null);

@@ -15,7 +15,6 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     
     private KnowledgeMap map;
     private KnowledgeNode node, selected;
-    private boolean chosen = false; // safe lock for passing selected item
     /**
      * Creates new form KnowledgeNodeAppendApp
      */
@@ -40,32 +39,33 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        nodeCatagoryComboBox = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        avaliableNodeList = new javax.swing.JList<>();
         sourceRaido = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        submitButton = new javax.swing.JButton();
         destinationRadio = new javax.swing.JRadioButton();
         neighborRadio = new javax.swing.JRadioButton();
-        jLabel2 = new javax.swing.JLabel();
+        nodeListTitleLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         selectedListString = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Knowledge Node Linker");
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         DefaultComboBoxModel<String> comboBoxModel = new javax.swing.DefaultComboBoxModel<>();
         comboBoxModel.addElement("Choose a catagory");
         for (String s : map.getMap().keySet()) comboBoxModel.addElement(s);
-        jComboBox1.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
-        jComboBox1.setModel(comboBoxModel);
-        jComboBox1.setBorder(null);
-        jComboBox1.setMinimumSize(new java.awt.Dimension(50, 30));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(50, 30));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        nodeCatagoryComboBox.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
+        nodeCatagoryComboBox.setModel(comboBoxModel);
+        nodeCatagoryComboBox.setBorder(null);
+        nodeCatagoryComboBox.setMinimumSize(new java.awt.Dimension(50, 30));
+        nodeCatagoryComboBox.setPreferredSize(new java.awt.Dimension(50, 30));
+        nodeCatagoryComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                nodeCatagoryComboBoxItemStateChanged(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -74,21 +74,21 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         gridBagConstraints.ipadx = 130;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        getContentPane().add(jComboBox1, gridBagConstraints);
+        getContentPane().add(nodeCatagoryComboBox, gridBagConstraints);
 
         jScrollPane1.setMinimumSize(new java.awt.Dimension(256, 128));
 
-        jList1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
-        jList1.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
-        jList1.setModel(listModelFactory((ArrayList<KnowledgeNode>) map.getAllKnowledgeNodes())
+        avaliableNodeList.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
+        avaliableNodeList.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
+        avaliableNodeList.setModel(listModelFactory((ArrayList<KnowledgeNode>) map.getAllKnowledgeNodes())
         );
-        jList1.setName(""); // NOI18N
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+        avaliableNodeList.setName(""); // NOI18N
+        avaliableNodeList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
+                avaliableNodeListMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(avaliableNodeList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -117,13 +117,13 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 24, 0, 0);
         getContentPane().add(sourceRaido, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 102));
-        jButton1.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(204, 204, 204));
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        submitButton.setBackground(new java.awt.Color(102, 102, 102));
+        submitButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+        submitButton.setForeground(new java.awt.Color(204, 204, 204));
+        submitButton.setText("Submit");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -131,9 +131,9 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 32;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
         gridBagConstraints.insets = new java.awt.Insets(265, 97, 69, 44);
-        getContentPane().add(jButton1, gridBagConstraints);
+        getContentPane().add(submitButton, gridBagConstraints);
 
         destinationRadio.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(destinationRadio);
@@ -159,17 +159,17 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
         getContentPane().add(neighborRadio, gridBagConstraints);
 
-        jLabel2.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel2.setFont(new java.awt.Font("华文琥珀", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setLabelFor(jList1);
-        jLabel2.setText("Avaliable Nodes");
+        nodeListTitleLabel.setBackground(new java.awt.Color(102, 102, 102));
+        nodeListTitleLabel.setFont(new java.awt.Font("华文琥珀", 0, 24)); // NOI18N
+        nodeListTitleLabel.setForeground(new java.awt.Color(102, 102, 102));
+        nodeListTitleLabel.setLabelFor(avaliableNodeList);
+        nodeListTitleLabel.setText("Avaliable Nodes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(34, 6, 0, 0);
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(nodeListTitleLabel, gridBagConstraints);
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -200,13 +200,13 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void nodeCatagoryComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nodeCatagoryComboBoxItemStateChanged
         if(evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-            String scope = (String) jComboBox1.getSelectedItem();
-            jComboBox1.setSelectedItem(scope);
+            String scope = (String) nodeCatagoryComboBox.getSelectedItem();
+            nodeCatagoryComboBox.setSelectedItem(scope);
             updateListItems(scope);
         }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_nodeCatagoryComboBoxItemStateChanged
 
     private void updateListItems(String scope) {
         ArrayList<KnowledgeNode> a;
@@ -216,7 +216,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
             a = (ArrayList<KnowledgeNode>) map.getCatagory(scope);
             Collections.sort(a, KnowledgeNodeList.comparatorBySignificance());
         }
-        jList1.setModel(listModelFactory(a));
+        avaliableNodeList.setModel(listModelFactory(a));
     }
     
     private AbstractListModel<KnowledgeNode> listModelFactory(final ArrayList<KnowledgeNode> accounts) {
@@ -233,40 +233,38 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         };
     }
     
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        selected = jList1.getSelectedValue();
+    private void avaliableNodeListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avaliableNodeListMouseClicked
+        selected = avaliableNodeList.getSelectedValue();
         if (selected == null) return;
         selectedListString.setText("Add\n\n[" + selected.getName() + "]\n\nto " + node.getName() + " as");
         if (evt.isControlDown()) {
             String nodelist = "[";
-            int listSize = jList1.getSelectedValuesList().size();
+            int listSize = avaliableNodeList.getSelectedValuesList().size();
             for (int i = 0; i < listSize-1; i++) {
-                KnowledgeNode k = jList1.getSelectedValuesList().get(i);
+                KnowledgeNode k = avaliableNodeList.getSelectedValuesList().get(i);
                 nodelist += k.getName() + ", ";
             }
-            nodelist += jList1.getSelectedValuesList().get(listSize-1).getName();
+            nodelist += avaliableNodeList.getSelectedValuesList().get(listSize-1).getName();
 
             selectedListString.setText("Add\n\n" + nodelist + "]\n\nto " + node.getName() + " as");
         } else if (evt.getClickCount() == 2) 
             KnowledgeNodeWikiApp.run(selected);
-    }//GEN-LAST:event_jList1MouseClicked
+    }//GEN-LAST:event_avaliableNodeListMouseClicked
 
     private void checkBeforeSubmit() {
         if (selected == null)
             throw new InvalidInputException("Select a node before submit");
         else if (selected == node)
             throw new InvalidInputException("Must not be a same node");
-        else
-            chosen = true;
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         try {
             checkBeforeSubmit();
             dispose();
         } catch(InvalidInputException e) {
-            GeneralController.errorMessageBox(e.toString());
+            GeneralController.errorMessageBox(e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     public void run(boolean center) {
         EnhanceAppView.enhanceVision();
@@ -276,7 +274,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     }
     
     public ArrayList<KnowledgeNode> getSelected() {
-        ArrayList<KnowledgeNode> nodelist = (ArrayList<KnowledgeNode>) jList1.getSelectedValuesList();
+        ArrayList<KnowledgeNode> nodelist = (ArrayList<KnowledgeNode>) avaliableNodeList.getSelectedValuesList();
         if (nodelist.isEmpty())
             return null;
         return nodelist;
@@ -314,17 +312,16 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<Models.KnowledgeNode> avaliableNodeList;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton destinationRadio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<Models.KnowledgeNode> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JRadioButton neighborRadio;
+    private javax.swing.JComboBox<String> nodeCatagoryComboBox;
+    private javax.swing.JLabel nodeListTitleLabel;
     private javax.swing.JTextArea selectedListString;
     private javax.swing.JRadioButton sourceRaido;
+    private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
 }

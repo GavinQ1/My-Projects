@@ -15,10 +15,6 @@ public interface KnowledgeNode extends Cloneable, Comparable<KnowledgeNode>, Com
 
     void addNeighbor(KnowledgeNode k);
 
-    void addRelatedAsDestination(KnowledgeNode k);
-
-    void addRelatedAsSource(KnowledgeNode k);
-
     void addSource(KnowledgeNode k);
 
     String chineseFormattedInformation();

@@ -180,12 +180,6 @@ public class KnowledgeNodeImpl implements
     }
     
     @Override
-    public void addRelatedAsDestination(KnowledgeNode k) {
-        for (KnowledgeNode s : this.sources)
-            k.addNeighbor(s);
-    }
-    
-    @Override
     public void addDestination(KnowledgeNode k) {
         if (this == k || this.name.equals(k.getName())) // must be a different node
             throw new InvalidInputException("Can't add self as a destination.");
@@ -196,12 +190,6 @@ public class KnowledgeNodeImpl implements
         for (KnowledgeNode s : k.getSources()) 
             this.addNeighbor(s);
         // addRelatedAsSource(k);
-    }
-    
-    @Override
-    public void addRelatedAsSource(KnowledgeNode k) {
-        for (KnowledgeNode s : k.getSources())
-            this.addNeighbor(s);
     }
     
     @Override
