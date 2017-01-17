@@ -8,6 +8,7 @@ package Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,15 +29,17 @@ public interface KnowledgeMap extends Cloneable, Serializable {
 
     void deleteKnowledgeNodeFrom(String catagoryName, KnowledgeNode k);
 
-    void deleteKnowledgeNodeFrom(String catagoryName, String knowledgeNodeName);
+    void moveKnowledgeNodeFrom(String oldCatagory, String newCatagory, KnowledgeNode k);
 
-    ArrayList<KnowledgeNode> getAllKnowledgeNodes();
+    List<KnowledgeNode> getAllKnowledgeNodes();
+    
+    String[] getAllCatagoryNames();
 
-    ArrayList<KnowledgeNode> getCatagory(String catagoryName);
+    List<KnowledgeNode> getCatagory(String catagoryName);
 
     KnowledgeNode getKnowldegeNodeFrom(String catagoryName, String knowledgeNodeName) throws InvalidInputException;
 
-    HashMap<String, ArrayList<KnowledgeNode>> getMap();
+    Map<String, ArrayList<KnowledgeNode>> getMap();
 
     String getName();
 

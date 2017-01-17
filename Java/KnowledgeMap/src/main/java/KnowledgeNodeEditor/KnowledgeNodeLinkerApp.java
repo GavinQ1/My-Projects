@@ -59,7 +59,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
             }
         });
 
-        jList1.setModel(listModelFactory(map.getAllKnowledgeNodes())
+        jList1.setModel(listModelFactory((ArrayList<KnowledgeNode>) map.getAllKnowledgeNodes())
         );
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -160,9 +160,9 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     private void updateListItems(String scope) {
         ArrayList<KnowledgeNode> a;
         if (scope.equals("Choose a catagory"))
-            a = map.getAllKnowledgeNodes();
+            a = (ArrayList<KnowledgeNode>) map.getAllKnowledgeNodes();
         else {
-            a = map.getCatagory(scope);
+            a = (ArrayList<KnowledgeNode>) map.getCatagory(scope);
             Collections.sort(a, KnowledgeNodeList.comparatorBySignificance());
         }
         jList1.setModel(listModelFactory(a));

@@ -24,7 +24,7 @@ public class TestHibernate {
             throw new ExceptionInInitializerError(ex);
         }
 
-        KnowledgeMap map = new KnowledgeMap("Test");
+        KnowledgeMap map = new KnowledgeMapImpl("Test");
         map.addCatagory("Test");
         System.out.println(map.containsCatagory("Test"));
         map.addKnowledgeNodeTo("Test", new KnowledgeNodeImpl("a", "Symptom", "", "", "", "", ""));

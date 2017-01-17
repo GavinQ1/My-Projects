@@ -208,7 +208,8 @@ public class KnowledgeNodeImpl implements
     public void addNeighbor(KnowledgeNode k) {
         if (k == this || // k is iteself
             k.getName().equals(this.name) || // k has same name
-            !this.catagory.equals(k.getCatagory())) // k is from a different catagory
+//            || !this.catagory.equals(k.getCatagory()) // k is from a different catagory
+                this.destinations.contains(k))  // k is a destination of this node
             return;  // do not add k as a neighbor
         this.neighbors.add(k);
         k.getNeighbors().add(this);
@@ -222,7 +223,7 @@ public class KnowledgeNodeImpl implements
         k.getDestinations().remove(this);
         significance--;
         for (KnowledgeNode s : this.sources)
-            this.removeNeighbor(s);
+            k.removeNeighbor(s);
     }
     
     @Override
@@ -297,12 +298,7 @@ public class KnowledgeNodeImpl implements
         a.addDestination(d);
         a.addDestination(d);
         e.addDestination(d);
-        System.out.println(a.destinations.membersToString());
-        System.out.println(d.chineseFormattedInformation());
-        a.removeDestination(d);
-        System.out.println(a.destinations.membersToString());
-        a.addDestination(d);
-        System.out.println(a.destinations.membersToString());
+        System.out.println(e.chineseFormattedInformation());
         
     }
 }

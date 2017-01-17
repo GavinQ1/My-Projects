@@ -1,6 +1,5 @@
 package KnowledgeNodeEditor;
 
-import KnowledgeNodeEditor.KnowledgeNodeEditorView.MyTreeNode;
 import Models.KnowledgeNode;
 import java.awt.event.MouseEvent;
 
@@ -15,7 +14,6 @@ public interface KnowledgeNodeEditorControl {
     void initialize();
     
     KnowledgeNode getNode();
-    void knowledgeTreeValueChangedAction(MyTreeNode selected);
     void catagoryComboBoxActionPerformed();
     
     void knowledgeTreeAddActionPerformed();   // Add

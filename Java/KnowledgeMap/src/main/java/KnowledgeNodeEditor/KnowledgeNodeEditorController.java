@@ -17,6 +17,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class KnowledgeNodeEditorController extends GeneralController implements KnowledgeNodeEditorControl {
 
     private boolean needSave = false, saved = false, savePressed = false;
+    private String oldNodeCatagoryName = null;
     private KnowledgeMap map;
     private KnowledgeNode node;
     private KnowledgeNodeEditorView view;
@@ -43,7 +44,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
     public boolean isSaved() {
         return saved || savePressed;
     }
-    
+
     // function for initialize the view
     public void initialize() {
         view.getNameTextField().setText(node.getName());
@@ -56,11 +57,6 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             view.getCatagoryComboBox().addItem(s);
         });
         updateInfoPane();
-    }
-
-    // function for treeValueChanged evt
-    public void knowledgeTreeValueChangedAction(MyTreeNode selected) {
-        view.setSelectedTreeNode((MyTreeNode) view.getKnowledgeTree().getLastSelectedPathComponent());
     }
 
     // function for add a node
@@ -118,9 +114,12 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
                         e.hasMoreElements();) {
                     MyTreeNode neighborNode = e.nextElement();
                     KnowledgeNode neighbor = (KnowledgeNode) neighborNode.getUserObject();
+                    /*
                     if (node.getCatagory().equals(neighbor.getCatagory())) {
                         nodeOnTree.add(neighbor);
                     }
+                     */
+                    nodeOnTree.add(neighbor);
                 }
                 for (KnowledgeNode k : node.getNeighbors()) {
                     if (!nodeOnTree.contains(k)) {
@@ -225,16 +224,17 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             needSave = true;
         }
     }
-    
+
     // function for Catagory name hints
     public void catagoryComboBoxActionPerformed() {
         String input = (String) view.getCatagoryComboBox().getSelectedItem();
-        if (input.equals(KnowledgeNodeEditorView.CATA_COMBO_BOX_DEFAULT_OPTION))
+        if (input.equals(KnowledgeNodeEditorView.CATA_COMBO_BOX_DEFAULT_OPTION)) {
             input = view.getCatagoryTextField().getText().trim();
+        }
         view.getCatagoryTextField().setText(input);
     }
 
-    // function for create a new node
+    // function for "New" button, create a new node
     public void newNodeActionPerformed() {
         KnowledgeNode newNode = KnowledgeNodeEditorApp.create(map);
         if (newNode == null) {
@@ -254,7 +254,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
             KnowledgeNodeEditorController.errorMessageBox(e.toString());
         }
     }
-    
+
     // function for the "EXIT" button
     public void exitActionPerformed() {
         try {
@@ -302,16 +302,18 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         String temp = view.getNameTextField().getText().trim();
         checkNameAvaliability(temp);
         node.setName(temp);
-        temp = view.getCatagoryTextField().getText().trim();
-        node.setCatagory(temp);
         temp = view.getDefinitionTextArea().getText().trim();
         node.setDefinition(temp);
         temp = view.getDescriptionTextArea().getText().trim();
         node.setDescription(temp);
+        temp = view.getCatagoryTextField().getText().trim();
+        oldNodeCatagoryName = node.getCatagory();
+        node.setCatagory(temp);
+        map.moveKnowledgeNodeFrom(oldNodeCatagoryName, node.getCatagory(), node);
     }
-    
+
     // save action function
-    private void saveAction()  throws InvalidInputException {
+    private void saveAction() throws InvalidInputException {
         saveInTo(node);
         updateInfoPane();
         clearCache();
@@ -324,8 +326,8 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         sum += sourcesCache.values().stream().map((i) -> i).reduce(sum, Integer::sum);
         sum += destinationsCache.values().stream().map((i) -> i).reduce(sum, Integer::sum);
         sum += neighborsCache.values().stream().map((i) -> i).reduce(sum, Integer::sum);
-        
-        return  sum == 0 
+
+        return sum == 0
                 && node.getName().equals(view.getNameTextField().getText().trim())
                 && node.getCatagory().equals(view.getCatagoryTextField().getText().trim())
                 && node.getDefinition().equals(view.getDefinitionTextArea().getText().trim())
@@ -419,8 +421,6 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
 
         a.addDestination(b);
         b.addDestination(c);
-        a.addDestination(c);
-        a.addDestination(e);
         f.addDestination(e);
 
         KnowledgeMap map = new KnowledgeMapImpl("K");

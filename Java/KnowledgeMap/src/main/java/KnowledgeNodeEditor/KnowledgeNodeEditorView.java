@@ -300,35 +300,16 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
         relatedNodeLabel.setForeground(new java.awt.Color(0, 51, 51));
         relatedNodeLabel.setText("Related Nodes:");
 
-        knowledgeTree.setRootVisible(false);
         knowledgeTree.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 102, 255)));
         knowledgeTree.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
         knowledgeTree.setForeground(new java.awt.Color(102, 102, 102));
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Sources");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("S1");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Destinations");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("D1");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Neighbors");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("N1");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        knowledgeTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        knowledgeTree.setModel(createTreeModel(node));
         knowledgeTree.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         knowledgeTree.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         knowledgeTree.setRootVisible(false);
         knowledgeTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 knowledgeTreeMouseClicked(evt);
-            }
-        });
-        knowledgeTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
-            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                knowledgeTreeValueChanged(evt);
             }
         });
         jScrollPane4.setViewportView(knowledgeTree);
@@ -490,10 +471,6 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void knowledgeTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_knowledgeTreeValueChanged
-        this.controller.knowledgeTreeValueChangedAction((MyTreeNode) knowledgeTree.getLastSelectedPathComponent());
-    }//GEN-LAST:event_knowledgeTreeValueChanged
 
     private void addNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNodeButtonActionPerformed
         this.controller.knowledgeTreeAddActionPerformed();

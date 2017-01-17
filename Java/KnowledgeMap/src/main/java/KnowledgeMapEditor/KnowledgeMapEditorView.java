@@ -1,23 +1,74 @@
 package KnowledgeMapEditor;
 
 import KnowledgeNodeEditor.*;
-import Models.KnowledgeMap;
-import Models.KnowledgeNodeImpl;
+import Models.*;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
  * @author Gavin
  */
 public class KnowledgeMapEditorView extends javax.swing.JFrame {
+    
+    static class MyTreeNode extends DefaultMutableTreeNode {
 
+        public MyTreeNode(Object k) {
+            super(k);
+        }
+
+        public String toString() {
+            Object o = getUserObject();
+            if (o instanceof KnowledgeNode) {
+                return ((KnowledgeNode) o).getName();
+            }
+            if (o instanceof KnowledgeNodeList) {
+                return ((KnowledgeNodeList) o).getName();
+            }
+            if (o instanceof KnowledgeMap) {
+                return ((KnowledgeMap) o).getName();
+            }
+            return o.toString();
+        }
+    }
+    
+    private KnowledgeMap edittingMap;
+    private KnowledgeMapEditorControl controller;
+    
     /**
      * Creates new form KnowledgeMapEditorView
+     * @param controller
      */
-    public KnowledgeMapEditorView() {
+    
+    public KnowledgeMapEditorView(KnowledgeMapEditorControl controller) {
+        this.controller = controller;
+        this.edittingMap = controller.getMap();
         initComponents();
         setTitle("Knowledge Map");
+        
+        getRegistered();
+        controller.initialize();
+        setVisible(true);
     }
-
+    
+    private void getRegistered() {
+        controller.register(this);
+    }
+    
+    DefaultTreeModel createTreeModel(KnowledgeMap map) {
+        MyTreeNode root = new MyTreeNode(map);
+        String[] cataNames = map.getAllCatagoryNames();
+        for (String cataName : cataNames) {
+            MyTreeNode cata = new MyTreeNode(cataName);
+            map.getCatagory(cataName).stream().forEach((k) -> {
+                cata.add(new MyTreeNode(k));
+            });
+            root.add(cata);
+        }
+        return new DefaultTreeModel(root);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,17 +77,17 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jSplitPane1 = new javax.swing.JSplitPane();
         nodeTreeSplitPane = new javax.swing.JSplitPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        nodesTree = new javax.swing.JTree();
         nodeToolBar = new javax.swing.JToolBar();
-        nodeOpenButton = new javax.swing.JButton();
-        nodeEditButton = new javax.swing.JButton();
-        nodeAddButton = new javax.swing.JButton();
-        nodeDeleteButton = new javax.swing.JButton();
+        selectButton = new javax.swing.JButton();
+        viewNodeButton = new javax.swing.JButton();
+        editNodeButton = new javax.swing.JButton();
+        createNodeButton = new javax.swing.JButton();
+        deleteNodeButton = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         jSplitPane3 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
@@ -74,101 +125,80 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("JTree");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Map 1");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("症状");
-        javax.swing.tree.DefaultMutableTreeNode treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("体质");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("药方");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Map 2");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("症状");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("体质");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("药方");
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("1");
-        treeNode3.add(treeNode4);
-        treeNode4 = new javax.swing.tree.DefaultMutableTreeNode("2");
-        treeNode3.add(treeNode4);
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.setRootVisible(false);
-        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+        nodesTree.setModel(createTreeModel(edittingMap)
+        );
+        nodesTree.setPreferredSize(new java.awt.Dimension(130, 84));
+        nodesTree.setModel(createTreeModel(edittingMap));
+        nodesTree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTree1MouseClicked(evt);
+                nodesTreeMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nodesTreeMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                nodesTreeMouseReleased(evt);
             }
         });
-        jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+        nodesTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                jTree1ValueChanged(evt);
+                nodesTreeValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(jTree1);
+        jScrollPane2.setViewportView(nodesTree);
 
         nodeTreeSplitPane.setRightComponent(jScrollPane2);
 
         nodeToolBar.setOrientation(javax.swing.SwingConstants.VERTICAL);
         nodeToolBar.setRollover(true);
         nodeToolBar.setName(""); // NOI18N
+        nodeToolBar.setPreferredSize(new java.awt.Dimension(70, 131));
 
-        nodeOpenButton.setText("Open");
-        nodeOpenButton.setFocusable(false);
-        nodeOpenButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        nodeOpenButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        nodeOpenButton.addActionListener(new java.awt.event.ActionListener() {
+        selectButton.setText("Select");
+        selectButton.setFocusable(false);
+        selectButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        selectButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        selectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nodeOpenButtonActionPerformed(evt);
+                selectButtonActionPerformed(evt);
             }
         });
-        nodeToolBar.add(nodeOpenButton);
+        nodeToolBar.add(selectButton);
 
-        nodeEditButton.setText("Edit");
-        nodeEditButton.addActionListener(new java.awt.event.ActionListener() {
+        viewNodeButton.setText("View");
+        viewNodeButton.setFocusable(false);
+        viewNodeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        viewNodeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        viewNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nodeEditButtonActionPerformed(evt);
+                viewNodeButtonActionPerformed(evt);
             }
         });
-        nodeToolBar.add(nodeEditButton);
+        nodeToolBar.add(viewNodeButton);
 
-        nodeAddButton.setText("Add");
-        nodeAddButton.addActionListener(new java.awt.event.ActionListener() {
+        editNodeButton.setText("Edit");
+        editNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nodeAddButtonActionPerformed(evt);
+                editNodeButtonActionPerformed(evt);
             }
         });
-        nodeToolBar.add(nodeAddButton);
+        nodeToolBar.add(editNodeButton);
 
-        nodeDeleteButton.setText("Delete");
-        nodeDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+        createNodeButton.setText("Create");
+        createNodeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nodeDeleteButtonActionPerformed(evt);
+                createNodeButtonActionPerformed(evt);
             }
         });
-        nodeToolBar.add(nodeDeleteButton);
+        nodeToolBar.add(createNodeButton);
+
+        deleteNodeButton.setText("Delete");
+        deleteNodeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteNodeButtonActionPerformed(evt);
+            }
+        });
+        nodeToolBar.add(deleteNodeButton);
 
         nodeTreeSplitPane.setLeftComponent(nodeToolBar);
 
@@ -253,7 +283,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(forwardButton))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,29 +375,29 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTree1MouseClicked
+    private void nodesTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nodesTreeMouseClicked
+        controller.nodesTreeMouseClicked(evt);
+    }//GEN-LAST:event_nodesTreeMouseClicked
 
-    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
+    private void nodesTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_nodesTreeValueChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTree1ValueChanged
+    }//GEN-LAST:event_nodesTreeValueChanged
 
-    private void nodeOpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeOpenButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nodeOpenButtonActionPerformed
+    private void viewNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewNodeButtonActionPerformed
+        controller.viewNodeButtonActionPerformed();
+    }//GEN-LAST:event_viewNodeButtonActionPerformed
 
-    private void nodeEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeEditButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nodeEditButtonActionPerformed
+    private void editNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editNodeButtonActionPerformed
+        controller.editNodeButtonActionPerformed();
+    }//GEN-LAST:event_editNodeButtonActionPerformed
 
-    private void nodeAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeAddButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nodeAddButtonActionPerformed
+    private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
+        controller.createNodeButtonActionPerformed();
+    }//GEN-LAST:event_createNodeButtonActionPerformed
 
-    private void nodeDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodeDeleteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nodeDeleteButtonActionPerformed
+    private void deleteNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNodeButtonActionPerformed
+        controller.deleteNodeButtonActionPerformed();
+    }//GEN-LAST:event_deleteNodeButtonActionPerformed
 
     private void fileNewMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNewMapItemActionPerformed
         
@@ -392,6 +422,18 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     private void fileExitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileExitItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fileExitItemActionPerformed
+
+    private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectButtonActionPerformed
+
+    private void nodesTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nodesTreeMousePressed
+        controller.nodesTreeMousePressed(evt);
+    }//GEN-LAST:event_nodesTreeMousePressed
+
+    private void nodesTreeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nodesTreeMouseReleased
+        controller.nodesTreeMouseReleased(evt);
+    }//GEN-LAST:event_nodesTreeMouseReleased
 
     /**
      * @param args the command line arguments
@@ -420,16 +462,42 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new KnowledgeMapEditorView().setVisible(true);
-            }
-        });
+        KnowledgeNode a = new KnowledgeNodeImpl("症状1", "症状", "A", "First", "Source", "相关的结果", "相关的症状");
+        KnowledgeNode b = new KnowledgeNodeImpl("体质1", "体质", "B", "Second", "Source", "相关的结果", "相关的体质");
+        KnowledgeNode c = new KnowledgeNodeImpl("药方1", "药方", "C", "Third", "Source", "相关的结果", "相关的药方");
+        KnowledgeNode d = new KnowledgeNodeImpl("药方2", "药方", "D", "Fourth", "Source", "相关的结果", "相关的药方");
+        KnowledgeNode e = new KnowledgeNodeImpl("体质2", "体质", "E", "Fourth", "Source", "相关的结果", "相关的体质");
+        KnowledgeNode f = new KnowledgeNodeImpl("症状2", "症状", "F", "Fourth", "Source", "相关的结果", "相关的症状");
+
+        a.addDestination(b);
+        b.addDestination(c);
+        a.addDestination(c);
+        f.addDestination(e);
+
+        KnowledgeMap map = new KnowledgeMapImpl("Test");
+        map.addCatagory("症状");
+        map.addCatagory("体质");
+        map.addCatagory("药方");
+        map.addKnowledgeNodeTo(a.getCatagory(), a);
+        map.addKnowledgeNodeTo(b.getCatagory(), b);
+        map.addKnowledgeNodeTo(c.getCatagory(), c);
+        map.addKnowledgeNodeTo(d.getCatagory(), d);
+        map.addKnowledgeNodeTo(e.getCatagory(), e);
+        map.addKnowledgeNodeTo(f.getCatagory(), f);
+        
+        KnowledgeMapEditorControl controller = new KnowledgeMapEditorController(map);
+        KnowledgeMapEditorView view = new KnowledgeMapEditorView(controller);
+    }
+    
+    public JTree getNodesTree() {
+        return nodesTree;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backwardButton;
+    private javax.swing.JButton createNodeButton;
+    private javax.swing.JButton deleteNodeButton;
+    private javax.swing.JButton editNodeButton;
     private javax.swing.JButton exportPathButton;
     private javax.swing.JMenuItem fileCloseMapItem;
     private javax.swing.JMenuItem fileExitItem;
@@ -459,17 +527,15 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
-    private javax.swing.JTree jTree1;
-    private javax.swing.JButton nodeAddButton;
-    private javax.swing.JButton nodeDeleteButton;
-    private javax.swing.JButton nodeEditButton;
-    private javax.swing.JButton nodeOpenButton;
     private javax.swing.JToolBar nodeToolBar;
     private javax.swing.JSplitPane nodeTreeSplitPane;
+    private javax.swing.JTree nodesTree;
     private javax.swing.JLabel relatedNodesLabel;
     private javax.swing.JList<String> relatedNodesList;
+    private javax.swing.JButton selectButton;
     private javax.swing.JLabel selectedNodesLabel;
     private javax.swing.JList<String> selectedNodesList;
+    private javax.swing.JButton viewNodeButton;
     private javax.swing.JButton viewPathButton;
     // End of variables declaration//GEN-END:variables
 }

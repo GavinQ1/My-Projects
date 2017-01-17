@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import javax.persistence.*;
 
@@ -13,7 +14,6 @@ import javax.persistence.*;
  */
 @Entity(name = "KnowledgeMap")
 public class KnowledgeMapImpl implements KnowledgeMap {
-
     @Id
     @Basic
     private String name;
@@ -23,6 +23,10 @@ public class KnowledgeMapImpl implements KnowledgeMap {
     @CollectionTable(name = "knowldegeNodeCollection")
     @MapKeyJoinColumn(name = "KnowledgeNodeCollection_id", referencedColumnName = "id")
     private Map<String, ArrayList<KnowledgeNode>> map;
+
+    public KnowledgeMapImpl() {
+        this("New Map");
+    }
 
     public KnowledgeMapImpl(String name) {
         this.name = name;
@@ -41,8 +45,8 @@ public class KnowledgeMapImpl implements KnowledgeMap {
     }
 
     @Override
-    public HashMap<String, ArrayList<KnowledgeNode>> getMap() {
-        return (HashMap<String, ArrayList<KnowledgeNode>>) this.map;
+    public Map<String, ArrayList<KnowledgeNode>> getMap() {
+        return this.map;
     }
 
     @Override
@@ -54,7 +58,8 @@ public class KnowledgeMapImpl implements KnowledgeMap {
     public Object clone() throws CloneNotSupportedException {
         try {
             KnowledgeMap cloned = (KnowledgeMap) super.clone();
-            cloned.setMap((HashMap<String, ArrayList<KnowledgeNode>>) ((HashMap<String, ArrayList<KnowledgeNode>>) map).clone());
+            cloned.setMap((HashMap<String, ArrayList<KnowledgeNode>>) 
+                    ((HashMap<String, ArrayList<KnowledgeNode>>) map).clone());
             return cloned;
         } catch (CloneNotSupportedException e) {
             return null;
@@ -72,7 +77,7 @@ public class KnowledgeMapImpl implements KnowledgeMap {
     }
 
     @Override
-    public ArrayList<KnowledgeNode> getCatagory(String catagoryName) {
+    public List<KnowledgeNode> getCatagory(String catagoryName) {
         this.map.putIfAbsent(catagoryName, new ArrayList<>());
         return this.map.get(catagoryName);
     }
@@ -113,18 +118,18 @@ public class KnowledgeMapImpl implements KnowledgeMap {
 
     @Override
     public void addKnowledgeNodeTo(String catagoryName, KnowledgeNode k) {
-        if (k == null) {
+        if (k == null) 
             return;
-        }
+        
         getCatagory(catagoryName).add(k);
         k.setId(++size);
     }
 
     @Override
     public void deleteCatagory(String catagoryName) {
-        if (!containsCatagory(catagoryName)) {
+        if (!containsCatagory(catagoryName)) 
             return;
-        }
+        
         getCatagory(catagoryName).stream().forEach((k) -> {
             k.removeAllRelated();
         });
@@ -133,29 +138,36 @@ public class KnowledgeMapImpl implements KnowledgeMap {
 
     @Override
     public void deleteKnowledgeNodeFrom(String catagoryName, KnowledgeNode k) {
-        if (!this.map.containsKey(catagoryName)) {
+        if (!this.map.containsKey(catagoryName)) 
             return;
-        }
+        
         boolean exist = getCatagory(catagoryName).remove(k);
-        if (exist) {
+        if (exist) 
             k.removeAllRelated();
-        }
     }
 
     @Override
-    public void deleteKnowledgeNodeFrom(String catagoryName, String knowledgeNodeName) {
-        deleteKnowledgeNodeFrom(catagoryName,
-                getKnowldegeNodeFrom(catagoryName, knowledgeNodeName));
+    public void moveKnowledgeNodeFrom(String oldCatagory, String newCatagory, KnowledgeNode k) {
+        if (!this.map.containsKey(oldCatagory)) 
+            return;
+        
+        getCatagory(oldCatagory).remove(k);
+        getCatagory(newCatagory).add(k);
     }
 
     @Override
-    public ArrayList<KnowledgeNode> getAllKnowledgeNodes() {
+    public List<KnowledgeNode> getAllKnowledgeNodes() {
         ArrayList<KnowledgeNode> a = new ArrayList<>();
         map.keySet().stream().forEach((key) -> {
             a.addAll(new HashSet<>(map.get(key)));
         });
         Collections.sort(a, KnowledgeNodeList.comparatorBySignificance());
-        return a;
+        return (ArrayList<KnowledgeNode>) a;
+    }
+    
+    @Override
+    public String[] getAllCatagoryNames() {
+        return map.keySet().toArray(new String[map.size()]);
     }
 
     // unit test
@@ -163,8 +175,9 @@ public class KnowledgeMapImpl implements KnowledgeMap {
         KnowledgeMap map = new KnowledgeMapImpl("K");
         map.addCatagory("Test");
         System.out.println(map.containsCatagory("Test"));
-        map.addKnowledgeNodeTo("Test", new KnowledgeNodeImpl("a", "Solution", "", "", "", "", ""));
+        KnowledgeNode a = new KnowledgeNodeImpl("a", "Solution", "", "", "", "", "");
+        map.addKnowledgeNodeTo("Test", a);
         System.out.println(map.getKnowldegeNodeFrom("Test", "a").chineseFormattedInformation());
-        map.deleteKnowledgeNodeFrom("Test", "a");
+        map.deleteKnowledgeNodeFrom("Test", a);
     }
 }
