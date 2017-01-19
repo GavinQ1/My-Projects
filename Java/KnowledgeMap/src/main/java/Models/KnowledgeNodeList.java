@@ -43,6 +43,8 @@ public interface KnowledgeNodeList extends Cloneable, Iterable<KnowledgeNode>, S
 
     String getName();
     
+    String getFullName();
+    
     String getId();
 
     static Comparator<KnowledgeNode> comparatorByCatagory() {

@@ -8,11 +8,17 @@ import java.awt.Color;
  * @author Gavin
  */
 public class KnowledgeNodeWikiApp extends javax.swing.JDialog {
-
+    
     public static final void run(KnowledgeNode k) {
-        EnhanceAppView.enhanceVision();
+        KnowledgeNodeWikiApp.run(k, true);
+    }
 
-        new KnowledgeNodeWikiApp(k).setVisible(true);
+    public static final void run(KnowledgeNode k, boolean center) {
+        EnhanceAppView.enhanceVision();
+        KnowledgeNodeWikiApp view = new KnowledgeNodeWikiApp(k);
+        if (center)
+            view.setLocationRelativeTo(null);
+        view.setVisible(true);
     }
 
     /**
@@ -42,7 +48,7 @@ public class KnowledgeNodeWikiApp extends javax.swing.JDialog {
         setTitle("Knowledge Node Wiki");
 
         titleLabel.setFont(new java.awt.Font("华文琥珀", 0, 24)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(102, 102, 102));
+        titleLabel.setForeground(new java.awt.Color(0, 51, 51));
         titleLabel.setText("             详细内容");
         titleLabel.setToolTipText("");
         titleLabel.setBorder(null);

@@ -55,7 +55,7 @@
           <Font name="&#x534e;&#x6587;&#x7425;&#x73c0;" size="24" style="0"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="66" red="66" type="rgb"/>
+          <Color blue="33" green="33" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="             &#x8be6;&#x7ec6;&#x5185;&#x5bb9;"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>

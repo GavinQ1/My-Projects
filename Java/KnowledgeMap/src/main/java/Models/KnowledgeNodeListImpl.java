@@ -99,6 +99,11 @@ public class KnowledgeNodeListImpl implements KnowledgeNodeList {
     
     @Override
     public String getName() {
+        return this.catagoryName;
+    }
+    
+    @Override
+    public String getFullName() {
         if (this.listType != null)
             return this.listType + " - " + this.catagoryName;
         return this.catagoryName;
@@ -125,6 +130,7 @@ public class KnowledgeNodeListImpl implements KnowledgeNodeList {
             if (hist.get(k) > 0)
                 a.add(k);
         }
+        Collections.sort(a);
         return a;
     }
     

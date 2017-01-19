@@ -24,7 +24,7 @@ public class KnowledgeNodeEditorView extends javax.swing.JDialog {
                 return ((KnowledgeNode) getUserObject()).getName();
             }
             if (getUserObject() instanceof KnowledgeNodeList) {
-                return ((KnowledgeNodeList) getUserObject()).getName();
+                return ((KnowledgeNodeList) getUserObject()).getFullName();
             }
             return super.toString();
         }

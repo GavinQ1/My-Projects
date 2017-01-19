@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
  * @author Gavin
  */
 public interface KnowledgeMapEditorControl {
+    static final String resultCatagoryComboBoxDefaultString = "Choose a catagory";
     
     KnowledgeMap getMap();
     
@@ -33,4 +34,26 @@ public interface KnowledgeMapEditorControl {
     void deleteNodeButtonActionPerformed();
     
     void viewNodeButtonActionPerformed();
+    
+    void selectNodeButtonActionPerformed();
+    
+    void resultCatagoryComboBoxActionPerformed();
+    
+    void selectedNodesListMouseClicked(MouseEvent evt);
+    
+    void selectedNodesListMousePressed(MouseEvent evt);
+    
+    void selectedNodesListMouseReleased(MouseEvent evt);
+    
+    void removeButtonActionPerformed();
+    
+    void addButtonActionPerformed();
+    
+    void relatedNodesListMouseClicked(MouseEvent evt);
+    
+    void relatedNodesListMousePressed(MouseEvent evt);
+    
+    void relatedNodesListMouseReleased(MouseEvent evt);
+    
+    
 }

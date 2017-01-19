@@ -2,7 +2,7 @@ package KnowledgeMapEditor;
 
 import KnowledgeNodeEditor.*;
 import Models.*;
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -81,35 +81,37 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         nodeTreeSplitPane = new javax.swing.JSplitPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        nodesTree = new javax.swing.JTree();
         nodeToolBar = new javax.swing.JToolBar();
         selectButton = new javax.swing.JButton();
         viewNodeButton = new javax.swing.JButton();
         editNodeButton = new javax.swing.JButton();
         createNodeButton = new javax.swing.JButton();
         deleteNodeButton = new javax.swing.JButton();
-        jSplitPane2 = new javax.swing.JSplitPane();
-        jSplitPane3 = new javax.swing.JSplitPane();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
+        addButton = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        selectedNodesLabel = new javax.swing.JLabel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        selectedNodesList = new javax.swing.JList<>();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        relatedNodesList = new javax.swing.JList<>();
-        relatedNodesLabel = new javax.swing.JLabel();
+        nodesTree = new javax.swing.JTree();
+        jSplitPane2 = new javax.swing.JSplitPane();
         jPanel4 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        resultCatagoryComboBox = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        destinationNodesList = new javax.swing.JList<>();
         forwardButton = new javax.swing.JButton();
         backwardButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        resultLabel = new javax.swing.JLabel();
         viewPathButton = new javax.swing.JButton();
         exportPathButton = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        relatedNodesLabel = new javax.swing.JLabel();
+        selectedNodesLabel = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        selectedNodesList = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        relatedNodesList = new javax.swing.JList<>();
+        jSeparator5 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileNewMapItem = new javax.swing.JMenuItem();
@@ -125,30 +127,6 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
-
-        nodesTree.setModel(createTreeModel(edittingMap)
-        );
-        nodesTree.setPreferredSize(new java.awt.Dimension(130, 84));
-        nodesTree.setModel(createTreeModel(edittingMap));
-        nodesTree.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nodesTreeMouseClicked(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                nodesTreeMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                nodesTreeMouseReleased(evt);
-            }
-        });
-        nodesTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
-            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                nodesTreeValueChanged(evt);
-            }
-        });
-        jScrollPane2.setViewportView(nodesTree);
-
-        nodeTreeSplitPane.setRightComponent(jScrollPane2);
 
         nodeToolBar.setOrientation(javax.swing.SwingConstants.VERTICAL);
         nodeToolBar.setRollover(true);
@@ -200,72 +178,86 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
             }
         });
         nodeToolBar.add(deleteNodeButton);
+        nodeToolBar.add(jSeparator7);
+
+        addButton.setText("Add");
+        addButton.setFocusable(false);
+        addButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+        nodeToolBar.add(addButton);
+
+        removeButton.setText("Remove");
+        removeButton.setFocusable(false);
+        removeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        removeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
+        nodeToolBar.add(removeButton);
 
         nodeTreeSplitPane.setLeftComponent(nodeToolBar);
 
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        nodesTree.setModel(createTreeModel(edittingMap)
+        );
+        nodesTree.setMaximumSize(new java.awt.Dimension(130, 84));
+        nodesTree.setMinimumSize(new java.awt.Dimension(130, 84));
+        nodesTree.setPreferredSize(new java.awt.Dimension(130, 84));
+        nodesTree.setModel(createTreeModel(edittingMap));
+        nodesTree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nodesTreeMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nodesTreeMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                nodesTreeMouseReleased(evt);
+            }
+        });
+        jScrollPane5.setViewportView(nodesTree);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 150;
+        gridBagConstraints.ipady = 400;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 6);
+        jPanel1.add(jScrollPane5, gridBagConstraints);
+
+        nodeTreeSplitPane.setRightComponent(jPanel1);
+
         jSplitPane1.setLeftComponent(nodeTreeSplitPane);
-
-        jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane3.setPreferredSize(new java.awt.Dimension(100, 418));
-
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        jPanel1.add(jScrollPane3, java.awt.BorderLayout.PAGE_START);
-
-        selectedNodesLabel.setText("Selected Nodes");
-        jPanel1.add(selectedNodesLabel, java.awt.BorderLayout.CENTER);
-
-        selectedNodesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        selectedNodesList.setPreferredSize(new java.awt.Dimension(55, 110));
-        jScrollPane7.setViewportView(selectedNodesList);
-
-        jPanel1.add(jScrollPane7, java.awt.BorderLayout.PAGE_END);
-
-        jSplitPane3.setLeftComponent(jPanel1);
-
-        jPanel2.setLayout(new java.awt.CardLayout());
-
-        jPanel3.setLayout(new java.awt.BorderLayout());
-
-        relatedNodesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        relatedNodesList.setPreferredSize(new java.awt.Dimension(55, 110));
-        jScrollPane5.setViewportView(relatedNodesList);
-
-        jPanel3.add(jScrollPane5, java.awt.BorderLayout.CENTER);
-
-        relatedNodesLabel.setText("Related Nodes");
-        jPanel3.add(relatedNodesLabel, java.awt.BorderLayout.PAGE_START);
-
-        jPanel2.add(jPanel3, "card2");
-
-        jSplitPane3.setRightComponent(jPanel2);
-
-        jSplitPane2.setLeftComponent(jSplitPane3);
 
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        resultCatagoryComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultCatagoryComboBoxActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 44;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 27, 0, 0);
-        jPanel4.add(jComboBox1, gridBagConstraints);
+        jPanel4.add(resultCatagoryComboBox, gridBagConstraints);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(destinationNodesList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -297,14 +289,14 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(44, 18, 48, 0);
         jPanel4.add(backwardButton, gridBagConstraints);
 
-        jLabel1.setText("Corresponding Results");
+        resultLabel.setText("可能的结果");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(29, 18, 0, 0);
-        jPanel4.add(jLabel1, gridBagConstraints);
+        jPanel4.add(resultLabel, gridBagConstraints);
 
         viewPathButton.setText("View Path");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -325,6 +317,103 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         jPanel4.add(exportPathButton, gridBagConstraints);
 
         jSplitPane2.setRightComponent(jPanel4);
+
+        jPanel5.setMinimumSize(new java.awt.Dimension(213, 380));
+        jPanel5.setPreferredSize(new java.awt.Dimension(213, 380));
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        relatedNodesLabel.setText("相关的搜索项");
+        relatedNodesLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 125;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        jPanel5.add(relatedNodesLabel, gridBagConstraints);
+
+        selectedNodesLabel.setLabelFor(selectedNodesList);
+        selectedNodesLabel.setText("搜索项");
+        selectedNodesLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 125;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        jPanel5.add(selectedNodesLabel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 213;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
+        jPanel5.add(jSeparator4, gridBagConstraints);
+
+        selectedNodesList.setPreferredSize(new java.awt.Dimension(55, 110));
+        selectedNodesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectedNodesListMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                selectedNodesListMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                selectedNodesListMouseReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(selectedNodesList);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 170;
+        gridBagConstraints.ipady = 105;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 9, 0, 0);
+        jPanel5.add(jScrollPane3, gridBagConstraints);
+
+        relatedNodesList.setPreferredSize(new java.awt.Dimension(55, 110));
+        relatedNodesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                relatedNodesListMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                relatedNodesListMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                relatedNodesListMouseReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(relatedNodesList);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 170;
+        gridBagConstraints.ipady = 169;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 9, 16, 0);
+        jPanel5.add(jScrollPane4, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 213;
+        gridBagConstraints.ipady = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel5.add(jSeparator5, gridBagConstraints);
+
+        jSplitPane2.setLeftComponent(jPanel5);
 
         jSplitPane1.setRightComponent(jSplitPane2);
 
@@ -393,57 +482,37 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nodesTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nodesTreeMouseClicked
-        controller.nodesTreeMouseClicked(evt);
-    }//GEN-LAST:event_nodesTreeMouseClicked
-
-    private void nodesTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_nodesTreeValueChanged
+    private void fileExitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileExitItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nodesTreeValueChanged
-
-    private void viewNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewNodeButtonActionPerformed
-        controller.viewNodeButtonActionPerformed();
-    }//GEN-LAST:event_viewNodeButtonActionPerformed
-
-    private void editNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editNodeButtonActionPerformed
-        controller.editNodeButtonActionPerformed();
-    }//GEN-LAST:event_editNodeButtonActionPerformed
-
-    private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
-        controller.createNodeButtonActionPerformed();
-    }//GEN-LAST:event_createNodeButtonActionPerformed
-
-    private void deleteNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNodeButtonActionPerformed
-        controller.deleteNodeButtonActionPerformed();
-    }//GEN-LAST:event_deleteNodeButtonActionPerformed
-
-    private void fileNewMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNewMapItemActionPerformed
-        
-    }//GEN-LAST:event_fileNewMapItemActionPerformed
-
-    private void fileOpenMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileOpenMapItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fileOpenMapItemActionPerformed
-
-    private void fileCloseMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCloseMapItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fileCloseMapItemActionPerformed
-
-    private void fileSaveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileSaveItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fileSaveItemActionPerformed
+    }//GEN-LAST:event_fileExitItemActionPerformed
 
     private void fileSaveAsItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileSaveAsItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fileSaveAsItemActionPerformed
 
-    private void fileExitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileExitItemActionPerformed
+    private void fileSaveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileSaveItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fileExitItemActionPerformed
+    }//GEN-LAST:event_fileSaveItemActionPerformed
 
-    private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
+    private void fileCloseMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCloseMapItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_selectButtonActionPerformed
+    }//GEN-LAST:event_fileCloseMapItemActionPerformed
+
+    private void fileOpenMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileOpenMapItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileOpenMapItemActionPerformed
+
+    private void fileNewMapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileNewMapItemActionPerformed
+
+    }//GEN-LAST:event_fileNewMapItemActionPerformed
+
+    private void resultCatagoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultCatagoryComboBoxActionPerformed
+        controller.resultCatagoryComboBoxActionPerformed();
+    }//GEN-LAST:event_resultCatagoryComboBoxActionPerformed
+
+    private void nodesTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nodesTreeMouseClicked
+        controller.nodesTreeMouseClicked(evt);
+    }//GEN-LAST:event_nodesTreeMouseClicked
 
     private void nodesTreeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nodesTreeMousePressed
         controller.nodesTreeMousePressed(evt);
@@ -452,6 +521,58 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     private void nodesTreeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nodesTreeMouseReleased
         controller.nodesTreeMouseReleased(evt);
     }//GEN-LAST:event_nodesTreeMouseReleased
+
+    private void selectedNodesListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedNodesListMousePressed
+        controller.selectedNodesListMousePressed(evt);
+    }//GEN-LAST:event_selectedNodesListMousePressed
+
+    private void selectedNodesListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedNodesListMouseReleased
+        controller.selectedNodesListMouseReleased(evt);
+    }//GEN-LAST:event_selectedNodesListMouseReleased
+
+    private void selectedNodesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedNodesListMouseClicked
+        controller.selectedNodesListMouseClicked(evt);
+    }//GEN-LAST:event_selectedNodesListMouseClicked
+
+    private void relatedNodesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatedNodesListMouseClicked
+        controller.relatedNodesListMouseClicked(evt);
+    }//GEN-LAST:event_relatedNodesListMouseClicked
+
+    private void relatedNodesListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatedNodesListMousePressed
+        controller.relatedNodesListMousePressed(evt);
+    }//GEN-LAST:event_relatedNodesListMousePressed
+
+    private void relatedNodesListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatedNodesListMouseReleased
+        controller.relatedNodesListMouseReleased(evt);
+    }//GEN-LAST:event_relatedNodesListMouseReleased
+
+    private void deleteNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNodeButtonActionPerformed
+        controller.deleteNodeButtonActionPerformed();
+    }//GEN-LAST:event_deleteNodeButtonActionPerformed
+
+    private void createNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNodeButtonActionPerformed
+        controller.createNodeButtonActionPerformed();
+    }//GEN-LAST:event_createNodeButtonActionPerformed
+
+    private void editNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editNodeButtonActionPerformed
+        controller.editNodeButtonActionPerformed();
+    }//GEN-LAST:event_editNodeButtonActionPerformed
+
+    private void viewNodeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewNodeButtonActionPerformed
+        controller.viewNodeButtonActionPerformed();
+    }//GEN-LAST:event_viewNodeButtonActionPerformed
+
+    private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
+        controller.selectNodeButtonActionPerformed();
+    }//GEN-LAST:event_selectButtonActionPerformed
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        controller.removeButtonActionPerformed();
+    }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        controller.addButtonActionPerformed();
+    }//GEN-LAST:event_addButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,6 +612,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         b.addDestination(c);
         a.addDestination(c);
         f.addDestination(e);
+        a.addDestination(e);
 
         KnowledgeMap map = new KnowledgeMapImpl("Test");
         map.addCatagory("症状");
@@ -507,14 +629,44 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         KnowledgeMapEditorView view = new KnowledgeMapEditorView(controller);
     }
     
-    public JTree getNodesTree() {
+    JLabel getResultLabel() {
+        return resultLabel;
+    }
+    
+    JLabel getRelatedNodesLabel() {
+        return relatedNodesLabel;
+    }
+    
+    JLabel getSelectedNodesLabel() {
+        return selectedNodesLabel;
+    }
+    
+    JComboBox getResultCatagoryComboBox() {
+        return resultCatagoryComboBox;
+    }
+    
+    JList getDestinationNodesList() {
+        return destinationNodesList;
+    }
+    
+    JList getRelatedNodesList() {
+        return relatedNodesList;
+    }
+    
+    JList getSelectedNodesList() {
+        return selectedNodesList;
+    }
+    
+    JTree getNodesTree() {
         return nodesTree;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
     private javax.swing.JButton backwardButton;
     private javax.swing.JButton createNodeButton;
     private javax.swing.JButton deleteNodeButton;
+    private javax.swing.JList<String> destinationNodesList;
     private javax.swing.JButton editNodeButton;
     private javax.swing.JButton exportPathButton;
     private javax.swing.JMenuItem fileCloseMapItem;
@@ -525,31 +677,31 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     private javax.swing.JMenuItem fileSaveAsItem;
     private javax.swing.JMenuItem fileSaveItem;
     private javax.swing.JButton forwardButton;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JToolBar nodeToolBar;
     private javax.swing.JSplitPane nodeTreeSplitPane;
     private javax.swing.JTree nodesTree;
     private javax.swing.JLabel relatedNodesLabel;
     private javax.swing.JList<String> relatedNodesList;
+    private javax.swing.JButton removeButton;
+    private javax.swing.JComboBox<String> resultCatagoryComboBox;
+    private javax.swing.JLabel resultLabel;
     private javax.swing.JButton selectButton;
     private javax.swing.JLabel selectedNodesLabel;
     private javax.swing.JList<String> selectedNodesList;

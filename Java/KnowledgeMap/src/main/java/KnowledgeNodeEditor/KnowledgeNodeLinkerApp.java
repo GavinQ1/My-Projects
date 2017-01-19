@@ -2,10 +2,14 @@ package KnowledgeNodeEditor;
 
 import Models.*;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,7 +28,18 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         this.selected = null;
         initComponents();
         setModal(true);
-        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "Would You Like to Submit the changes and Leave?"
+                );
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    submitButtonActionPerformed(null);
+                } else if (dialogResult ==  JOptionPane.NO_OPTION) {
+                    dispose();
+                }
+            }
+        });
         getContentPane().setBackground(Color.white);
     }
 
@@ -50,7 +65,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
         jScrollPane3 = new javax.swing.JScrollPane();
         selectedListString = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Knowledge Node Linker");
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -80,124 +95,126 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
 
         avaliableNodeList.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(51, 51, 255)));
         avaliableNodeList.setFont(new java.awt.Font("华文细黑", 0, 14)); // NOI18N
-        avaliableNodeList.setModel(listModelFactory((ArrayList<KnowledgeNode>) map.getAllKnowledgeNodes())
-        );
-        avaliableNodeList.setName(""); // NOI18N
-        avaliableNodeList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                avaliableNodeListMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(avaliableNodeList);
+        avaliableNodeList.setModel(listModelFactory(filterList(
+            (ArrayList<KnowledgeNode>) map.getAllKnowledgeNodes())
+    )
+    );
+    avaliableNodeList.setName(""); // NOI18N
+    avaliableNodeList.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            avaliableNodeListMouseClicked(evt);
+        }
+    });
+    jScrollPane1.setViewportView(avaliableNodeList);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 318;
-        gridBagConstraints.ipady = 387;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 69, 0);
-        getContentPane().add(jScrollPane1, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.gridheight = 6;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 318;
+    gridBagConstraints.ipady = 387;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.weightx = 1.0;
+    gridBagConstraints.weighty = 1.0;
+    gridBagConstraints.insets = new java.awt.Insets(6, 6, 69, 0);
+    getContentPane().add(jScrollPane1, gridBagConstraints);
 
-        sourceRaido.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(sourceRaido);
-        sourceRaido.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
-        sourceRaido.setForeground(new java.awt.Color(153, 153, 153));
-        sourceRaido.setSelected(true);
-        sourceRaido.setText(node.getSources().getName());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 24, 0, 0);
-        getContentPane().add(sourceRaido, gridBagConstraints);
+    sourceRaido.setBackground(new java.awt.Color(255, 255, 255));
+    buttonGroup1.add(sourceRaido);
+    sourceRaido.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+    sourceRaido.setForeground(new java.awt.Color(153, 153, 153));
+    sourceRaido.setSelected(true);
+    sourceRaido.setText(node.getSources().getName());
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 3;
+    gridBagConstraints.gridy = 3;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.insets = new java.awt.Insets(10, 24, 0, 0);
+    getContentPane().add(sourceRaido, gridBagConstraints);
 
-        submitButton.setBackground(new java.awt.Color(102, 102, 102));
-        submitButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
-        submitButton.setForeground(new java.awt.Color(204, 204, 204));
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 32;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
-        gridBagConstraints.insets = new java.awt.Insets(265, 97, 69, 44);
-        getContentPane().add(submitButton, gridBagConstraints);
+    submitButton.setBackground(new java.awt.Color(51, 51, 51));
+    submitButton.setFont(new java.awt.Font("华文琥珀", 0, 14)); // NOI18N
+    submitButton.setForeground(new java.awt.Color(204, 204, 204));
+    submitButton.setText("Submit");
+    submitButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            submitButtonActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 3;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.ipadx = 32;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+    gridBagConstraints.insets = new java.awt.Insets(265, 97, 69, 44);
+    getContentPane().add(submitButton, gridBagConstraints);
 
-        destinationRadio.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(destinationRadio);
-        destinationRadio.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
-        destinationRadio.setForeground(new java.awt.Color(153, 153, 153));
-        destinationRadio.setText(node.getDestinations().getName());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
-        getContentPane().add(destinationRadio, gridBagConstraints);
+    destinationRadio.setBackground(new java.awt.Color(255, 255, 255));
+    buttonGroup1.add(destinationRadio);
+    destinationRadio.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+    destinationRadio.setForeground(new java.awt.Color(153, 153, 153));
+    destinationRadio.setText(node.getDestinations().getName());
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 3;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
+    getContentPane().add(destinationRadio, gridBagConstraints);
 
-        neighborRadio.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(neighborRadio);
-        neighborRadio.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
-        neighborRadio.setForeground(new java.awt.Color(153, 153, 153));
-        neighborRadio.setText(node.getNeighbors().getName());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
-        getContentPane().add(neighborRadio, gridBagConstraints);
+    neighborRadio.setBackground(new java.awt.Color(255, 255, 255));
+    buttonGroup1.add(neighborRadio);
+    neighborRadio.setFont(new java.awt.Font("华文细黑", 1, 14)); // NOI18N
+    neighborRadio.setForeground(new java.awt.Color(153, 153, 153));
+    neighborRadio.setText(node.getNeighbors().getName());
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 3;
+    gridBagConstraints.gridy = 5;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
+    getContentPane().add(neighborRadio, gridBagConstraints);
 
-        nodeListTitleLabel.setBackground(new java.awt.Color(102, 102, 102));
-        nodeListTitleLabel.setFont(new java.awt.Font("华文琥珀", 0, 24)); // NOI18N
-        nodeListTitleLabel.setForeground(new java.awt.Color(102, 102, 102));
-        nodeListTitleLabel.setLabelFor(avaliableNodeList);
-        nodeListTitleLabel.setText("Avaliable Nodes");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(34, 6, 0, 0);
-        getContentPane().add(nodeListTitleLabel, gridBagConstraints);
+    nodeListTitleLabel.setBackground(new java.awt.Color(102, 102, 102));
+    nodeListTitleLabel.setFont(new java.awt.Font("华文琥珀", 0, 24)); // NOI18N
+    nodeListTitleLabel.setForeground(new java.awt.Color(0, 51, 51));
+    nodeListTitleLabel.setLabelFor(avaliableNodeList);
+    nodeListTitleLabel.setText("Avaliable Nodes");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.insets = new java.awt.Insets(34, 6, 0, 0);
+    getContentPane().add(nodeListTitleLabel, gridBagConstraints);
 
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        selectedListString.setText("Add\n\n[" + "]\n\nto " + node.getName() + " as");
-        selectedListString.setEditable(false);
-        selectedListString.setColumns(20);
-        selectedListString.setFont(new java.awt.Font("华文细黑", 0, 18)); // NOI18N
-        selectedListString.setLineWrap(true);
-        selectedListString.setRows(6);
-        selectedListString.setToolTipText("");
-        selectedListString.setWrapStyleWord(true);
-        selectedListString.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 51, 255)));
-        jScrollPane3.setViewportView(selectedListString);
+    selectedListString.setText("Add\n\n[" + "]\n\nto " + node.getName() + " as");
+    selectedListString.setEditable(false);
+    selectedListString.setColumns(20);
+    selectedListString.setFont(new java.awt.Font("华文细黑", 0, 18)); // NOI18N
+    selectedListString.setLineWrap(true);
+    selectedListString.setRows(6);
+    selectedListString.setToolTipText("");
+    selectedListString.setWrapStyleWord(true);
+    selectedListString.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 51, 255)));
+    jScrollPane3.setViewportView(selectedListString);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 100;
-        gridBagConstraints.ipady = 106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(6, 24, 0, 44);
-        getContentPane().add(jScrollPane3, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 3;
+    gridBagConstraints.gridy = 1;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.gridheight = 2;
+    gridBagConstraints.ipadx = 100;
+    gridBagConstraints.ipady = 106;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+    gridBagConstraints.weightx = 1.0;
+    gridBagConstraints.weighty = 1.0;
+    gridBagConstraints.insets = new java.awt.Insets(6, 24, 0, 44);
+    getContentPane().add(jScrollPane3, gridBagConstraints);
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void nodeCatagoryComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nodeCatagoryComboBoxItemStateChanged
@@ -216,7 +233,19 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
             a = (ArrayList<KnowledgeNode>) map.getCatagory(scope);
             Collections.sort(a, KnowledgeNodeList.comparatorBySignificance());
         }
-        avaliableNodeList.setModel(listModelFactory(a));
+        avaliableNodeList.setModel(listModelFactory(filterList(a)));
+    }
+    
+    private ArrayList<KnowledgeNode> filterList(ArrayList<KnowledgeNode> a) {
+        ArrayList<KnowledgeNode> newa = new ArrayList<KnowledgeNode>();
+        a.stream().filter((k) -> (
+                node != k &&
+                !node.getSources().contains(k) &&
+                !node.getDestinations().contains(k) &&
+                !node.getNeighbors().contains(k))).forEach((k) -> {
+                    newa.add(k);
+        });
+        return newa;
     }
     
     private AbstractListModel<KnowledgeNode> listModelFactory(final ArrayList<KnowledgeNode> accounts) {
@@ -274,10 +303,10 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     }
     
     public ArrayList<KnowledgeNode> getSelected() {
-        ArrayList<KnowledgeNode> nodelist = (ArrayList<KnowledgeNode>) avaliableNodeList.getSelectedValuesList();
+        List<KnowledgeNode> nodelist = avaliableNodeList.getSelectedValuesList();
         if (nodelist.isEmpty())
             return null;
-        return nodelist;
+        return (ArrayList<KnowledgeNode>) nodelist;
     }
     
     public int getExpandedGroup() {
