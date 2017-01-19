@@ -18,7 +18,7 @@ public class KnowledgeMapImpl implements KnowledgeMap {
     @Basic
     private String name;
     @Basic
-    private Integer size;
+    private Integer idTracker;
     @ElementCollection
     @CollectionTable(name = "knowldegeNodeCollection")
     @MapKeyJoinColumn(name = "KnowledgeNodeCollection_id", referencedColumnName = "id")
@@ -31,7 +31,7 @@ public class KnowledgeMapImpl implements KnowledgeMap {
     public KnowledgeMapImpl(String name) {
         this.name = name;
         this.map = new HashMap<>();
-        this.size = 0;
+        this.idTracker = 0;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class KnowledgeMapImpl implements KnowledgeMap {
 
     @Override
     public Integer size() {
-        return size;
+        return map.size();
     }
 
     @Override
@@ -122,7 +122,7 @@ public class KnowledgeMapImpl implements KnowledgeMap {
             return;
         
         getCatagory(catagoryName).add(k);
-        k.setId(++size);
+        k.setId(++idTracker);
     }
 
     @Override
