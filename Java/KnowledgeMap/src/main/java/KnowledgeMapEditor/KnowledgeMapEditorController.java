@@ -89,14 +89,14 @@ public class KnowledgeMapEditorController extends GeneralController implements K
     public void selectedNodesListMouseReleased(MouseEvent evt) {
         selectedListRightClick(evt);
     }
-    
+
     public void relatedNodesListMouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
 //            KnowledgeNodeWikiApp.run((KnowledgeNode) view.getRelatedNodesList().getSelectedValue());
             addButtonActionPerformed();
         }
     }
-    
+
     public void relatedNodesListMousePressed(MouseEvent evt) {
         if (SwingUtilities.isRightMouseButton(evt)) {
             JList list = (JList) evt.getSource();
@@ -105,7 +105,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
         relatedListRightClick(evt);
     }
-    
+
     public void relatedNodesListMouseReleased(MouseEvent evt) {
         relatedListRightClick(evt);
     }
@@ -174,7 +174,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             this.updateDestinationNodesList(a);
         }
     }
-   
+
     private void deleteNodeFromTreeAction() {
         MyTreeNode n = (MyTreeNode) view.getNodesTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
@@ -210,7 +210,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             }
         }
     }
-    
+
     private void relatedListRightClick(MouseEvent evt) {
         if (evt.isPopupTrigger()) {
             KnowledgeNode selected = (KnowledgeNode) view.getRelatedNodesList().getSelectedValue();
@@ -226,11 +226,12 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         view.getNodesTree().setModel(m);
         m.reload((MyTreeNode) m.getRoot());
     }
-    
+
     private void editAction(KnowledgeNode k) {
-        KnowledgeNodeEditorApp.edit(map, k);
-        refreshTree();
-        clearLists();
+        if (KnowledgeNodeEditorApp.edit(map, k) != null) {
+            refreshTree();
+            clearLists();
+        }
     }
 
     private void addKnowledgeNodeToSelectedNodes(KnowledgeNode selected) {
@@ -380,15 +381,15 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             this.viewB.addActionListener((ActionEvent evt) -> {
                 KnowledgeNodeWikiApp.run(selectedNode);
             });
-            
+
             this.edit = new JMenuItem("Edit");
-            
+
             this.edit.addActionListener((ActionEvent evt) -> {
                 editAction(selectedNode);
             });
         }
     }
-    
+
     private class RelatedListPopup extends RightClickPopUp {
 
         JMenuItem add;
@@ -401,7 +402,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             add.addActionListener((ActionEvent evt) -> {
                 addKnowledgeNodeToSelectedNodes(selectedNode);
             });
-            
+
             add(new JSeparator());
             add(viewB);
 //            add(edit);
@@ -422,7 +423,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             remove.addActionListener((ActionEvent evt) -> {
                 removeKnowledgeNodeFromSelectedNodes(selectedNode);
             });
-            
+
             add(new JSeparator());
             add(viewB);
 //            add(edit);
@@ -450,7 +451,6 @@ public class KnowledgeMapEditorController extends GeneralController implements K
 
             this.delete = new JMenuItem("delete");
             add(this.delete);
-            
 
             this.delete.addActionListener((ActionEvent evt) -> {
                 deleteNodeFromTreeAction();
@@ -463,7 +463,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             setVisible(true);
         }
     }
-    
+
     public static void main(String[] args) {
         KnowledgeMapEditorView.main(args);
     }
