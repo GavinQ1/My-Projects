@@ -111,7 +111,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
      */
     public void selectedNodesListMouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
-//            KnowledgeNodeWikiApp.run((KnowledgeNode) view.getSelectedNodesList().getSelectedValue());
+//            KnowledgeNodeViewerApp.run((KnowledgeNode) view.getSelectedNodesList().getSelectedValue());
             removeButtonActionPerformed();
         }
     }
@@ -143,7 +143,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
      */
     public void relatedNodesListMouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
-//            KnowledgeNodeWikiApp.run((KnowledgeNode) view.getRelatedNodesList().getSelectedValue());
+//            KnowledgeNodeViewerApp.run((KnowledgeNode) view.getRelatedNodesList().getSelectedValue());
             addButtonActionPerformed();
         }
     }
@@ -194,7 +194,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
     public void viewNodeButtonActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getNodesTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
-            KnowledgeNodeWikiApp.run((KnowledgeNode) n.getUserObject());
+            KnowledgeNodeViewerApp.run((KnowledgeNode) n.getUserObject());
         }
     }
 
@@ -527,7 +527,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             this.viewB = new JMenuItem("View");
 
             this.viewB.addActionListener((ActionEvent evt) -> {
-                KnowledgeNodeWikiApp.run(selectedNode);
+                KnowledgeNodeViewerApp.run(selectedNode);
             });
 
             this.edit = new JMenuItem("Edit");

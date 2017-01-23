@@ -280,7 +280,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
 
             selectedListString.setText("Add\n\n" + nodelist + "]\n\nto " + node.getName() + " as");
         } else if (evt.getClickCount() == 2) 
-            KnowledgeNodeWikiApp.run(selected);
+            KnowledgeNodeViewerApp.run(selected);
     }//GEN-LAST:event_avaliableNodeListMouseClicked
 
     private void checkBeforeSubmit() {

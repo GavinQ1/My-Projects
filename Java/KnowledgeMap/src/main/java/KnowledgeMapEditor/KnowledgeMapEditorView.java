@@ -446,8 +446,10 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
 
         getContentPane().add(jSplitPane1, "card2");
 
+        fileMenu.setMnemonic('f');
         fileMenu.setText("File");
 
+        fileNewMapItem.setMnemonic('n');
         fileNewMapItem.setText("New Map");
         fileNewMapItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -457,6 +459,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         fileMenu.add(fileNewMapItem);
         fileMenu.add(jSeparator1);
 
+        fileOpenMapItem.setMnemonic('o');
         fileOpenMapItem.setText("Open Map");
         fileOpenMapItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -465,6 +468,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         });
         fileMenu.add(fileOpenMapItem);
 
+        fileCloseMapItem.setMnemonic('c');
         fileCloseMapItem.setText("Close Map");
         fileCloseMapItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,6 +478,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         fileMenu.add(fileCloseMapItem);
         fileMenu.add(jSeparator2);
 
+        fileSaveItem.setMnemonic('s');
         fileSaveItem.setText("Save");
         fileSaveItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -482,6 +487,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         });
         fileMenu.add(fileSaveItem);
 
+        fileSaveAsItem.setMnemonic('a');
         fileSaveAsItem.setText("Save As...");
         fileSaveAsItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -491,6 +497,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         fileMenu.add(fileSaveAsItem);
         fileMenu.add(jSeparator3);
 
+        fileExitItem.setMnemonic('e');
         fileExitItem.setText("Exit");
         fileExitItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -501,6 +508,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
 
         jMenuBar1.add(fileMenu);
 
+        jMenu1.setMnemonic('a');
         jMenu1.setText("About");
         jMenuBar1.add(jMenu1);
 

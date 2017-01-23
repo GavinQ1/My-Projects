@@ -142,7 +142,7 @@ public class KnowledgeNodeEditorController extends GeneralController implements 
         if (evt.getClickCount() == 2) {
             MyTreeNode n = (MyTreeNode) view.getKnowledgeTree().getLastSelectedPathComponent();
             if (n != null && n.getUserObject() instanceof KnowledgeNode) {
-                KnowledgeNodeWikiApp.run((KnowledgeNode) n.getUserObject());
+                KnowledgeNodeViewerApp.run((KnowledgeNode) n.getUserObject());
             }
         }
     }

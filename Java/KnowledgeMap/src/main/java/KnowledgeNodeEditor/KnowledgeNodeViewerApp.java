@@ -8,15 +8,15 @@ import java.awt.Color;
  *
  * @author Gavin
  */
-public class KnowledgeNodeWikiApp extends javax.swing.JDialog {
+public class KnowledgeNodeViewerApp extends javax.swing.JDialog {
     
     public static final void run(KnowledgeNode k) {
-        KnowledgeNodeWikiApp.run(k, true);
+        KnowledgeNodeViewerApp.run(k, true);
     }
 
     public static final void run(KnowledgeNode k, boolean center) {
         EnhanceAppView.enhanceVision();
-        KnowledgeNodeWikiApp view = new KnowledgeNodeWikiApp(k);
+        KnowledgeNodeViewerApp view = new KnowledgeNodeViewerApp(k);
         if (center)
             view.setLocationRelativeTo(null);
         view.setVisible(true);
@@ -25,7 +25,7 @@ public class KnowledgeNodeWikiApp extends javax.swing.JDialog {
     /**
      * Creates new form KnowledgeNodeWikiApp
      */
-    public KnowledgeNodeWikiApp(KnowledgeNode k) {
+    public KnowledgeNodeViewerApp(KnowledgeNode k) {
         initComponents();
         informationArea.setText(k.chineseFormattedInformation());
         getContentPane().setBackground(Color.white);
@@ -104,7 +104,7 @@ public class KnowledgeNodeWikiApp extends javax.swing.JDialog {
         d.addSource(b);
         e.addDestination(d);
 
-        KnowledgeNodeWikiApp.run(a);
+        KnowledgeNodeViewerApp.run(a);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
