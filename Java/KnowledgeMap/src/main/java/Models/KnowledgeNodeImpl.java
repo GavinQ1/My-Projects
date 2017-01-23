@@ -1,5 +1,6 @@
 package Models;
 
+import Lib.InvalidInputException;
 import javax.persistence.*;
 
 

@@ -1,5 +1,8 @@
 package KnowledgeNodeEditor;
 
+import Lib.EnhanceAppView;
+import Lib.InvalidInputException;
+import Lib.GeneralController;
 import Models.*;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;

@@ -1,5 +1,7 @@
 package KnowledgeNodeEditor;
 
+import Lib.InvalidInputException;
+import Lib.GeneralController;
 import Models.*;
 import KnowledgeNodeEditor.KnowledgeNodeEditorView.MyTreeNode;
 import java.awt.event.MouseEvent;

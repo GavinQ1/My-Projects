@@ -5,6 +5,8 @@
  */
 package KnowledgeMapEditor;
 
+import Lib.GeneralController;
+import Lib.Stack;
 import KnowledgeMapEditor.KnowledgeMapEditorView.MyTreeNode;
 import KnowledgeNodeEditor.*;
 import Models.*;
@@ -22,38 +24,67 @@ import javax.swing.tree.TreePath;
  */
 public class KnowledgeMapEditorController extends GeneralController implements KnowledgeMapEditorControl {
 
+    // the map that is being editted
     private KnowledgeMap map;
+    // registered view
     private KnowledgeMapEditorView view;
+    // lists for the listBoxes in view
     private ArrayList<KnowledgeNode> selectedKnowledgeNodesList,
             relatedKnowledgeNodesList, destinationKnowledgeNodesList;
+    // path history
+    private Stack<ArrayList<KnowledgeNode>> path;
 
+    /**
+     *
+     * @param map
+     */
     public KnowledgeMapEditorController(KnowledgeMap map) {
         this.map = map;
         this.view = null;
         this.selectedKnowledgeNodesList = new ArrayList<>();
         this.relatedKnowledgeNodesList = new ArrayList<>();
         this.destinationKnowledgeNodesList = new ArrayList<>();
+        this.path = new Stack<>();
     }
 
+    /**
+     *
+     * @return
+     */
     public KnowledgeMap getMap() {
         return map;
     }
 
+    /**
+     *
+     */
     public void initialize() {
         view.getNodesTree();
         this.updateResultCatagory();
     }
 
+    /**
+     *
+     * @param view
+     */
     public void register(KnowledgeMapEditorView view) {
         this.view = view;
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void nodesTreeMouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
             this.selectNodeButtonActionPerformed();
         }
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void nodesTreeMousePressed(MouseEvent evt) {
         if (SwingUtilities.isRightMouseButton(evt)) {
             int selRow = view.getNodesTree().getRowForLocation(evt.getX(), evt.getY());
@@ -66,10 +97,18 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         treeRightClick(evt);
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void nodesTreeMouseReleased(MouseEvent evt) {
         treeRightClick(evt);
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void selectedNodesListMouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
 //            KnowledgeNodeWikiApp.run((KnowledgeNode) view.getSelectedNodesList().getSelectedValue());
@@ -77,6 +116,10 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void selectedNodesListMousePressed(MouseEvent evt) {
         if (SwingUtilities.isRightMouseButton(evt)) {
             JList list = (JList) evt.getSource();
@@ -86,10 +129,18 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         selectedListRightClick(evt);
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void selectedNodesListMouseReleased(MouseEvent evt) {
         selectedListRightClick(evt);
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void relatedNodesListMouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
 //            KnowledgeNodeWikiApp.run((KnowledgeNode) view.getRelatedNodesList().getSelectedValue());
@@ -97,6 +148,10 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void relatedNodesListMousePressed(MouseEvent evt) {
         if (SwingUtilities.isRightMouseButton(evt)) {
             JList list = (JList) evt.getSource();
@@ -106,10 +161,36 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         relatedListRightClick(evt);
     }
 
+    /**
+     *
+     * @param evt
+     */
     public void relatedNodesListMouseReleased(MouseEvent evt) {
         relatedListRightClick(evt);
     }
+    
+    public void destinationNodesListMouseClicked(MouseEvent evt) {
+        if (evt.getClickCount() == 2) {
+            forwardButtonActionPerformed();
+        }
+    }
+    
+    public void destinationNodesListMousePressed(MouseEvent evt) {
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            JList list = (JList) evt.getSource();
+            int row = list.locationToIndex(evt.getPoint());
+            list.setSelectedIndex(row);
+        }
+        destinationListRightClick(evt);
+    }
+    
+    public void destinationNodesListMouseReleased(MouseEvent evt) {
+        destinationListRightClick(evt);
+    }
 
+    /**
+     *
+     */
     public void viewNodeButtonActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getNodesTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
@@ -117,6 +198,9 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     */
     public void editNodeButtonActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getNodesTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
@@ -124,6 +208,9 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     */
     public void createNodeButtonActionPerformed() {
         KnowledgeNode newNode = KnowledgeNodeEditorApp.create(map);
         if (newNode == null) {
@@ -135,10 +222,16 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         clearLists();
     }
 
+    /**
+     *
+     */
     public void deleteNodeButtonActionPerformed() {
         deleteNodeFromTreeAction();
     }
 
+    /**
+     *
+     */
     public void selectNodeButtonActionPerformed() {
         MyTreeNode n = (MyTreeNode) view.getNodesTree().getLastSelectedPathComponent();
         if (n != null && n.getUserObject() instanceof KnowledgeNode) {
@@ -147,6 +240,9 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     */
     public void removeButtonActionPerformed() {
         Object selected = view.getSelectedNodesList().getSelectedValue();
         if (selected != null) {
@@ -154,6 +250,9 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     */
     public void addButtonActionPerformed() {
         Object selected = view.getRelatedNodesList().getSelectedValue();
         if (selected != null) {
@@ -161,6 +260,9 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     */
     public void resultCatagoryComboBoxActionPerformed() {
         String input = (String) view.getResultCatagoryComboBox().getSelectedItem();
         view.getResultCatagoryComboBox().setSelectedItem(input);
@@ -173,6 +275,44 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             });
             this.updateDestinationNodesList(a);
         }
+    }
+
+    public void forwardButtonActionPerformed() {
+        forwardAction((KnowledgeNode) 
+                view.getDestinationNodesList().getSelectedValue()) ;
+    }
+    
+    public void viewPathButtonActionPerformed() {
+        if (path.isEmpty() && selectedKnowledgeNodesList.isEmpty() &&
+                destinationKnowledgeNodesList.isEmpty()) {
+            KnowledgeMapEditorController.errorMessageBox("No path record found!");
+            return;
+        }
+        ShowPathApp.run(path, selectedKnowledgeNodesList, destinationKnowledgeNodesList);
+    }
+
+    private void forwardAction(KnowledgeNode selected) {
+        if (selected == null) {
+            return;
+        }
+        path.push((ArrayList<KnowledgeNode>) selectedKnowledgeNodesList.clone());
+        clearLists();
+        selectedKnowledgeNodesList.add(selected);
+        updateAllLists();
+    }
+
+    public void backwardButtonActionPerformed() {
+        backwardAction();
+    }
+    
+    private void backwardAction() {
+        if (path.isEmpty()) {
+            KnowledgeMapEditorController.errorMessageBox("No more history records!");
+            return;
+        }
+        clearLists();
+        selectedKnowledgeNodesList = path.pop();
+        updateAllLists();
     }
 
     private void deleteNodeFromTreeAction() {
@@ -220,6 +360,16 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             }
         }
     }
+    
+    private void destinationListRightClick(MouseEvent evt) {
+        if (evt.isPopupTrigger()) {
+            KnowledgeNode selected = (KnowledgeNode) view.getDestinationNodesList().getSelectedValue();
+            DestinationListPopup popUp = new DestinationListPopup(selected);
+            if (selected != null && selected instanceof KnowledgeNode) {
+                popUp.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+    }
 
     private void refreshTree() {
         DefaultTreeModel m = view.createTreeModel(map);
@@ -259,6 +409,16 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         updateLabels();
     }
 
+    private void clearLists() {
+        this.selectedKnowledgeNodesList.clear();
+        this.relatedKnowledgeNodesList.clear();
+        this.destinationKnowledgeNodesList.clear();
+
+        updateRelatedNodesList();
+        updateSelectedNodesList();
+        updateDestinationNodesList();
+    }
+
     private void updateLabels() {
         KnowledgeNode first = selectedKnowledgeNodesList.get(0);
         view.getSelectedNodesLabel().setText("Selected - " + first.getCatagory());
@@ -267,18 +427,15 @@ public class KnowledgeMapEditorController extends GeneralController implements K
     }
 
     private void updateNeighbors() {
-        HashMap<KnowledgeNode, Integer> hist = new HashMap<>();
-        selectedKnowledgeNodesList.stream().forEach((k) -> {
-            for (KnowledgeNode n : k.getNeighbors()) {
-                hist.putIfAbsent(n, 0);
-                hist.put(n, hist.get(n) + 1);
-            }
-        });
+        if (selectedKnowledgeNodesList.isEmpty()) {
+            return;
+        }
         relatedKnowledgeNodesList.clear();
-        hist.keySet().stream().filter((k) -> (!selectedKnowledgeNodesList.contains(k))).forEach((k) -> {
+        KnowledgeNode primary = selectedKnowledgeNodesList.get(0);
+        primary.getNeighbors().getList().stream().filter((k) -> (!selectedKnowledgeNodesList.contains(k))).forEach((k) -> {
             relatedKnowledgeNodesList.add(k);
         });
-        Collections.sort(relatedKnowledgeNodesList, (KnowledgeNode k1, KnowledgeNode k2) -> hist.get(k1).compareTo(hist.get(k2)));
+        Collections.sort(relatedKnowledgeNodesList, KnowledgeNodeList.comparatorByRelativity(primary.getNeighbors().getHist()));
         updateRelatedNodesList();
     }
 
@@ -305,6 +462,7 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         view.getSelectedNodesList().setModel(listModelFactory(l));
     }
 
+    // update destination list after select a search option
     private void updateDestinationNodesList(ArrayList<KnowledgeNode> l) {
         view.getDestinationNodesList().setModel(listModelFactory(l));
         updateResultCatagory();
@@ -344,16 +502,6 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         return model;
     }
 
-    private void clearLists() {
-        this.selectedKnowledgeNodesList.clear();
-        this.relatedKnowledgeNodesList.clear();
-        this.destinationKnowledgeNodesList.clear();
-
-        updateRelatedNodesList();
-        updateSelectedNodesList();
-        updateDestinationNodesList();
-    }
-
     private AbstractListModel<KnowledgeNode> listModelFactory(final ArrayList<KnowledgeNode> wantedList) {
         return new AbstractListModel<KnowledgeNode>() {
             ArrayList<KnowledgeNode> displayed = wantedList;
@@ -389,17 +537,42 @@ public class KnowledgeMapEditorController extends GeneralController implements K
             });
         }
     }
+    
+    private class DestinationListPopup extends RightClickPopUp {
+        JMenuItem forward, backward;
+        
+        public DestinationListPopup(KnowledgeNode selectedNode) {
+            super(selectedNode);
+            add(viewB);
+            add(new JSeparator());
+            
+            forward = new JMenuItem("Forward");
+            add(forward);
+            backward = new JMenuItem("Backward");
+            add(backward);
+            
+            forward.addActionListener((ActionEvent evt) -> {
+               forwardAction(selectedNode); 
+            });
+            
+            backward.addActionListener((ActionEvent evt) -> {
+                backwardAction();
+            });
+            
+            setVisible(true);
+        } 
+    }
 
     private class RelatedListPopup extends RightClickPopUp {
 
-        JMenuItem add;
+        JMenuItem addN;
 
         public RelatedListPopup(KnowledgeNode selectedNode) {
             super(selectedNode);
-            this.add = new JMenuItem("Add");
-            add(add);
+            this.addN = new JMenuItem("Add");
+            add(this.addN);
 
-            add.addActionListener((ActionEvent evt) -> {
+            this.addN.addActionListener((ActionEvent evt) -> {
                 addKnowledgeNodeToSelectedNodes(selectedNode);
             });
 
@@ -464,6 +637,10 @@ public class KnowledgeMapEditorController extends GeneralController implements K
         }
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         KnowledgeMapEditorView.main(args);
     }

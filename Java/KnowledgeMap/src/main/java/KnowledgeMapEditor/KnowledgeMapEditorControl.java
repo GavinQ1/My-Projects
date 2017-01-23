@@ -55,5 +55,15 @@ public interface KnowledgeMapEditorControl {
     
     void relatedNodesListMouseReleased(MouseEvent evt);
     
+    void forwardButtonActionPerformed();
     
+    void backwardButtonActionPerformed();
+    
+    void destinationNodesListMouseClicked(MouseEvent evt);
+    
+    void destinationNodesListMousePressed(MouseEvent evt);
+    
+    void destinationNodesListMouseReleased(MouseEvent evt);
+    
+    void viewPathButtonActionPerformed();
 }

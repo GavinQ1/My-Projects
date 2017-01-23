@@ -1,5 +1,6 @@
 package KnowledgeNodeEditor;
 
+import Lib.EnhanceAppView;
 import Models.*;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;

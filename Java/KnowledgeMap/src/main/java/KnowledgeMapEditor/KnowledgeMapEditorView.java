@@ -1,6 +1,5 @@
 package KnowledgeMapEditor;
 
-import KnowledgeNodeEditor.*;
 import Models.*;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -50,6 +49,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         getRegistered();
         controller.initialize();
         setVisible(true);
+        this.exportPathButton.setVisible(false);
     }
     
     private void getRegistered() {
@@ -257,6 +257,17 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 27, 0, 0);
         jPanel4.add(resultCatagoryComboBox, gridBagConstraints);
 
+        destinationNodesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                destinationNodesListMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                destinationNodesListMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                destinationNodesListMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(destinationNodesList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -274,6 +285,11 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         jPanel4.add(jScrollPane1, gridBagConstraints);
 
         forwardButton.setText("Forward");
+        forwardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forwardButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
@@ -282,6 +298,11 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         jPanel4.add(forwardButton, gridBagConstraints);
 
         backwardButton.setText("Backward");
+        backwardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backwardButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -299,6 +320,11 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         jPanel4.add(resultLabel, gridBagConstraints);
 
         viewPathButton.setText("View Path");
+        viewPathButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPathButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -353,6 +379,7 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
         jPanel5.add(jSeparator4, gridBagConstraints);
 
+        selectedNodesList.setToolTipText("Double Click To Remove");
         selectedNodesList.setPreferredSize(new java.awt.Dimension(55, 110));
         selectedNodesList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -573,6 +600,30 @@ public class KnowledgeMapEditorView extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         controller.addButtonActionPerformed();
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void forwardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forwardButtonActionPerformed
+        controller.forwardButtonActionPerformed();
+    }//GEN-LAST:event_forwardButtonActionPerformed
+
+    private void backwardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backwardButtonActionPerformed
+        controller.backwardButtonActionPerformed();
+    }//GEN-LAST:event_backwardButtonActionPerformed
+
+    private void destinationNodesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinationNodesListMouseClicked
+        controller.destinationNodesListMouseClicked(evt);
+    }//GEN-LAST:event_destinationNodesListMouseClicked
+
+    private void destinationNodesListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinationNodesListMousePressed
+        controller.destinationNodesListMousePressed(evt);
+    }//GEN-LAST:event_destinationNodesListMousePressed
+
+    private void destinationNodesListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_destinationNodesListMouseReleased
+        controller.destinationNodesListMouseReleased(evt);
+    }//GEN-LAST:event_destinationNodesListMouseReleased
+
+    private void viewPathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPathButtonActionPerformed
+        controller.viewPathButtonActionPerformed();
+    }//GEN-LAST:event_viewPathButtonActionPerformed
 
     /**
      * @param args the command line arguments

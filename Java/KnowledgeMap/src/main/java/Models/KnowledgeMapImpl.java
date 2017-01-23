@@ -1,5 +1,6 @@
 package Models;
 
+import Lib.InvalidInputException;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
