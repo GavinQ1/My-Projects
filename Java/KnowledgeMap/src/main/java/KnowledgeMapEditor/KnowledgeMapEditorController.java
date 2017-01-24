@@ -5,11 +5,13 @@
  */
 package KnowledgeMapEditor;
 
+import KnowledgeNodeModels.KnowledgeNodeList;
+import KnowledgeNodeModels.KnowledgeMap;
+import KnowledgeNodeModels.KnowledgeNode;
 import Lib.GeneralController;
 import Lib.Stack;
 import KnowledgeMapEditor.KnowledgeMapEditorView.MyTreeNode;
 import KnowledgeNodeEditor.*;
-import Models.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;

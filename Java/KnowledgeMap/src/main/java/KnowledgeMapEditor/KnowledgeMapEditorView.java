@@ -1,6 +1,10 @@
 package KnowledgeMapEditor;
 
-import Models.*;
+import KnowledgeNodeModels.KnowledgeNodeList;
+import KnowledgeNodeModels.KnowledgeMapImpl;
+import KnowledgeNodeModels.KnowledgeMap;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNode;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;

@@ -7,7 +7,7 @@ package KnowledgeMapEditor;
 
 import Lib.EnhanceAppView;
 import Lib.Stack;
-import Models.KnowledgeNode;
+import KnowledgeNodeModels.KnowledgeNode;
 import java.util.ArrayList;
 
 /**

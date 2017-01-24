@@ -1,6 +1,6 @@
 package KnowledgeNodeEditor;
 
-import Models.KnowledgeNode;
+import KnowledgeNodeModels.KnowledgeNode;
 import java.awt.event.MouseEvent;
 
 

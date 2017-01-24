@@ -1,7 +1,11 @@
 package KnowledgeNodeEditor;
 
+import KnowledgeNodeModels.KnowledgeNodeList;
+import KnowledgeNodeModels.KnowledgeMapImpl;
+import KnowledgeNodeModels.KnowledgeMap;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNode;
 import Lib.EnhanceAppView;
-import Models.*;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

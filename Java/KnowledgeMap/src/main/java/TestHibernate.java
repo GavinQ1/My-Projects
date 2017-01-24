@@ -1,5 +1,7 @@
 
-import Models.*;
+import KnowledgeNodeModels.KnowledgeMapImpl;
+import KnowledgeNodeModels.KnowledgeMap;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

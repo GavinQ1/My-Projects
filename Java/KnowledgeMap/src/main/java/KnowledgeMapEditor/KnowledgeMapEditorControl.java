@@ -5,7 +5,7 @@
  */
 package KnowledgeMapEditor;
 
-import Models.*;
+import KnowledgeNodeModels.KnowledgeMap;
 import java.awt.event.MouseEvent;
 
 /**

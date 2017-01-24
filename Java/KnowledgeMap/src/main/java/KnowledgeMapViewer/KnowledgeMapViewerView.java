@@ -5,17 +5,84 @@
  */
 package KnowledgeMapViewer;
 
+import KnowledgeNodeModels.*;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+
 /**
  *
  * @author Gavin
  */
 public class KnowledgeMapViewerView extends javax.swing.JFrame {
-
+    private KnowledgeNode selected;
+    
     /**
      * Creates new form NewApplication
      */
-    public KnowledgeMapViewerView() {
+    public KnowledgeMapViewerView(KnowledgeNode selected) {
+        this.selected = selected;
+        
         initComponents();
+//        jEditorPane1.setVisible(false);
+        JFXPanel fxPanel = new JFXPanel();
+        this.jPanel1.add(fxPanel);
+        
+        Platform.runLater(() -> {
+            initFX(fxPanel);
+        });
+    }
+    
+    private static void initFX(JFXPanel fxPanel) {
+        // This method is invoked on the JavaFX thread
+        Scene scene = createScene();
+        fxPanel.setScene(scene);
+    }
+    
+    private static Scene createScene() {
+        BorderPane root = new BorderPane();
+
+        Graph graph = new Graph();
+
+        root.setCenter(graph.getScrollPane());
+
+        Scene scene = new Scene(root, 1024, 768);
+//        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+
+        addGraphComponents(graph);
+
+        Layout layout = new RandomLayout(graph);
+        layout.execute();
+
+        return (scene);
+    }
+    
+    private static void addGraphComponents(Graph graph) {
+
+        Model model = graph.getModel();
+
+        graph.beginUpdate();
+
+        model.addCell("Cell A", CellType.RECTANGLE);
+        model.addCell("Cell B", CellType.RECTANGLE);
+        model.addCell("Cell C", CellType.RECTANGLE);
+        model.addCell("Cell D", CellType.TRIANGLE);
+        model.addCell("Cell E", CellType.TRIANGLE);
+        model.addCell("Cell F", CellType.RECTANGLE);
+        model.addCell("Cell G", CellType.RECTANGLE);
+
+        model.addEdge("Cell A", "Cell B");
+        model.addEdge("Cell A", "Cell C");
+        model.addEdge("Cell B", "Cell C");
+        model.addEdge("Cell C", "Cell D");
+        model.addEdge("Cell B", "Cell E");
+        model.addEdge("Cell D", "Cell F");
+        model.addEdge("Cell D", "Cell G");
+
+        graph.endUpdate();
+
     }
 
     /**
@@ -26,13 +93,11 @@ public class KnowledgeMapViewerView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
+        jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -55,11 +120,10 @@ public class KnowledgeMapViewerView extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jScrollPane2);
 
-        jScrollPane3.setMinimumSize(new java.awt.Dimension(880, 592));
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(880, 592));
-        jScrollPane3.setViewportView(jEditorPane1);
-
-        jSplitPane1.setRightComponent(jScrollPane3);
+        jPanel1.setMinimumSize(new java.awt.Dimension(900, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(900, 600));
+        jPanel1.setLayout(new java.awt.CardLayout());
+        jSplitPane1.setRightComponent(jPanel1);
 
         getContentPane().add(jSplitPane1);
 
@@ -164,7 +228,7 @@ public class KnowledgeMapViewerView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new KnowledgeMapViewerView().setVisible(true);
+                new KnowledgeMapViewerView(null).setVisible(true);
             }
         });
     }
@@ -179,10 +243,8 @@ public class KnowledgeMapViewerView extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTree jTree1;
     private javax.swing.JMenuBar menuBar;

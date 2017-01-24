@@ -1,8 +1,12 @@
 package KnowledgeNodeEditor;
 
+import KnowledgeNodeModels.KnowledgeNodeList;
+import KnowledgeNodeModels.KnowledgeMapImpl;
+import KnowledgeNodeModels.KnowledgeMap;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNode;
 import Lib.InvalidInputException;
 import Lib.GeneralController;
-import Models.*;
 import KnowledgeNodeEditor.KnowledgeNodeEditorView.MyTreeNode;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;

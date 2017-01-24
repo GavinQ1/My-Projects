@@ -1,6 +1,9 @@
 
 
-import Models.*;
+import KnowledgeNodeModels.KnowledgeNodeList;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNodeListImpl;
+import KnowledgeNodeModels.KnowledgeNode;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 

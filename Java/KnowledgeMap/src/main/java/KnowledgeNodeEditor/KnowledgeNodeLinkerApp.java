@@ -1,9 +1,13 @@
 package KnowledgeNodeEditor;
 
+import KnowledgeNodeModels.KnowledgeNodeList;
+import KnowledgeNodeModels.KnowledgeMapImpl;
+import KnowledgeNodeModels.KnowledgeMap;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNode;
 import Lib.EnhanceAppView;
 import Lib.InvalidInputException;
 import Lib.GeneralController;
-import Models.*;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -344,7 +348,7 @@ public class KnowledgeNodeLinkerApp extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<Models.KnowledgeNode> avaliableNodeList;
+    private javax.swing.JList<KnowledgeNodeModels.KnowledgeNode> avaliableNodeList;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton destinationRadio;
     private javax.swing.JScrollPane jScrollPane1;

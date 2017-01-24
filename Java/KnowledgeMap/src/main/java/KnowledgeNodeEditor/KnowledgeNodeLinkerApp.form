@@ -95,7 +95,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="avaliableNodeListMouseClicked"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Models.KnowledgeNode&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;KnowledgeNodeModels.KnowledgeNode&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>

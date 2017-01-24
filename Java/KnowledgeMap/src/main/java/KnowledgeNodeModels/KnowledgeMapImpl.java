@@ -1,4 +1,4 @@
-package Models;
+package KnowledgeNodeModels;
 
 import Lib.InvalidInputException;
 import java.util.HashMap;

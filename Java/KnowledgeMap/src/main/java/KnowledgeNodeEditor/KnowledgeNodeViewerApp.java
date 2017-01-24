@@ -1,7 +1,8 @@
 package KnowledgeNodeEditor;
 
+import KnowledgeNodeModels.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNode;
 import Lib.EnhanceAppView;
-import Models.*;
 import java.awt.Color;
 
 /**

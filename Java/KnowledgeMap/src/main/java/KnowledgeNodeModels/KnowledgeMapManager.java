@@ -1,4 +1,4 @@
-package Models;
+package KnowledgeNodeModels;
 
 import java.io.*;
 

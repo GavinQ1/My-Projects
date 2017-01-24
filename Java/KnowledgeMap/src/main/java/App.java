@@ -8,8 +8,8 @@
  *
  * @author Gavin
  */
-import Models.KnowledgeNode;
-import Models.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNode;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
 import java.util.List;
 import java.util.Properties;
  

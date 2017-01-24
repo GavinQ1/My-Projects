@@ -1,7 +1,10 @@
 package KnowledgeNodeEditor;
 
+import KnowledgeNodeModels.KnowledgeMapImpl;
+import KnowledgeNodeModels.KnowledgeMap;
+import KnowledgeNodeModels.KnowledgeNodeImpl;
+import KnowledgeNodeModels.KnowledgeNode;
 import Lib.EnhanceAppView;
-import Models.*;
 
 /**
  *
