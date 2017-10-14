@@ -1,0 +1,82 @@
+{ Following contains tests for all types of token }
+{ Comment block testing
+invalid characters @#$%^&*?/
+block
+
+}
+{ punc test }
+.
+,
+;
+:
+(
+)
+[
+]
+..
+
+{ assignOp test }
+:=
+:==
+{ relop test }
+=
+<>
+<
+>
+<=
+>=
+
+{ addop test }
+++s
+s--
+s + s
+s or s
+--s - +123
+(++s)-- + -123.1e10 + 321.123
+
+{ mulop test }
+*
+/
+and
+div
+mod
+
+{ identifier test }
+varname
+identifier1
+
+{ number }
+123
+-123
+123e-10
+123.1
++123.1
+123.1e11
+123e10
+123e-10
+123e+10
+
+{ reserved words }
+prOgram
+begin
+END
+Var
+function
+procedure
+result
+integer
+real
+array
+of
+if
+then
+else
+while
+do
+not
+identifier
+
+
+{ special }
+12..
+{ 82 lines }

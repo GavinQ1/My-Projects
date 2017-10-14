@@ -65,7 +65,7 @@ public class KnowledgeMapViewerView extends javax.swing.JFrame {
 
         graph.beginUpdate();
 
-        model.addCell("Cell A", CellType.RECTANGLE);
+        model.addCell("Cell A", CellType.LABEL);
         model.addCell("Cell B", CellType.RECTANGLE);
         model.addCell("Cell C", CellType.RECTANGLE);
         model.addCell("Cell D", CellType.TRIANGLE);

@@ -27,7 +27,7 @@ public class Model {
 
     public Model() {
 
-         graphParent = new Cell( "_ROOT_");
+         graphParent = new Cell("_ROOT_");
 
          // clear model, create lists
          clear();
@@ -92,8 +92,12 @@ public class Model {
         
         case CIRCLE:
             CircleCell circleCell = new CircleCell(id);
-//            circleCell.addText("Circle");
             addCell(circleCell);
+            break;
+            
+        case LABEL:
+            LabelCell labelCell = new LabelCell(id, "Test");
+            addCell(labelCell);
             break;
 
         default:
@@ -101,22 +105,22 @@ public class Model {
         }
     }
 
-    private void addCell( Cell cell) {
+    private void addCell(Cell cell) {
 
         addedCells.add(cell);
 
-        cellMap.put( cell.getCellId(), cell);
+        cellMap.put(cell.getCellId(), cell);
 
     }
 
-    public void addEdge( String sourceId, String targetId) {
+    public void addEdge(String sourceId, String targetId) {
 
-        Cell sourceCell = cellMap.get( sourceId);
-        Cell targetCell = cellMap.get( targetId);
+        Cell sourceCell = cellMap.get(sourceId);
+        Cell targetCell = cellMap.get(targetId);
 
-        Edge edge = new Edge( sourceCell, targetCell);
+        Edge edge = new Edge(sourceCell, targetCell);
 
-        addedEdges.add( edge);
+        addedEdges.add(edge);
 
     }
 
@@ -124,9 +128,9 @@ public class Model {
      * Attach all cells which don't have a parent to graphParent 
      * @param cellList
      */
-    public void attachOrphansToGraphParent( List<Cell> cellList) {
-        cellList.stream().filter((cell) -> ( cell.getCellParents().size() == 0)).forEach((cell) -> {
-            graphParent.addCellChild( cell);
+    public void attachOrphansToGraphParent(List<Cell> cellList) {
+        cellList.stream().filter((cell) -> (cell.getCellParents().size() == 0)).forEach((cell) -> {
+            graphParent.addCellChild(cell);
         });
 
     }
@@ -135,25 +139,25 @@ public class Model {
      * Remove the graphParent reference if it is set
      * @param cellList
      */
-    public void disconnectFromGraphParent( List<Cell> cellList) {
+    public void disconnectFromGraphParent(List<Cell> cellList) {
 
-        for( Cell cell: cellList) {
-            graphParent.removeCellChild( cell);
+        for(Cell cell: cellList) {
+            graphParent.removeCellChild(cell);
         }
     }
 
     public void merge() {
 
         // cells
-        allCells.addAll( addedCells);
-        allCells.removeAll( removedCells);
+        allCells.addAll(addedCells);
+        allCells.removeAll(removedCells);
 
         addedCells.clear();
         removedCells.clear();
 
         // edges
-        allEdges.addAll( addedEdges);
-        allEdges.removeAll( removedEdges);
+        allEdges.addAll(addedEdges);
+        allEdges.removeAll(removedEdges);
 
         addedEdges.clear();
         removedEdges.clear();
