@@ -5,6 +5,8 @@
  */
 package Lexer;
 
+import constants.ReservedWords;
+import constants.TokenType;
 import Lexer.LexicalExceptions.*;
 import java.io.*;
 import java.util.*;
@@ -38,6 +40,7 @@ public class Lexer {
     
     // lexeme buffer
     private StringBuilder lexemeBuilder; 
+    private String lastLexeme = "";
     // handling peeking
     private Stack<Character> pushback;
     // stream
@@ -149,7 +152,7 @@ public class Lexer {
      * @return boolean indicating if there is next token
      */
     public boolean hasNextToken() {
-        return lastToken == null || !lastToken.getTag().equals(TokenTypes.ENDOFFILE);
+        return lastToken == null || !lastToken.getType().equals(TokenType.ENDOFFILE);
     }
     
     /**
@@ -166,7 +169,7 @@ public class Lexer {
         reset();
         
         // End of file
-        if (peek == EOF_CHAR) return lastToken = new Token(TokenTypes.ENDOFFILE, null);
+        if (peek == EOF_CHAR) return lastToken = new Token(TokenType.ENDOFFILE, null);
         if (!Lexer.isValidInput(peek)) throw new InvalidInputException(line, filename, peek);
         
         // Num case with sign
@@ -238,7 +241,7 @@ public class Lexer {
                     // see other character, and since current state is accept state
                     // return token
                     } else {
-                        return new Token(TokenTypes.INTCONSTANT, Integer.parseInt(lexemeBuilder.toString()));
+                        return new Token(TokenType.INTCONSTANT, Integer.parseInt(lexemeBuilder.toString()));
                     }
                     break;
                 // see the first dot
@@ -251,7 +254,7 @@ public class Lexer {
                     } else if (peek == '.') {
                         // recover lookahead
                         pushback.push('.');
-                        return new Token(TokenTypes.INTCONSTANT, Integer.parseInt(lexemeBuilder.toString()));
+                        return new Token(TokenType.INTCONSTANT, Integer.parseInt(lexemeBuilder.toString()));
                     // must follow a digit, reject here
                     } else {
                         lexemeBuilder.append(peek);
@@ -288,7 +291,7 @@ public class Lexer {
                     // see other character, and since current state is accept state
                     // return token
                     } else {
-                        return new Token(TokenTypes.REALCONSTANT, Double.parseDouble(lexemeBuilder.toString()));
+                        return new Token(TokenType.REALCONSTANT, Double.parseDouble(lexemeBuilder.toString()));
                     }
                     break;
                 // in format of 1.242e10 or 1e10
@@ -301,7 +304,7 @@ public class Lexer {
                     // see other character, and since current state is accept state
                     // return token
                     } else {
-                        return new Token(TokenTypes.REALCONSTANT, Double.parseDouble(lexemeBuilder.toString()));
+                        return new Token(TokenType.REALCONSTANT, Double.parseDouble(lexemeBuilder.toString()));
                     }
                     break;
                 // in format of 1.242e-10 or 1e-10
@@ -333,16 +336,16 @@ public class Lexer {
             // meet delimiters
             } else {
                 String id = lexemeBuilder.toString();
-                String tag = TokenTypes.IDENTIFIER;
+                TokenType tag = TokenType.IDENTIFIER;
                 String value = id;
                 // see if is from reserved word list
-                if (TokenTypes.isReservedWord(id)) {
-                    tag = TokenTypes.mapReservedWordType(id);
+                if (ReservedWords.isReservedWord(id)) {
+                    tag = ReservedWords.mapReservedWordType(id);
                     value = null;
                 }
                 // see if is from operation list, e.g div
-                if (TokenTypes.isReservedOp(id)) {
-                    tag = TokenTypes.mapReservedOpType(id);
+                if (ReservedWords.isReservedOp(id)) {
+                    tag = ReservedWords.mapReservedOpType(id);
                     Integer v;
                     switch(id.toLowerCase()) {
                         case "or":
@@ -366,73 +369,81 @@ public class Lexer {
         // record two lookahead
         char prev = peek;
         peek = nextChar();
+        lexemeBuilder.append(prev);
         
         // check first lookahead
         switch (prev) {
             case '+':
                 // uniary case
                 if (peek == prev) {
+                    lexemeBuilder.append(peek);
                     // move forward as we've used up both lookaheads
                     peek = nextChar();
-                    return new Token(TokenTypes.UNARYPLUS, null);
+                    return new Token(TokenType.UNARYPLUS, null);
                 }
                 // left case is addop
-                return new Token(TokenTypes.ADDOP, 1);
+                return new Token(TokenType.ADDOP, 1);
             case '-':
                 // uniary case
                 if (peek == prev) {
+                    lexemeBuilder.append(peek);
                     // move forward as we've used up both lookaheads
                     peek = nextChar();
-                    return new Token(TokenTypes.UNARYMINUS, null);
+                    return new Token(TokenType.UNARYMINUS, null);
                 }
                 // left case is addop
-                return new Token(TokenTypes.ADDOP, 2);
+                return new Token(TokenType.ADDOP, 2);
             case '.':
                 if (peek == prev) {
+                    lexemeBuilder.append(peek);
                     // move forward as we've used up both lookaheads
                     peek = nextChar();
-                    return new Token(TokenTypes.DOUBLEDOT, null);
+                    return new Token(TokenType.DOUBLEDOT, null);
                 } else {
-                    return new Token(TokenTypes.ENDMARKER, null);
+                    return new Token(TokenType.ENDMARKER, null);
                 }
             case '*':
-                return new Token(TokenTypes.MULOP, 1);
+                return new Token(TokenType.MULOP, 1);
             case '/':
-                return new Token(TokenTypes.MULOP, 2);
+                return new Token(TokenType.MULOP, 2);
             case '=':
-                return new Token(TokenTypes.RELOP, 1);
+                return new Token(TokenType.RELOP, 1);
             case '>':
                 if (peek == '=') {
+                    lexemeBuilder.append(peek);
                     // move forward as we've used up both lookaheads
                     peek = nextChar();
-                    return new Token(TokenTypes.RELOP, 6);
+                    return new Token(TokenType.RELOP, 6);
                 } else {
-                    return new Token(TokenTypes.RELOP, 4);
+                    return new Token(TokenType.RELOP, 4);
                 }
             case '<':
                 switch (peek) {
                     case '=':
+                        lexemeBuilder.append(peek);
                         // move forward as we've used up both lookaheads
                         peek = nextChar();
-                        return new Token(TokenTypes.RELOP, 5);
+                        return new Token(TokenType.RELOP, 5);
                     case '>':
+                        lexemeBuilder.append(peek);
                         /// move forward as we've used up both lookaheads
                         peek = nextChar();
-                        return new Token(TokenTypes.RELOP, 2);
+                        return new Token(TokenType.RELOP, 2);
                     default:
-                        return new Token(TokenTypes.RELOP, 3);
+                        return new Token(TokenType.RELOP, 3);
                 }
             case ':':
                 if (peek == '=') {
+                    lexemeBuilder.append(peek);
                     // move forward as we've used up both lookaheads
                     peek = nextChar();
-                    return new Token(TokenTypes.ASSIGNOP, null);
+                    return new Token(TokenType.ASSIGNOP, null);
                 } else {
-                    return new Token(TokenTypes.COLON, null);
+                    return new Token(TokenType.COLON, null);
                 }
             default:
                 // try to map the first lookahead to a token type
-                String tag = TokenTypes.RESERVED_PUNC_TOKEN_MAP.get(Character.toString(prev));
+                TokenType tag = ReservedWords.RESERVED_PUNC_TOKEN_MAP.get(Character.toString(prev));
                 // if fails, meaning the character is not valid
                 if (tag == null) {
                     throw new InvalidInputException(line, filename, prev);
@@ -449,19 +460,28 @@ public class Lexer {
     
     private boolean isComputable(Token t) {
         if (t == null) return false;
-        switch(t.getTag()) {
-            case TokenTypes.IDENTIFIER:
-            case TokenTypes.INTCONSTANT:
-            case TokenTypes.REALCONSTANT:
-            case TokenTypes.RIGHTPAREN:
-            case TokenTypes.RIGHTBRACKET:
+        switch(t.getType()) {
+            case IDENTIFIER:
+            case INTCONSTANT:
+            case REALCONSTANT:
+            case RIGHTPAREN:
+            case RIGHTBRACKET:
                 return true;
             default:
                 return false;
         }
     }
     
+    public String getLastLexeme() {
+        return lastLexeme;
+    }
+    
+    public String getCurrentLexeme() {
+        return lexemeBuilder.toString();
+    }
+    
     private void reset() {
+        lastLexeme = lexemeBuilder.toString();
         lexemeBuilder.delete(0, lexemeBuilder.length());
     }
     /*
