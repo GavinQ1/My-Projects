@@ -17,6 +17,7 @@ public abstract class SymbolTableEntry {
     }
     
     public String getName() { return this.name; }
+    public String toString() { return this.name; }
     
     public boolean isVariable() { return false; }
     public boolean isProcedure() { return false; }

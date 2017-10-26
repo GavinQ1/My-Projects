@@ -172,22 +172,23 @@ public class Lexer {
         if (peek == EOF_CHAR) return lastToken = new Token(TokenType.ENDOFFILE, null);
         if (!Lexer.isValidInput(peek)) throw new InvalidInputException(line, filename, peek);
         
-        // Num case with sign
-        if (peek == '+' || peek == '-') {
-            char prev = peek;
-            peek = nextChar();
-            // if the sign is followed by a digit and previous token can't be combined with
-            // the constant followed
-            if (Character.isDigit(peek) && !isComputable(lastToken)) {
-                // append the sign
-                lexemeBuilder.append(prev);
-                // read the number constant
-                return lastToken = readNum();
-            }
-            // recover lookahead
-            pushback.push(peek);
-            peek = prev;
-        }
+//        // Num case with sign
+//        if (peek == '+' || peek == '-') {
+//            char prev = peek;
+//            peek = nextChar();
+//            // if the sign is followed by a digit and previous token can't be combined with
+//            // the constant followed
+//            if (Character.isDigit(peek) && !isComputable(lastToken)) {
+//                // append the sign
+//                lexemeBuilder.append(prev);
+//                // read the number constant
+//                return lastToken = readNum();
+//            }
+//            // recover lookahead
+//            pushback.push(peek);
+//            peek = prev;
+//        }
+
         // Num case
         if (Character.isDigit(peek)) {
             return lastToken = readNum();
@@ -375,22 +376,12 @@ public class Lexer {
         switch (prev) {
             case '+':
                 // uniary case
-                if (peek == prev) {
-                    lexemeBuilder.append(peek);
-                    // move forward as we've used up both lookaheads
-                    peek = nextChar();
-                    return new Token(TokenType.UNARYPLUS, null);
-                }
+                if (!isComputable(lastToken)) return new Token(TokenType.UNARYPLUS, null);
                 // left case is addop
                 return new Token(TokenType.ADDOP, 1);
             case '-':
                 // uniary case
-                if (peek == prev) {
-                    lexemeBuilder.append(peek);
-                    // move forward as we've used up both lookaheads
-                    peek = nextChar();
-                    return new Token(TokenType.UNARYMINUS, null);
-                }
+                if (!isComputable(lastToken)) return new Token(TokenType.UNARYMINUS, null);
                 // left case is addop
                 return new Token(TokenType.ADDOP, 2);
             case '.':

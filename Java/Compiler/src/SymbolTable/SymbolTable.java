@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package SymbolTable;
-import SymbolTable.SymbolTableEntry.IODeviceEntry;
-import SymbolTable.SymbolTableEntry.SymbolTableEntry;
-import SymbolTable.SymbolTableEntry.ProcedureEntry;
+import SymbolTable.SymbolTableEntry.*;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.ArrayList;
@@ -48,7 +46,7 @@ public class SymbolTable {
     
     public boolean lookup(String name) {
         name = standardize(name);
-        return table.contains(name);
+        return table.containsKey(name);
     }
     
     public int size() { return table.size(); }
@@ -57,8 +55,9 @@ public class SymbolTable {
         name = standardize(name);
         if (lookup(name)) {
             throw new SymbolTableException(name + " already exists in the scope.");
+        } else {
+            table.put(name, entry);
         }
-        table.put(name, entry);
     }
     
     public void dumpTable() {
@@ -69,4 +68,32 @@ public class SymbolTable {
         }
     }
     
+    // unit test
+    public static void main(String[] args) {
+        try {
+            SymbolTable st = new SymbolTable();
+            st.installBuiltins();
+            
+            System.out.println(st.size());
+            st.dumpTable();
+            
+            // insertion test
+            System.out.println("Is 'test' in the table? " + st.lookup("test"));
+            st.insert("test", new VariableEntry("test", 1, null));
+            st.insert("test1", new VariableEntry("test1", 1, null));
+            st.insert("test2", new VariableEntry("test2", 1, null));
+            st.insert("test3", new VariableEntry("test3", 1, null));
+            st.insert("test4", new VariableEntry("test4", 1, null));
+            st.insert("test5", new VariableEntry("test5", 1, null));
+            st.insert("test6", new VariableEntry("test6", 1, null));
+            System.out.println("Is 'test' in the table? " + st.lookup("test"));
+            
+            System.out.println(st.size());
+            st.dumpTable();
+            // test for error
+            st.insert("test", new VariableEntry("test", 1, null));
+        } catch(SymbolTableException e) {
+            System.out.println(e);
+        }
+    }
 }
