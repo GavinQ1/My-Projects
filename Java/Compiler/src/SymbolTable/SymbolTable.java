@@ -72,13 +72,18 @@ public class SymbolTable {
     public static void main(String[] args) {
         try {
             SymbolTable st = new SymbolTable();
-            st.installBuiltins();
             
+            System.out.println("Testing installBuiltins: ");
+            st.installBuiltins();
+            System.out.println("Dumping table: ");
             System.out.println(st.size());
             st.dumpTable();
+            System.out.println("*** ================= ***\n");
             
             // insertion test
+            System.out.println("Testing insertion and lookup: ");
             System.out.println("Is 'test' in the table? " + st.lookup("test"));
+            System.out.println("Inserting 'test' and 'test1' ... 'test6'\n");
             st.insert("test", new VariableEntry("test", 1, null));
             st.insert("test1", new VariableEntry("test1", 1, null));
             st.insert("test2", new VariableEntry("test2", 1, null));
@@ -88,11 +93,17 @@ public class SymbolTable {
             st.insert("test6", new VariableEntry("test6", 1, null));
             System.out.println("Is 'test' in the table? " + st.lookup("test"));
             
+            System.out.println("Dumping table: ");
             System.out.println(st.size());
             st.dumpTable();
+            System.out.println("*** ================= ***\n");
+            
             // test for error
+            System.out.println("Testing insertion error by inserting 'test' again:");
             st.insert("test", new VariableEntry("test", 1, null));
+            
         } catch(SymbolTableException e) {
+            System.out.println("*** =======ERROR======= ***");
             System.out.println(e);
         }
     }

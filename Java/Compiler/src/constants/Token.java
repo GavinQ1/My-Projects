@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Lexer;
+package constants;
 
 import constants.TokenType;
 import constants.GrammarSymbol;
@@ -38,7 +38,7 @@ public class Token<E> implements GrammarSymbol {
     public boolean isTypeOf(TokenType t) { return this.tag.eqauls(t); }
     
     public String toString() {
-        return "[" + tag + ", " + value + "]";
+        return "(" + tag + ", " + value + ")";
     }
     
     public boolean equals(Token other) {

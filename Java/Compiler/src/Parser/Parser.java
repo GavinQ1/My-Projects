@@ -5,12 +5,12 @@
  */
 package Parser;
 
-import constants.NonTerminal;
-import constants.TokenType;
-import constants.GrammarSymbol;
+import constants.*;
 import Lexer.*;
 import Lexer.LexicalExceptions.LexicalException;
 import Parser.ParserExceptions.ParserException;
+import SemanticActions.SemanticActions;
+import SymbolTable.SymbolTableExceptions.SymbolTableException;
 import java.util.*;
 import java.io.*;
 import java.util.logging.Level;
@@ -29,14 +29,16 @@ public class Parser {
     private final Stack<GrammarSymbol> stack = new Stack<>();
     private final RHSTable RHSTable = new RHSTable();
     private final ParserTable ParserTable = new ParserTable();
+    private final SemanticActions semact;
 
-    public Parser(String filename) throws IOException {
-        lexer = new Lexer(filename);
+    public Parser(String filename) throws IOException, SymbolTableException {
+        this(filename, false);
     }
 
-    public Parser(String filename, boolean debug) throws IOException {
-        this(filename);
+    public Parser(String filename, boolean debug) throws IOException, SymbolTableException {
+        lexer = new Lexer(filename);
         __DEBUG__ = debug;
+        semact = new SemanticActions();
         if (__DEBUG__) {
             logger = new PrintWriter("logs.txt", "UTF-8");
         }
@@ -47,8 +49,8 @@ public class Parser {
         return lexer.getNextToken().getType();
     }
 
-    public void parse() throws LexicalException, IOException, ParserException {
-        Token current = lexer.getNextToken();
+    public void parse() throws LexicalException, IOException, ParserException, SymbolTableException {
+        Token current = lexer.getNextToken(), last = null;
         stack.push(TokenType.ENDOFFILE);
         stack.push(NonTerminal.Goal);
 
@@ -63,6 +65,7 @@ public class Parser {
                     
                     // consume token
                     stack.pop();
+                    last = current;
                     current = lexer.getNextToken();
                 } else {
                     trackStack(predicted, current.getType(), "ERROR: MISMATCH");
@@ -105,12 +108,9 @@ public class Parser {
                     
                     trackStack(predicted, current.getType(), "$ PUSH $  [" + code + "] ::= " + (rule.length == 0 ? "# EPSILON #" : Arrays.toString(rule)));
                 }
-                // omit actions currently
             } else if (predicted.isAction()) {
                 stack.pop();
-                if (__DEBUG__) {
-                    System.out.println("*** IGNORE ACTIONS CURRENTLY ***");
-                }
+                semact.execute((SemanticAction) predicted, last);
             }
         }
 
@@ -145,8 +145,8 @@ public class Parser {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        String filename = "ult.pas";
+    public static void main(String[] args) {
+        String filename = "test.pas";
         boolean debug = false;
         if (args.length > 0) {
             filename = args[0];
@@ -157,11 +157,13 @@ public class Parser {
                 }
             }
         }
-        Parser parser = new Parser(filename, debug);
         try {
+            Parser parser = new Parser(filename, debug);
             parser.parse();
+            System.out.println("\n*****************\nEnd state:\n");
+            parser.semact.dump();
             System.out.println("\nACCEPT! (Degbug mode is: " + (parser.__DEBUG__ ? "on" : "off") + ")\n");
-        } catch (LexicalException | ParserException ex) {
+        } catch (LexicalException | ParserException | IOException | SymbolTableException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

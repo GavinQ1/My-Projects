@@ -19,6 +19,9 @@ public class VariableEntry extends SymbolTableEntry {
         this.type = type;
     }
     
+    public void setType(TokenType t) { type = t; }
+    public void setAddress(int ads) { address = ads; }
+    
     public boolean isVariable() { return true; }
     public TokenType getType() { return type; }
     public int getAddress() { return address; }

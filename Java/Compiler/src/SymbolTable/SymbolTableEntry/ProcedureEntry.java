@@ -14,13 +14,12 @@ public class ProcedureEntry extends SymbolTableEntry {
     private List parameterInfo;
     
     public ProcedureEntry(String name, int numberOfParameters, List parameterInfo) {
-        super(name);
+        super(name, true);
         this.numberOfParameters = numberOfParameters;
         this.parameterInfo = parameterInfo;
     }
     
     public boolean isProcedure() { return true; }
-    public boolean isReserved() { return true; }
     public List getParameterInfo() { return parameterInfo; }
     public int getNumberOfParameters() { return numberOfParameters; }
 }

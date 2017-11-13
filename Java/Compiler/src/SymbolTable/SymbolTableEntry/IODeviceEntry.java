@@ -9,10 +9,7 @@ package SymbolTable.SymbolTableEntry;
  * @author Gavin
  */
 public class IODeviceEntry extends SymbolTableEntry {
-    
     public IODeviceEntry(String name) {
-        super(name);
+        super(name, true);
     }
-    
-    public boolean isReserved() { return true; }
 }

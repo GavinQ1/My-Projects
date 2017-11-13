@@ -1,6 +1,7 @@
-program arrayTest(input, output);    {Sample tvi code here}
+program test(input, output);    {Sample tvi code here}
 	var
-	   m : array[1..5] of integer;
+	   h, z, i, x, y : integer;
+	   m, n : array[1..5] of integer;
 	begin
 	        m[1] := 1;
 	        m[2] := 2;

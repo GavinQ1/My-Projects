@@ -1,0 +1,777 @@
+Stack :==> [<Goal>, ENDOFFILE]
+Popped <Goal> with token PROGRAM (input string: "program"). $ PUSH $  [65] ::= [<program>, ENDMARKER] <File: sample.pas, line 1>
+Stack :==> [<program>, ENDMARKER, ENDOFFILE]
+Popped <program> with token PROGRAM (input string: "program"). $ PUSH $  [1] ::= [PROGRAM, IDENTIFIER, <action13>, LEFTPAREN, <identifier_list>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>] <File: sample.pas, line 1>
+Stack :==> [PROGRAM, IDENTIFIER, <action13>, LEFTPAREN, <identifier_list>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped PROGRAM with token PROGRAM (input string: "program"). * MATCH * <File: sample.pas, line 1>
+Stack :==> [IDENTIFIER, <action13>, LEFTPAREN, <identifier_list>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "arrayTest"). * MATCH * <File: sample.pas, line 1>
+Stack :==> [<action13>, LEFTPAREN, <identifier_list>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTPAREN, <identifier_list>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTPAREN with token LEFTPAREN (input string: "("). * MATCH * <File: sample.pas, line 1>
+Stack :==> [<identifier_list>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <identifier_list> with token IDENTIFIER (input string: "input1"). $ PUSH $  [2] ::= [IDENTIFIER, <action13>, <identifier_list_tail>] <File: sample.pas, line 1>
+Stack :==> [IDENTIFIER, <action13>, <identifier_list_tail>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "input1"). * MATCH * <File: sample.pas, line 1>
+Stack :==> [<action13>, <identifier_list_tail>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<identifier_list_tail>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <identifier_list_tail> with token COMMA (input string: ","). $ PUSH $  [3] ::= [COMMA, IDENTIFIER, <action13>, <identifier_list_tail>] <File: sample.pas, line 1>
+Stack :==> [COMMA, IDENTIFIER, <action13>, <identifier_list_tail>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped COMMA with token COMMA (input string: ","). * MATCH * <File: sample.pas, line 1>
+Stack :==> [IDENTIFIER, <action13>, <identifier_list_tail>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "output1"). * MATCH * <File: sample.pas, line 1>
+Stack :==> [<action13>, <identifier_list_tail>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<identifier_list_tail>, RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <identifier_list_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 1>
+Stack :==> [RIGHTPAREN, <action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTPAREN with token RIGHTPAREN (input string: ")"). * MATCH * <File: sample.pas, line 1>
+Stack :==> [<action9>, SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [SEMICOLON, <declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 1>
+Stack :==> [<declarations>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <declarations> with token VAR (input string: "var"). $ PUSH $  [5] ::= [VAR, <action1>, <declaration_list>, <action2>] <File: sample.pas, line 2>
+Stack :==> [VAR, <action1>, <declaration_list>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped VAR with token VAR (input string: "var"). * MATCH * <File: sample.pas, line 2>
+Stack :==> [<action1>, <declaration_list>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<declaration_list>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <declaration_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [7] ::= [<identifier_list>, COLON, <type>, <action3>, SEMICOLON, <declaration_list_tail>] <File: sample.pas, line 3>
+Stack :==> [<identifier_list>, COLON, <type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <identifier_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [2] ::= [IDENTIFIER, <action13>, <identifier_list_tail>] <File: sample.pas, line 3>
+Stack :==> [IDENTIFIER, <action13>, <identifier_list_tail>, COLON, <type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [<action13>, <identifier_list_tail>, COLON, <type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<identifier_list_tail>, COLON, <type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <identifier_list_tail> with token COLON (input string: ":"). # EPSILON # <File: sample.pas, line 3>
+Stack :==> [COLON, <type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped COLON with token COLON (input string: ":"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [<type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <type> with token ARRAY (input string: "array"). $ PUSH $  [11] ::= [<array_type>] <File: sample.pas, line 3>
+Stack :==> [<array_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <array_type> with token ARRAY (input string: "array"). $ PUSH $  [14] ::= [<action6>, ARRAY, LEFTBRACKET, INTCONSTANT, <action7>, DOUBLEDOT, INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>] <File: sample.pas, line 3>
+Stack :==> [<action6>, ARRAY, LEFTBRACKET, INTCONSTANT, <action7>, DOUBLEDOT, INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [ARRAY, LEFTBRACKET, INTCONSTANT, <action7>, DOUBLEDOT, INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped ARRAY with token ARRAY (input string: "array"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [LEFTBRACKET, INTCONSTANT, <action7>, DOUBLEDOT, INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 3>
+Stack :==> [INTCONSTANT, <action7>, DOUBLEDOT, INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "1"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [<action7>, DOUBLEDOT, INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [DOUBLEDOT, INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped DOUBLEDOT with token DOUBLEDOT (input string: ".."). * MATCH * <File: sample.pas, line 3>
+Stack :==> [INTCONSTANT, <action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "5"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [<action7>, RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [RIGHTBRACKET, OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [OF, <standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped OF with token OF (input string: "of"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [<standard_type>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <standard_type> with token INTEGER (input string: "integer"). $ PUSH $  [12] ::= [INTEGER, <action4>] <File: sample.pas, line 3>
+Stack :==> [INTEGER, <action4>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTEGER with token INTEGER (input string: "integer"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [<action4>, <action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<action3>, SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [SEMICOLON, <declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 3>
+Stack :==> [<declaration_list_tail>, <action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <declaration_list_tail> with token BEGIN (input string: "begin"). # EPSILON # <File: sample.pas, line 4>
+Stack :==> [<action2>, <sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<sub_declarations>, <action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <sub_declarations> with token BEGIN (input string: "begin"). # EPSILON # <File: sample.pas, line 4>
+Stack :==> [<action56>, <compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<compound_statement>, <action55>, ENDMARKER, ENDOFFILE]
+Popped <compound_statement> with token BEGIN (input string: "begin"). $ PUSH $  [25] ::= [BEGIN, <statement_list>, END] <File: sample.pas, line 4>
+Stack :==> [BEGIN, <statement_list>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped BEGIN with token BEGIN (input string: "begin"). * MATCH * <File: sample.pas, line 4>
+Stack :==> [<statement_list>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [26] ::= [<statement>, <statement_list_tail>] <File: sample.pas, line 5>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 5>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 5>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 5>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [36] ::= [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>] <File: sample.pas, line 5>
+Stack :==> [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 5>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 5>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "1"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 5>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "1"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 5>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "1"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 5>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "1"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 5>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "1"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 5>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "1"). * MATCH * <File: sample.pas, line 5>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 5>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 5>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 5>
+Stack :==> [RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 5>
+Stack :==> [<action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped ASSIGNOP with token ASSIGNOP (input string: ":="). * MATCH * <File: sample.pas, line 5>
+Stack :==> [<expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "1"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 5>
+Stack :==> [<simple_expression>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "1"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 5>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "1"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 5>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "1"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 5>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "1"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 5>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "1"). * MATCH * <File: sample.pas, line 5>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 5>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 5>
+Stack :==> [<expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 5>
+Stack :==> [<action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 5>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 5>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 6>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 6>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 6>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [36] ::= [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>] <File: sample.pas, line 6>
+Stack :==> [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 6>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 6>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "2"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 6>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "2"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 6>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "2"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 6>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "2"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 6>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "2"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 6>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "2"). * MATCH * <File: sample.pas, line 6>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 6>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 6>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 6>
+Stack :==> [RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 6>
+Stack :==> [<action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped ASSIGNOP with token ASSIGNOP (input string: ":="). * MATCH * <File: sample.pas, line 6>
+Stack :==> [<expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "2"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 6>
+Stack :==> [<simple_expression>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "2"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 6>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "2"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 6>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "2"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 6>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "2"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 6>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "2"). * MATCH * <File: sample.pas, line 6>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 6>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 6>
+Stack :==> [<expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 6>
+Stack :==> [<action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 6>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 6>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 7>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 7>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 7>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [36] ::= [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>] <File: sample.pas, line 7>
+Stack :==> [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 7>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 7>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "3"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 7>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "3"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 7>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "3"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 7>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "3"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 7>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "3"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 7>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "3"). * MATCH * <File: sample.pas, line 7>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 7>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 7>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 7>
+Stack :==> [RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 7>
+Stack :==> [<action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped ASSIGNOP with token ASSIGNOP (input string: ":="). * MATCH * <File: sample.pas, line 7>
+Stack :==> [<expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "3"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 7>
+Stack :==> [<simple_expression>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "3"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 7>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "3"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 7>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "3"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 7>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "3"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 7>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "3"). * MATCH * <File: sample.pas, line 7>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 7>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 7>
+Stack :==> [<expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 7>
+Stack :==> [<action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 7>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 7>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 8>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 8>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 8>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [36] ::= [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>] <File: sample.pas, line 8>
+Stack :==> [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 8>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 8>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "4"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 8>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "4"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 8>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "4"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 8>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "4"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 8>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "4"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 8>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "4"). * MATCH * <File: sample.pas, line 8>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 8>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 8>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 8>
+Stack :==> [RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 8>
+Stack :==> [<action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped ASSIGNOP with token ASSIGNOP (input string: ":="). * MATCH * <File: sample.pas, line 8>
+Stack :==> [<expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "4"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 8>
+Stack :==> [<simple_expression>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "4"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 8>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "4"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 8>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "4"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 8>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "4"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 8>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "4"). * MATCH * <File: sample.pas, line 8>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 8>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 8>
+Stack :==> [<expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 8>
+Stack :==> [<action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 8>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 8>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 9>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "m"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 9>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 9>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [36] ::= [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>] <File: sample.pas, line 9>
+Stack :==> [<action53>, <subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<subscript>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 9>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 9>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "5"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 9>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "5"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 9>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "5"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 9>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "5"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 9>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "5"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 9>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "5"). * MATCH * <File: sample.pas, line 9>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 9>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 9>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 9>
+Stack :==> [RIGHTBRACKET, <action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 9>
+Stack :==> [<action33>, ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [ASSIGNOP, <expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped ASSIGNOP with token ASSIGNOP (input string: ":="). * MATCH * <File: sample.pas, line 9>
+Stack :==> [<expression>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "5"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 9>
+Stack :==> [<simple_expression>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "5"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 9>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "5"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 9>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "5"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 9>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "5"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 9>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "5"). * MATCH * <File: sample.pas, line 9>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 9>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 9>
+Stack :==> [<expression_tail>, <action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token SEMICOLON (input string: ";"). # EPSILON # <File: sample.pas, line 9>
+Stack :==> [<action31>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 9>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 9>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 11>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 11>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "write"). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTPAREN (input string: "("). $ PUSH $  [37] ::= [<action54>, <parameters>] <File: sample.pas, line 11>
+Stack :==> [<action54>, <parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <parameters> with token LEFTPAREN (input string: "("). $ PUSH $  [40] ::= [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>] <File: sample.pas, line 11>
+Stack :==> [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTPAREN with token LEFTPAREN (input string: "("). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [42] ::= [<expression>, <action37>, <expression_list_tail>] <File: sample.pas, line 11>
+Stack :==> [<expression>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 11>
+Stack :==> [<simple_expression>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 11>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token IDENTIFIER (input string: "m"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 11>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token IDENTIFIER (input string: "m"). $ PUSH $  [55] ::= [IDENTIFIER, <action46>, <factor_tail>] <File: sample.pas, line 11>
+Stack :==> [IDENTIFIER, <action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [60] ::= [<subscript>, <action48>] <File: sample.pas, line 11>
+Stack :==> [<subscript>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 11>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "1"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 11>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "1"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 11>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "1"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 11>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "1"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 11>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "1"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 11>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "1"). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 11>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 11>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 11>
+Stack :==> [RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 11>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 11>
+Stack :==> [<expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 11>
+Stack :==> [<action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 11>
+Stack :==> [RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTPAREN with token RIGHTPAREN (input string: ")"). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 11>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 11>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 12>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 12>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "write"). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTPAREN (input string: "("). $ PUSH $  [37] ::= [<action54>, <parameters>] <File: sample.pas, line 12>
+Stack :==> [<action54>, <parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <parameters> with token LEFTPAREN (input string: "("). $ PUSH $  [40] ::= [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>] <File: sample.pas, line 12>
+Stack :==> [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTPAREN with token LEFTPAREN (input string: "("). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [42] ::= [<expression>, <action37>, <expression_list_tail>] <File: sample.pas, line 12>
+Stack :==> [<expression>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 12>
+Stack :==> [<simple_expression>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 12>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token IDENTIFIER (input string: "m"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 12>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token IDENTIFIER (input string: "m"). $ PUSH $  [55] ::= [IDENTIFIER, <action46>, <factor_tail>] <File: sample.pas, line 12>
+Stack :==> [IDENTIFIER, <action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [60] ::= [<subscript>, <action48>] <File: sample.pas, line 12>
+Stack :==> [<subscript>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 12>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "2"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 12>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "2"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 12>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "2"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 12>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "2"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 12>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "2"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 12>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "2"). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 12>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 12>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 12>
+Stack :==> [RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 12>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 12>
+Stack :==> [<expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 12>
+Stack :==> [<action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 12>
+Stack :==> [RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTPAREN with token RIGHTPAREN (input string: ")"). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 12>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 12>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 13>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 13>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "write"). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTPAREN (input string: "("). $ PUSH $  [37] ::= [<action54>, <parameters>] <File: sample.pas, line 13>
+Stack :==> [<action54>, <parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <parameters> with token LEFTPAREN (input string: "("). $ PUSH $  [40] ::= [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>] <File: sample.pas, line 13>
+Stack :==> [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTPAREN with token LEFTPAREN (input string: "("). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [42] ::= [<expression>, <action37>, <expression_list_tail>] <File: sample.pas, line 13>
+Stack :==> [<expression>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 13>
+Stack :==> [<simple_expression>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 13>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token IDENTIFIER (input string: "m"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 13>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token IDENTIFIER (input string: "m"). $ PUSH $  [55] ::= [IDENTIFIER, <action46>, <factor_tail>] <File: sample.pas, line 13>
+Stack :==> [IDENTIFIER, <action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [60] ::= [<subscript>, <action48>] <File: sample.pas, line 13>
+Stack :==> [<subscript>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 13>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "3"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 13>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "3"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 13>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "3"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 13>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "3"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 13>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "3"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 13>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "3"). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 13>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 13>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 13>
+Stack :==> [RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 13>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 13>
+Stack :==> [<expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 13>
+Stack :==> [<action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 13>
+Stack :==> [RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTPAREN with token RIGHTPAREN (input string: ")"). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 13>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 13>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 14>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 14>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "write"). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTPAREN (input string: "("). $ PUSH $  [37] ::= [<action54>, <parameters>] <File: sample.pas, line 14>
+Stack :==> [<action54>, <parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <parameters> with token LEFTPAREN (input string: "("). $ PUSH $  [40] ::= [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>] <File: sample.pas, line 14>
+Stack :==> [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTPAREN with token LEFTPAREN (input string: "("). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [42] ::= [<expression>, <action37>, <expression_list_tail>] <File: sample.pas, line 14>
+Stack :==> [<expression>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 14>
+Stack :==> [<simple_expression>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 14>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token IDENTIFIER (input string: "m"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 14>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token IDENTIFIER (input string: "m"). $ PUSH $  [55] ::= [IDENTIFIER, <action46>, <factor_tail>] <File: sample.pas, line 14>
+Stack :==> [IDENTIFIER, <action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [60] ::= [<subscript>, <action48>] <File: sample.pas, line 14>
+Stack :==> [<subscript>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 14>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "4"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 14>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "4"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 14>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "4"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 14>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "4"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 14>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "4"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 14>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "4"). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 14>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 14>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 14>
+Stack :==> [RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 14>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 14>
+Stack :==> [<expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 14>
+Stack :==> [<action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 14>
+Stack :==> [RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTPAREN with token RIGHTPAREN (input string: ")"). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token SEMICOLON (input string: ";"). $ PUSH $  [27] ::= [SEMICOLON, <statement>, <statement_list_tail>] <File: sample.pas, line 14>
+Stack :==> [SEMICOLON, <statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped SEMICOLON with token SEMICOLON (input string: ";"). * MATCH * <File: sample.pas, line 14>
+Stack :==> [<statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [29] ::= [<elementary_statement>] <File: sample.pas, line 15>
+Stack :==> [<elementary_statement>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <elementary_statement> with token IDENTIFIER (input string: "write"). $ PUSH $  [34] ::= [IDENTIFIER, <action30>, <es_tail>] <File: sample.pas, line 15>
+Stack :==> [IDENTIFIER, <action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "write"). * MATCH * <File: sample.pas, line 15>
+Stack :==> [<action30>, <es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<es_tail>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <es_tail> with token LEFTPAREN (input string: "("). $ PUSH $  [37] ::= [<action54>, <parameters>] <File: sample.pas, line 15>
+Stack :==> [<action54>, <parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<parameters>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <parameters> with token LEFTPAREN (input string: "("). $ PUSH $  [40] ::= [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>] <File: sample.pas, line 15>
+Stack :==> [<action35>, LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTPAREN, <expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTPAREN with token LEFTPAREN (input string: "("). * MATCH * <File: sample.pas, line 15>
+Stack :==> [<expression_list>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list> with token IDENTIFIER (input string: "m"). $ PUSH $  [42] ::= [<expression>, <action37>, <expression_list_tail>] <File: sample.pas, line 15>
+Stack :==> [<expression>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 15>
+Stack :==> [<simple_expression>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token IDENTIFIER (input string: "m"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 15>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token IDENTIFIER (input string: "m"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 15>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token IDENTIFIER (input string: "m"). $ PUSH $  [55] ::= [IDENTIFIER, <action46>, <factor_tail>] <File: sample.pas, line 15>
+Stack :==> [IDENTIFIER, <action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped IDENTIFIER with token IDENTIFIER (input string: "m"). * MATCH * <File: sample.pas, line 15>
+Stack :==> [<action46>, <factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<factor_tail>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor_tail> with token LEFTBRACKET (input string: "["). $ PUSH $  [60] ::= [<subscript>, <action48>] <File: sample.pas, line 15>
+Stack :==> [<subscript>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <subscript> with token LEFTBRACKET (input string: "["). $ PUSH $  [38] ::= [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>] <File: sample.pas, line 15>
+Stack :==> [<action32>, LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [LEFTBRACKET, <expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped LEFTBRACKET with token LEFTBRACKET (input string: "["). * MATCH * <File: sample.pas, line 15>
+Stack :==> [<expression>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression> with token INTCONSTANT (input string: "5"). $ PUSH $  [45] ::= [<simple_expression>, <expression_tail>] <File: sample.pas, line 15>
+Stack :==> [<simple_expression>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression> with token INTCONSTANT (input string: "5"). $ PUSH $  [48] ::= [<term>, <simple_expression_tail>] <File: sample.pas, line 15>
+Stack :==> [<term>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term> with token INTCONSTANT (input string: "5"). $ PUSH $  [52] ::= [<factor>, <term_tail>] <File: sample.pas, line 15>
+Stack :==> [<factor>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <factor> with token INTCONSTANT (input string: "5"). $ PUSH $  [56] ::= [<constant>, <action46>] <File: sample.pas, line 15>
+Stack :==> [<constant>, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <constant> with token INTCONSTANT (input string: "5"). $ PUSH $  [66] ::= [INTCONSTANT] <File: sample.pas, line 15>
+Stack :==> [INTCONSTANT, <action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped INTCONSTANT with token INTCONSTANT (input string: "5"). * MATCH * <File: sample.pas, line 15>
+Stack :==> [<action46>, <term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 15>
+Stack :==> [<simple_expression_tail>, <expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 15>
+Stack :==> [<expression_tail>, RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTBRACKET (input string: "]"). # EPSILON # <File: sample.pas, line 15>
+Stack :==> [RIGHTBRACKET, <action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTBRACKET with token RIGHTBRACKET (input string: "]"). * MATCH * <File: sample.pas, line 15>
+Stack :==> [<action33>, <action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<action48>, <term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<term_tail>, <simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <term_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 15>
+Stack :==> [<simple_expression_tail>, <expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <simple_expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 15>
+Stack :==> [<expression_tail>, <action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 15>
+Stack :==> [<action37>, <expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<expression_list_tail>, RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <expression_list_tail> with token RIGHTPAREN (input string: ")"). # EPSILON # <File: sample.pas, line 15>
+Stack :==> [RIGHTPAREN, <action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped RIGHTPAREN with token RIGHTPAREN (input string: ")"). * MATCH * <File: sample.pas, line 15>
+Stack :==> [<action51>, <statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [<statement_list_tail>, END, <action55>, ENDMARKER, ENDOFFILE]
+Popped <statement_list_tail> with token END (input string: "end"). # EPSILON # <File: sample.pas, line 16>
+Stack :==> [END, <action55>, ENDMARKER, ENDOFFILE]
+Popped END with token END (input string: "end"). * MATCH * <File: sample.pas, line 16>
+Stack :==> [<action55>, ENDMARKER, ENDOFFILE]
+Stack :==> [ENDMARKER, ENDOFFILE]
+Popped ENDMARKER with token ENDMARKER (input string: "."). * MATCH * <File: sample.pas, line 16>
+
+ENDOFFILE ---> ! ACCEPT !

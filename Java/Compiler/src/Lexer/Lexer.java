@@ -5,6 +5,7 @@
  */
 package Lexer;
 
+import constants.Token;
 import constants.ReservedWords;
 import constants.TokenType;
 import Lexer.LexicalExceptions.*;
@@ -255,7 +256,7 @@ public class Lexer {
                     } else if (peek == '.') {
                         // recover lookahead
                         pushback.push('.');
-                        return new Token(TokenType.INTCONSTANT, Integer.parseInt(lexemeBuilder.toString()));
+                        return new Token(TokenType.INTCONSTANT, lexemeBuilder.toString());
                     // must follow a digit, reject here
                     } else {
                         lexemeBuilder.append(peek);
@@ -292,7 +293,7 @@ public class Lexer {
                     // see other character, and since current state is accept state
                     // return token
                     } else {
-                        return new Token(TokenType.REALCONSTANT, Double.parseDouble(lexemeBuilder.toString()));
+                        return new Token(TokenType.REALCONSTANT, lexemeBuilder.toString());
                     }
                     break;
                 // in format of 1.242e10 or 1e10
@@ -305,7 +306,7 @@ public class Lexer {
                     // see other character, and since current state is accept state
                     // return token
                     } else {
-                        return new Token(TokenType.REALCONSTANT, Double.parseDouble(lexemeBuilder.toString()));
+                        return new Token(TokenType.REALCONSTANT, lexemeBuilder.toString());
                     }
                     break;
                 // in format of 1.242e-10 or 1e-10

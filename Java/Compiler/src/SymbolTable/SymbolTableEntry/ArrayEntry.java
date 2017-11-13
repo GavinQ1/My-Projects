@@ -23,6 +23,10 @@ public class ArrayEntry extends SymbolTableEntry {
     }
     
     public boolean isArray() { return true; }
+    public void setType(TokenType t) { type = t; }
+    public void setUpperBound(int ub) { upperBound = ub; }
+    public void setLowerBound(int lb) { lowerBound = lb; }
+    public void setAddress(int ads) { address = ads; }
     
     public int getAddress() { return address; }
     public int getUpperBound() { return upperBound; }
