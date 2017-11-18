@@ -40,7 +40,6 @@ public class Parser {
         lexer = new Lexer(filename);
         __DEBUG__ = debug;
         semact = new SemanticActions();
-        semact.setLexer(lexer);
         if (__DEBUG__) {
             logger = new PrintWriter("logs.txt", "UTF-8");
         }
@@ -112,6 +111,9 @@ public class Parser {
                 }
             } else if (predicted.isAction()) {
                 stack.pop();
+                int line = lexer.getLine();
+                if (current.isTypeOf(TokenType.END)) line--;
+                semact.setLine(line);
                 semact.execute((SemanticAction) predicted, last);
             }
         }
@@ -148,7 +150,7 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-        String filename = "phase2-1(no-subscripts).pas";
+        String filename = "phase2-2(no-subscripts).pas";
         boolean debug = false;
         if (args.length > 0) {
             filename = args[0];

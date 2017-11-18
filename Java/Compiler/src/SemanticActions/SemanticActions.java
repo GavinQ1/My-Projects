@@ -28,7 +28,7 @@ public class SemanticActions {
     public SymbolTable globalTable, localTable, constantTable;
     private int globalMemory, localMemory, globalStore;
     private Quadruples quads;
-    private Lexer lexer;
+    private int line;
 
     enum ETYPE {
         ARITHMETIC(0),
@@ -72,8 +72,8 @@ public class SemanticActions {
         return entry;
     }
     
-    public void setLexer(Lexer l) { 
-        lexer = l;
+    public void setLine(int line) {
+        this.line = line;
     }
     
     private String getAddr(SymbolTableEntry op) throws SymbolTableException {
@@ -83,8 +83,7 @@ public class SemanticActions {
         } else if (op.isVariable()) {
             res = ((VariableEntry) op).getAddress();
         } else {
-            TokenType t = ((ConstantEntry) op).getType();
-            VariableEntry temp = create(getTempName(), t);
+            VariableEntry temp = create(getTempName(), ((ConstantEntry) op).getType());
             generate("move", op.getName(), temp);
             res = temp.getAddress();
         }
@@ -181,7 +180,7 @@ public class SemanticActions {
     public void execute(SemanticAction action, Token token) throws SymbolTableException, SemanticActionsException {
         int actionIndex = action.getIndex();
         boolean flag = true;
-        System.out.println("calling action : " + actionIndex + " with token " + token);
+
         switch (actionIndex) {
             // #1   : INSERT/SEARCH = INSERT
             case 1:
@@ -256,6 +255,7 @@ public class SemanticActions {
                     globalTable.insert(n1, e1);
                     globalTable.insert(n2, e2);
                     globalTable.insert(n3, e3);
+                    // globalMemory += 3;
                 } else {
                     localTable.insert(n1, e1);
                     localTable.insert(n2, e2);
@@ -274,7 +274,7 @@ public class SemanticActions {
                 String name = token.getValue().toString();
                 SymbolTableEntry entry = globalTable.get(name);
                 if (entry == null) {
-                    throw new UndeclaredVariableException(name, lexer.getLine());
+                    throw new UndeclaredVariableException(name, line);
                 }
                 stack.push(entry);
                 // stack.push(ETYPE.ARITHMETIC);
@@ -288,7 +288,7 @@ public class SemanticActions {
                 int check = typeCheck(id1, id2);
                 switch (check) {
                     case 3:
-                        throw new SemanticActionsException("Cannot assign real value to integer variable", lexer.getLine());
+                        throw new SemanticActionsException("Cannot assign real value to integer variable", line);
                     case 2:
                         VariableEntry temp = create(getTempName(), TokenType.REAL);
                         generate("ltof", id2, temp);
@@ -374,11 +374,10 @@ public class SemanticActions {
                 id1 = (SymbolTableEntry) stack.pop();
                 int opv = (Integer) op.getValue();
                 check = typeCheck(id1, id2);
-                if (check != 0 && opv == 4) {
+                if (check != 0 && opv == 3) {
                     // mod needs both to be integer
-                    throw new SemanticActionsException("MOD requires integer operands", lexer.getLine());
+                    throw new SemanticActionsException("Operands of the DIV operator must both be of type integer", line);
                 }
-                System.out.println(id1.getType() + " " + id2.getType());
                 if (check == 0) {
                     // if op is "mod"
                     if (opv == 4) {
@@ -389,19 +388,21 @@ public class SemanticActions {
                         generate("sub", temp2, id2, temp1);
                         generate("bge", temp1, id2, quads.getNextQuad() - 2);
                         result = temp1;
-                    } else // if op is "/"
-                    if (opv == 2) {
-                        VariableEntry temp1 = create(getTempName(), TokenType.REAL);
-                        generate("ltof", id1, temp1);
-                        VariableEntry temp2 = create(getTempName(), TokenType.REAL);
-                        generate("ltof", id2, temp2);
-                        VariableEntry temp3 = create(getTempName(), TokenType.REAL);
-                        generate("fdiv", temp1, temp2, temp3);
-                        result = temp3;
                     } else {
-                        VariableEntry temp = create(getTempName(), TokenType.INTEGER);
-                        generate((opv == 1) ? "mul" : "div", id1, id2, temp);
-                        result = temp;
+                        // if op is "/"
+                        if (opv == 2) {
+                            VariableEntry temp1 = create(getTempName(), TokenType.REAL);
+                            generate("ltof", id1, temp1);
+                            VariableEntry temp2 = create(getTempName(), TokenType.REAL);
+                            generate("ltof", id2, temp2);
+                            VariableEntry temp3 = create(getTempName(), TokenType.REAL);
+                            generate("fdiv", temp1, temp2, temp3);
+                            result = temp3;
+                        } else {
+                            VariableEntry temp = create(getTempName(), TokenType.INTEGER);
+                            generate((opv == 1) ? "mul" : "div", id1, id2, temp);
+                            result = temp;
+                        }
                     }
                 } else if (check == 1) {
                     // if op is "div"
@@ -461,15 +462,20 @@ public class SemanticActions {
                 SymbolTable table = (globalF) ? globalTable : localTable;
                 if (token.isTypeOf(TokenType.IDENTIFIER)) {
                     if (!table.lookup(name)) {
-                        throw new UndeclaredVariableException(name, lexer.getLine());
+                        throw new UndeclaredVariableException(name, line);
                     }
                     stack.push(table.get(name));
                     // if token is a constant
                 } else {
-                    entry = (ConstantEntry) constantTable.get(name);
+                    entry = (ConstantEntry) table.get(name);
                     if (entry == null) {
                         entry = new ConstantEntry(name, (token.isTypeOf(TokenType.INTCONSTANT) ? TokenType.INTEGER : TokenType.REAL));
-                        constantTable.insert(name, entry);
+                        table.insert(name, entry);
+                        if (globalF) {
+                            globalMemory++;
+                        } else {
+                            localMemory++;
+                        }
                     }
                     stack.push(entry);
                 }
