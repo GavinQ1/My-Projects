@@ -4,8 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Gavin/github/My-Projects/Java/Compiler/src/SemanticActions/SemanticActions.java</file>
-            <file>file:/C:/Users/Gavin/github/My-Projects/Java/Compiler/src/Lexer/Lexer.java</file>
-            <file>file:/C:/Users/Gavin/github/My-Projects/Java/Compiler/src/Parser/Parser.java</file>
+            <file>file:/C:/Users/Gavin/github/My-Projects/Java/Compiler/src/Parser/RHSTable.java</file>
+            <file>file:/C:/Users/Gavin/github/My-Projects/Java/Compiler/src/SemanticActions/Quadruples.java</file>
         </group>
     </open-files>
 </project-private>

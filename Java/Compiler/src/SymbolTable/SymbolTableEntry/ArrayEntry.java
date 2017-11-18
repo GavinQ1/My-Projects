@@ -11,7 +11,6 @@ import constants.TokenType;
  * @author Gavin
  */
 public class ArrayEntry extends SymbolTableEntry {
-    private TokenType type;
     private int address, upperBound, lowerBound;
     
     public ArrayEntry(String name, int address, TokenType type, int upperBound, int lowerBound) {
@@ -31,5 +30,4 @@ public class ArrayEntry extends SymbolTableEntry {
     public int getAddress() { return address; }
     public int getUpperBound() { return upperBound; }
     public int getLowerBound() { return lowerBound; }
-    public TokenType getType() { return type; }
 }

@@ -5,6 +5,8 @@
  */
 package SymbolTable.SymbolTableEntry;
 
+import constants.TokenType;
+
 /**
  *
  * @author Gavin
@@ -12,6 +14,7 @@ package SymbolTable.SymbolTableEntry;
 public abstract class SymbolTableEntry {
     protected String name;
     protected boolean isReserved;
+    protected TokenType type = null;
     
     public SymbolTableEntry(String name) {
         this(name, false);
@@ -23,6 +26,7 @@ public abstract class SymbolTableEntry {
     }
     
     public String getName() { return this.name; }
+    public TokenType getType() { return this.type; }
     public String toString() { return this.name; }
     
     public void setIsReserved(boolean flag) { isReserved = flag; }

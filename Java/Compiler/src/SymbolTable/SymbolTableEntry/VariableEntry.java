@@ -10,7 +10,6 @@ import constants.TokenType;
  * @author Gavin
  */
 public class VariableEntry extends SymbolTableEntry {
-    private TokenType type;
     private int address;
     
     public VariableEntry(String name, int address, TokenType type) {
@@ -19,10 +18,13 @@ public class VariableEntry extends SymbolTableEntry {
         this.type = type;
     }
     
+    public VariableEntry(String name) {
+        this(name, 0, null);
+    }
+    
     public void setType(TokenType t) { type = t; }
     public void setAddress(int ads) { address = ads; }
     
     public boolean isVariable() { return true; }
-    public TokenType getType() { return type; }
     public int getAddress() { return address; }
 }

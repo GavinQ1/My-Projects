@@ -10,13 +10,10 @@ import constants.TokenType;
  * @author Gavin
  */
 public class ConstantEntry extends SymbolTableEntry {
-    private TokenType type;
-    
     public ConstantEntry(String name, TokenType type) {
         super(name);
         this.type = type;
     }
     
     public boolean isConstant() { return true; }
-    public TokenType getType() { return type; }
 }

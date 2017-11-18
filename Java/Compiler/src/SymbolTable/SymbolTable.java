@@ -28,8 +28,8 @@ public class SymbolTable {
         insert("main", new ProcedureEntry("main", 0, new ArrayList()));
         insert("read", new ProcedureEntry("read", 0, new ArrayList()));
         insert("write", new ProcedureEntry("write", 0, new ArrayList()));
-        insert("input", new IODeviceEntry("input"));
-        insert("output", new IODeviceEntry("output"));
+        // insert("input", new IODeviceEntry("input"));
+        // insert("output", new IODeviceEntry("output"));
     }
     
     private String standardize(String key) {
@@ -50,6 +50,10 @@ public class SymbolTable {
     }
     
     public int size() { return table.size(); }
+    
+    public void insertAnyway(String name, SymbolTableEntry entry) {
+        table.put(name, entry);
+    }
     
     public void insert(String name, SymbolTableEntry entry) throws SymbolTableException {
         name = standardize(name);

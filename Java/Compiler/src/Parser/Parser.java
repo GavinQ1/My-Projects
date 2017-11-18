@@ -10,6 +10,7 @@ import Lexer.*;
 import Lexer.LexicalExceptions.LexicalException;
 import Parser.ParserExceptions.ParserException;
 import SemanticActions.SemanticActions;
+import SemanticActions.SemanticActionsExceptions.SemanticActionsException;
 import SymbolTable.SymbolTableExceptions.SymbolTableException;
 import java.util.*;
 import java.io.*;
@@ -39,6 +40,7 @@ public class Parser {
         lexer = new Lexer(filename);
         __DEBUG__ = debug;
         semact = new SemanticActions();
+        semact.setLexer(lexer);
         if (__DEBUG__) {
             logger = new PrintWriter("logs.txt", "UTF-8");
         }
@@ -49,7 +51,7 @@ public class Parser {
         return lexer.getNextToken().getType();
     }
 
-    public void parse() throws LexicalException, IOException, ParserException, SymbolTableException {
+    public void parse() throws LexicalException, IOException, ParserException, SymbolTableException, SemanticActionsException {
         Token current = lexer.getNextToken(), last = null;
         stack.push(TokenType.ENDOFFILE);
         stack.push(NonTerminal.Goal);
@@ -146,7 +148,7 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-        String filename = "test.pas";
+        String filename = "phase2-1(no-subscripts).pas";
         boolean debug = false;
         if (args.length > 0) {
             filename = args[0];
@@ -161,9 +163,9 @@ public class Parser {
             Parser parser = new Parser(filename, debug);
             parser.parse();
             System.out.println("\n*****************\nEnd state:\n");
-            parser.semact.dump();
+            parser.semact.dumpCode();
             System.out.println("\nACCEPT! (Degbug mode is: " + (parser.__DEBUG__ ? "on" : "off") + ")\n");
-        } catch (LexicalException | ParserException | IOException | SymbolTableException ex) {
+        } catch (LexicalException | ParserException | IOException | SymbolTableException | SemanticActionsException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

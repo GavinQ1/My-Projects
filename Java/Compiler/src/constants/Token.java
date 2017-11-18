@@ -5,9 +5,6 @@
  */
 package constants;
 
-import constants.TokenType;
-import constants.GrammarSymbol;
-
 /**
  *
  * @author Gavin
