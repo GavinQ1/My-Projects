@@ -5,7 +5,6 @@
  */
 package SemanticActions;
 
-import Lexer.Lexer;
 import SemanticActions.SemanticActionsExceptions.*;
 import constants.Token;
 import SymbolTable.*;
@@ -67,7 +66,9 @@ public class SemanticActions {
     }
 
     public VariableEntry create(String name, TokenType type) throws SymbolTableException {
-        VariableEntry entry = new VariableEntry("$$" + name, -globalMemory++, type);
+        // no need for optimization for now
+        // VariableEntry entry = new VariableEntry("$$" + name, -globalMemory++, type);
+        VariableEntry entry = new VariableEntry("$$" + name, globalMemory++, type);
         globalTable.insert(name, entry);
         return entry;
     }
@@ -374,9 +375,14 @@ public class SemanticActions {
                 id1 = (SymbolTableEntry) stack.pop();
                 int opv = (Integer) op.getValue();
                 check = typeCheck(id1, id2);
-                if (check != 0 && opv == 3) {
+                if (check != 0) {
                     // mod needs both to be integer
-                    throw new SemanticActionsException("Operands of the DIV operator must both be of type integer", line);
+                    if (opv == 4) {
+                        throw new SemanticActionsException("Operands of the MOD operator must both be of type integer", line);
+                    // div needs both to be integer
+                    } else if (opv == 3) {
+                         throw new SemanticActionsException("Operands of the DIV operator must both be of type integer", line);
+                    }
                 }
                 if (check == 0) {
                     // if op is "mod"
@@ -406,7 +412,7 @@ public class SemanticActions {
                     }
                 } else if (check == 1) {
                     // if op is "div"
-                    if (opv == 4) {
+                    if (opv == 3) {
                         VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
                         generate("ftol", id1, temp1);
                         VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
@@ -421,7 +427,7 @@ public class SemanticActions {
                     }
                 } else if (check == 2) {
                     // if op is "div"
-                    if (opv == 4) {
+                    if (opv == 3) {
                         VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
                         generate("ftol", id1, temp1);
                         VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
@@ -438,7 +444,7 @@ public class SemanticActions {
                     }
                 } else {
                     // if op is "div"
-                    if (opv == 4) {
+                    if (opv == 3) {
                         VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
                         generate("ftol", id1, temp1);
                         VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
@@ -467,15 +473,10 @@ public class SemanticActions {
                     stack.push(table.get(name));
                     // if token is a constant
                 } else {
-                    entry = (ConstantEntry) table.get(name);
+                    entry = (ConstantEntry) constantTable.get(name);
                     if (entry == null) {
                         entry = new ConstantEntry(name, (token.isTypeOf(TokenType.INTCONSTANT) ? TokenType.INTEGER : TokenType.REAL));
-                        table.insert(name, entry);
-                        if (globalF) {
-                            globalMemory++;
-                        } else {
-                            localMemory++;
-                        }
+                        constantTable.insert(name, entry);
                     }
                     stack.push(entry);
                 }

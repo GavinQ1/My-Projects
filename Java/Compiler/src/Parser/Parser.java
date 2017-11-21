@@ -150,7 +150,7 @@ public class Parser {
     }
 
     public static void main(String[] args) {
-        String filename = "phase2-2(no-subscripts).pas";
+        String filename = "phase2-1(no-subscripts).pas";
         boolean debug = false;
         if (args.length > 0) {
             filename = args[0];
