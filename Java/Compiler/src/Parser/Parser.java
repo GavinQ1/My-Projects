@@ -164,8 +164,9 @@ public class Parser {
         try {
             Parser parser = new Parser(filename, debug);
             parser.parse();
-            System.out.println("\n*****************\nEnd state:\n");
+            // System.out.println("\n*****************\nEnd state:\n");
             parser.semact.dumpCode();
+            // parser.semact.dump();
             System.out.println("\nACCEPT! (Degbug mode is: " + (parser.__DEBUG__ ? "on" : "off") + ")\n");
         } catch (LexicalException | ParserException | IOException | SymbolTableException | SemanticActionsException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
