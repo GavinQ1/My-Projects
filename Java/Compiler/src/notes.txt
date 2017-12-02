@@ -1,0 +1,41 @@
+Done:
+1
+2
+3
+4
+6
+7
+9 
+13
+22
+24
+25
+26
+27
+28
+29
+30 
+31 
+32
+33
+34
+38
+39
+40
+41 
+42 
+43 
+44 
+45 
+46
+47
+52 
+53
+54
+55
+56
+
+Order of stuffs on stack
+
+For E.False, E.True: E.False, E.True, op, E.False, E.True
+For id1, id2: id2, op, id1

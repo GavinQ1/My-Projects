@@ -26,5 +26,5 @@ public class VariableEntry extends SymbolTableEntry {
     public void setAddress(int ads) { address = ads; }
     
     public boolean isVariable() { return true; }
-    public int getAddress() { return address; }
+    public Integer getAddress() { return address; }
 }

@@ -68,9 +68,9 @@ public class SymbolTable {
         for (Map.Entry<String, SymbolTableEntry> entry : table.entrySet()) {
             String key = entry.getKey();
             SymbolTableEntry value = entry.getValue();
-            // String addr = "";
-            // if (value.isVariable()) addr += ((VariableEntry) value).getAddress();
-            System.out.println(key + " <==> " + value + " ");
+            String addr = "" + value.getAddress();
+            if (addr.length() > 0) addr = "_" + addr;
+            System.out.println(key + " <==> " + value + " " + addr);
         }
     }
     

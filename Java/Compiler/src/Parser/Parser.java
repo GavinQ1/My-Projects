@@ -112,7 +112,7 @@ public class Parser {
             } else if (predicted.isAction()) {
                 stack.pop();
                 int line = lexer.getLine();
-                if (current.isTypeOf(TokenType.END)) line--;
+                if (current.isTypeOf(TokenType.END) || current.isTypeOf(TokenType.THEN)) line--;
                 semact.setLine(line);
                 semact.execute((SemanticAction) predicted, last);
             }
@@ -148,9 +148,17 @@ public class Parser {
             logger.println(log);
         }
     }
-
+    
+    public void dumpCode() {
+        semact.dumpCode();
+    }
+    
+    public boolean isDebugging() {
+        return __DEBUG__;
+    }
+    
     public static void main(String[] args) {
-        String filename = "phase2-1(no-subscripts).pas";
+        String filename = "phase3-1.pas";
         boolean debug = false;
         if (args.length > 0) {
             filename = args[0];

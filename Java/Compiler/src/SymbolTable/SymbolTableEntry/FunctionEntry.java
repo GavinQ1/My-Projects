@@ -5,6 +5,7 @@
  */
 package SymbolTable.SymbolTableEntry;
 import java.util.List;
+import constants.TokenType;
 /**
  *
  * @author Gavin
@@ -25,4 +26,5 @@ public class FunctionEntry extends SymbolTableEntry {
     public List getParameterInfo() { return parameterInfo; }
     public int getNumberOfParameters() { return numberOfParameters; }
     public VariableEntry getResult() { return result; }
+    public TokenType getType() { return result.getType(); }
 }

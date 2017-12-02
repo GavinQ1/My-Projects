@@ -27,7 +27,7 @@ public class ArrayEntry extends SymbolTableEntry {
     public void setLowerBound(int lb) { lowerBound = lb; }
     public void setAddress(int ads) { address = ads; }
     
-    public int getAddress() { return address; }
+    public Integer getAddress() { return address; }
     public int getUpperBound() { return upperBound; }
     public int getLowerBound() { return lowerBound; }
 }

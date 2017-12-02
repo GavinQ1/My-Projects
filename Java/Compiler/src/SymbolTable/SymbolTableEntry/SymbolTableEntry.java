@@ -28,6 +28,7 @@ public abstract class SymbolTableEntry {
     public String getName() { return this.name; }
     public TokenType getType() { return this.type; }
     public String toString() { return this.name; }
+    public Integer getAddress() { return null; }
     
     public void setIsReserved(boolean flag) { isReserved = flag; }
     
