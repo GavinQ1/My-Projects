@@ -1,0 +1,85 @@
+CODE
+1:  call main, 0
+2:  exit
+3:  PROCBEGIN main
+4:  alloc 26
+5:  move 0, _2
+6:  move _2, _1
+7:  move 0, _3
+8:  beq _1, _3, 10
+9:  goto 14
+10:  move 0, _4
+11:  outp _4
+12:  newl
+13:  goto 31
+14:  move 1, _5
+15:  beq _1, _5, 17
+16:  goto 21
+17:  move 1, _6
+18:  outp _6
+19:  newl
+20:  goto 31
+21:  move 2, _7
+22:  beq _1, _7, 24
+23:  goto 28
+24:  move 2, _8
+25:  outp _8
+26:  newl
+27:  goto 31
+28:  move 99, _9
+29:  outp _9
+30:  newl
+31:  move 1, _10
+32:  move _10, _1
+33:  move 0, _11
+34:  beq _1, _11, 36
+35:  goto 40
+36:  move 0, _12
+37:  outp _12
+38:  newl
+39:  goto 57
+40:  move 1, _13
+41:  beq _1, _13, 43
+42:  goto 47
+43:  move 1, _14
+44:  outp _14
+45:  newl
+46:  goto 57
+47:  move 2, _15
+48:  beq _1, _15, 50
+49:  goto 54
+50:  move 2, _16
+51:  outp _16
+52:  newl
+53:  goto 57
+54:  move 99, _17
+55:  outp _17
+56:  newl
+57:  move 2, _18
+58:  move _18, _1
+59:  move 0, _19
+60:  beq _1, _19, 62
+61:  goto 66
+62:  move 0, _20
+63:  outp _20
+64:  newl
+65:  goto 83
+66:  move 1, _21
+67:  beq _1, _21, 69
+68:  goto 73
+69:  move 1, _22
+70:  outp _22
+71:  newl
+72:  goto 83
+73:  move 2, _23
+74:  beq _1, _23, 76
+75:  goto 80
+76:  move 2, _24
+77:  outp _24
+78:  newl
+79:  goto 83
+80:  move 99, _25
+81:  outp _25
+82:  newl
+83:  free 26
+84:  PROCEND

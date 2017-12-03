@@ -1,0 +1,47 @@
+CODE
+call      main,0
+exit
+PROCBEGIN  main
+	alloc	1
+1:	inp	_0
+	beq	_0, 0, 0
+
+	outp	_0
+	param	@_0			; pass number by reference
+	call	Fib, 1
+
+	outp	_0			; answer is passed back in _0
+	newl
+	goto	1
+0:	free	1
+PROCEND
+
+
+PROCBEGIN	Fib
+	alloc	2			; allocate 2 local variables on 
+					; the call stack
+
+	;; test for base cases Fib(1) and Fib(2)
+	beq	^%0, 1, 2
+	beq	^%0, 2, 2
+
+	;; calculate Fib(n-1)
+	sub	^%0, 1, %1
+	param	@%1
+	call	Fib, 1
+	
+	;; calculate Fib(n-2)
+	sub	^%0, 2, %2
+	param	@%2
+	call	Fib, 1
+
+	; calculate Fib(n)
+	add	%1, %2, ^%0
+	goto	3
+
+	; exit with the base case
+2:	move	1, ^%0
+
+	; clean up the call stack
+3:	free	2	
+PROCEND

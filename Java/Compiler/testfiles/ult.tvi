@@ -1,0 +1,156 @@
+CODE
+0:  call main, 0
+1:  exit
+2:  PROCBEGIN gcd
+3:  alloc 6
+4:  move 0, %3
+5:  beq ^%0, %3, 7
+6:  goto 9
+7:  move ^%1, _12
+8:  goto 20
+9:  move ^%1, %2
+10:  bge %2, ^%0, 12
+11:  goto 15
+12:  sub %2, ^%0, %4
+13:  move %4, %2
+14:  goto 10
+15:  param %0
+16:  param @%2
+17:  call gcd, 2
+18:  move _12, %5
+19:  move %5, _12
+20:  free 6
+21:  PROCEND
+22:  PROCBEGIN this
+23:  alloc 12
+24:  move 1608, %4
+25:  ltof %4, %2
+26:  fsub ^%1, %2, %3
+27:  beq ^%0, %3, 32
+28:  goto 29
+29:  ltof ^%0, %5
+30:  beq ^%1, %5, 32
+31:  goto 41
+32:  sub _1, _0, %6
+33:  move 0, %7
+34:  beq %6, %7, 36
+35:  goto 41
+36:  move 1, %9
+37:  sub _2, %9, %8
+38:  ftol ^%1, %10
+39:  div %10, ^%0, %11
+40:  stor %11, %8, _5
+41:  free 12
+42:  PROCEND
+43:  PROCBEGIN that
+44:  alloc 2
+45:  move _0, _1
+46:  param @%0
+47:  param @%1
+48:  call this, 2
+49:  free 2
+50:  PROCEND
+51:  PROCBEGIN main
+52:  alloc 48
+53:  move 1, _13
+54:  move _13, _2
+55:  move 5, _14
+56:  move _14, _1
+57:  move 5, _15
+58:  ble _2, _15, 60
+59:  goto 78
+60:  move 75, _16
+61:  ble _1, _16, 63
+62:  goto 78
+63:  move 1, _18
+64:  sub _2, _18, _17
+65:  stor _1, _17, _5
+66:  move 1, _20
+67:  sub _1, _20, _19
+68:  move 1, _22
+69:  sub _2, _22, _21
+70:  load _5, _21, _23
+71:  move 20, _25
+72:  mul _25, _23, _24
+73:  stor _24, _19, _5
+74:  move 1, _27
+75:  add _2, _27, _26
+76:  move _26, _2
+77:  goto 57
+78:  inp _1
+79:  inp _0
+80:  bgt _1, _0, 82
+81:  goto 90
+82:  param @_1
+83:  param @_0
+84:  call gcd, 2
+85:  move _12, _28
+86:  print "$$t28 = "
+87:  outp _28
+88:  newl
+89:  goto 97
+90:  param @_4
+91:  param @_3
+92:  call gcd, 2
+93:  move _12, _29
+94:  print "$$t29 = "
+95:  outp _29
+96:  newl
+97:  move 1, _31
+98:  sub _1, _31, _30
+99:  move 6758, _32
+100:  stor _32, _30, _5
+101:  move 230000000000.0, _33
+102:  move _33, _10
+103:  move 1, _35
+104:  sub _1, _35, _34
+105:  load _5, _34, _36
+106:  print "$$t36 = "
+107:  outp _36
+108:  newl
+109:  param @_1
+110:  param @_0
+111:  call gcd, 2
+112:  move _12, _37
+113:  param @_37
+114:  param @_10
+115:  call this, 2
+116:  move 1, _39
+117:  sub _1, _39, _38
+118:  load _5, _38, _40
+119:  param @_40
+120:  param @_10
+121:  call this, 2
+122:  CALL that, 0
+123:  move 1, _41
+124:  move _41, _2
+125:  move 5, _42
+126:  ble _2, _42, 128
+127:  goto 138
+128:  move 1, _44
+129:  sub _2, _44, _43
+130:  load _5, _43, _45
+131:  print "$$t45 = "
+132:  outp _45
+133:  newl
+134:  move 1, _47
+135:  add _2, _47, _46
+136:  move _46, _2
+137:  goto 125
+138:  print "H = "
+139:  outp _4
+140:  newl
+141:  print "I = "
+142:  outp _2
+143:  newl
+144:  print "X = "
+145:  outp _1
+146:  newl
+147:  print "Y = "
+148:  outp _0
+149:  newl
+150:  print "Z = "
+151:  outp _3
+152:  newl
+153:  free 48
+154:  PROCEND

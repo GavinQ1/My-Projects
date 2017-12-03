@@ -1,0 +1,25 @@
+CODE
+0:  call main, 0
+1:  exit
+2:  PROCBEGIN main
+3:  alloc 13
+4:  inp _1
+5:  inp _0
+6:  move 1, _8
+7:  sub _1, _8, _7
+8:  move 6.783, _9
+9:  stor _9, _7, _2
+10:  move 1, _11
+11:  sub _1, _11, _10
+12:  load _2, _10, _12
+13:  print "A = "
+14:  outp _1
+15:  newl
+16:  print "B = "
+17:  outp _0
+18:  newl
+19:  print "$$t5 = "
+20:  foutp _12
+21:  newl
+22:  free 13
+23:  PROCEND

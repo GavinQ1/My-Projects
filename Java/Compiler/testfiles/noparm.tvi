@@ -1,0 +1,26 @@
+CODE
+1:  call main, 0
+2:  exit
+3:  PROCBEGIN two
+4:  alloc 3
+5:  add _1, _0, %1
+6:  uminus %1, %2
+7:  move %2, _4
+8:  free 3
+9:  PROCEND
+10:  PROCBEGIN main
+11:  alloc 10
+12:  move 1, _5
+13:  move _5, _1
+14:  move 2, _6
+15:  move _6, _0
+16:  call two, 0
+17:  move _4, _7
+18:  add _1, _7, _8
+19:  ltof _8, _9
+20:  move _9, _2
+21:  print "C = "
+22:  foutp _2
+23:  newl
+24:  free 10
+25:  PROCEND

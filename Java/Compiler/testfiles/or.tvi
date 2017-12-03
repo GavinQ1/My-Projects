@@ -1,0 +1,36 @@
+CODE
+1:  call main, 0
+2:  exit
+3:  PROCBEGIN main
+4:  alloc 11
+5:  move 1, _3
+6:  move _3, _2
+7:  move 2, _4
+8:  move _4, _1
+9:  move 3, _5
+10:  move _5, _0
+11:  bne _2, _0, 13
+12:  goto 19
+13:  beq _2, _0, 15
+14:  goto 19
+15:  move 1, _6
+16:  outp _6
+17:  newl
+18:  goto 22
+19:  move 2, _7
+20:  outp _7
+21:  newl
+22:  beq _2, _0, 27
+23:  goto 24
+24:  add _2, _1, _8
+25:  beq _8, _0, 27
+26:  goto 31
+27:  move 1, _9
+28:  outp _9
+29:  newl
+30:  goto 34
+31:  move 2, _10
+32:  outp _10
+33:  newl
+34:  free 11
+35:  PROCEND

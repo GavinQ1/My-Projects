@@ -1,0 +1,38 @@
+CODE 
+1:   call main, 0
+2:   exit 
+3:   PROCBEGIN this
+4:   alloc 9
+5:   move 1608, %4
+6:   ltof %4, %2
+7:   fsub ^%1, %2, %3
+8:   beq ^%0, %3, 12
+9:   goto 10
+10:   beq ^%1, ^%0, 19
+11:   goto 12
+12:   fsub _0, _1, %5
+13:   move 0, %7
+14:   ltof %7, %6
+15:   beq %5, %6, 17
+16:   goto 19
+17:   fdiv ^%0, ^%1, %8
+18:   move %8, _0
+19:   free 9
+20:   PROCEND 
+21:   PROCBEGIN main
+22:   alloc 6
+23:   move 1, _3
+24:   ltof _3, _2
+25:   move _2, _1
+26:   move 5, _5
+27:   ltof _5, _4
+28:   move _4, _0
+29:   param @_1
+30:   param @_0
+31:   call this, 2
+32:   foutp _1
+33:   newl 
+34:   foutp _0
+35:   newl 
+36:   free 6
+37:   PROCEND 

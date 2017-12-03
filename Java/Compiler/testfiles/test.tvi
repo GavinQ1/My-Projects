@@ -1,0 +1,28 @@
+CODE
+call      main,0
+exit
+PROCBEGIN  main
+alloc	22
+move 0, _0
+move 0, _1
+move 0, _2
+move 0, _3
+move 0, _4
+move 0, _5
+move 0, _6
+move 0, _7
+move 0, _8
+move 0, _9
+move 0, _10
+move 0, _11
+move 0, _12
+move 0, _13
+move 0, _14
+move 0, _15
+move 0, _16
+move 0, _17
+move 0, _18
+move 0, _19
+move 0, _20
+move 0, _21
+PROCEND

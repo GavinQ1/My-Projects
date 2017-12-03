@@ -1,0 +1,71 @@
+CODE
+1:  call main, 0
+2:  exit
+3:  PROCBEGIN main
+4:  alloc 29
+5:  move 1, _2
+6:  move 3, _3
+7:  add _2, _3, _1
+8:  move 4, _5
+9:  mul _1, _5, _4
+10:  move _4, _0
+11:  move 16, _6
+12:  beq _0, _6, 14
+13:  goto 18
+14:  move 16, _7
+15:  outp _7
+16:  newl
+17:  goto 21
+18:  print "I = "
+19:  outp _0
+20:  newl
+21:  move 3, _9
+22:  move 4, _10
+23:  mul _9, _10, _8
+24:  move 1, _12
+25:  add _12, _8, _11
+26:  move _11, _0
+27:  move 13, _13
+28:  beq _0, _13, 30
+29:  goto 34
+30:  move 13, _14
+31:  outp _14
+32:  newl
+33:  goto 37
+34:  print "I = "
+35:  outp _0
+36:  newl
+37:  move 16, _16
+38:  move 2, _17
+39:  div _16, _17, _15
+40:  move 3, _19
+41:  add _15, _19, _18
+42:  move _18, _0
+43:  move 11, _20
+44:  beq _0, _20, 46
+45:  goto 50
+46:  move 11, _21
+47:  outp _21
+48:  newl
+49:  goto 53
+50:  print "I = "
+51:  outp _0
+52:  newl
+53:  move 32769, _23
+54:  move 2, _24
+55:  mul _23, _24, _22
+56:  move 2, _26
+57:  sub _22, _26, _25
+58:  move _25, _0
+59:  move 65536, _27
+60:  beq _0, _27, 62
+61:  goto 66
+62:  move 65536, _28
+63:  outp _28
+64:  newl
+65:  goto 69
+66:  print "I = "
+67:  outp _0
+68:  newl
+69:  free 29
+70:  PROCEND

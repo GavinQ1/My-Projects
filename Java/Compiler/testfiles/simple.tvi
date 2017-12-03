@@ -1,0 +1,9 @@
+CODE
+0:  call main, 0
+1:  exit
+2:  PROCBEGIN main
+3:  alloc 2
+4:  move 1, _1
+5:  move _1, _0
+6:  free 2
+7:  PROCEND

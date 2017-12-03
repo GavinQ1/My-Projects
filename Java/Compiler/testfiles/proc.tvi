@@ -1,0 +1,32 @@
+CODE
+0:  call main, 0
+1:  exit
+2:  PROCBEGIN one
+3:  alloc 8
+4:  add ^%1, ^%0, %4
+5:  move %4, %3
+6:  move 1, %6
+7:  sub %3, %6, %5
+8:  move 2.345, %7
+9:  stor %7, %5, ^%2
+10:  free 8
+11:  PROCEND
+12:  PROCBEGIN main
+13:  alloc 13
+14:  move 1, _7
+15:  move _7, _1
+16:  move 2, _8
+17:  move _8, _0
+18:  param @_1
+19:  param @_0
+20:  param @_2
+21:  call one, 3
+22:  add _1, _0, _9
+23:  move 1, _11
+24:  sub _9, _11, _10
+25:  load _2, _10, _12
+26:  print "$$t9 = "
+27:  foutp _12
+28:  newl
+29:  free 13
+30:  PROCEND

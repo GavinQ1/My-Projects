@@ -24,7 +24,12 @@ import java.util.logging.Logger;
  * @author Gavin
  */
 public class SemanticActions {
-
+    
+    private static String Global_Offset_Prefix = "_";
+    private static String Local_Offset_Prefix = "%";
+    private static String Parameter_Offset_Prefix = "^%";
+    private static String Placeholder = "_";
+    
     private int tempId = 0;
     private boolean __DEBUG__;
 
@@ -86,18 +91,23 @@ public class SemanticActions {
         this.line = line;
     }
     
+    private String prefixAddress(int address) {
+        return Global_Offset_Prefix + Math.abs(address);
+    }
     private String getAddr(SymbolTableEntry op) throws SymbolTableException {
         int res;
         if (op.isArray()) {
             res = ((ArrayEntry) op).getAddress();
         } else if (op.isVariable()) {
             res = ((VariableEntry) op).getAddress();
-        } else {
+        } else if (op.isConstant()) {
             VariableEntry temp = create(getTempName(), ((ConstantEntry) op).getType());
             generate("move", op.getName(), temp);
             res = temp.getAddress();
+        } else {
+            res = 0x7fffffff;
         }
-        return "_" + Math.abs(res);
+        return prefixAddress(res);
     }
 
     private String getTempName() {
@@ -214,7 +224,7 @@ public class SemanticActions {
         String[] quad = quads.getQuad(p);
         int w = -1;
         for (int j = 0; j < quad.length; j++) {
-            if ("_".equals(quad[j])) {
+            if (Placeholder.equals(quad[j])) {
                 w = j;
                 break;
             }
@@ -320,11 +330,11 @@ public class SemanticActions {
     private void action9() throws SymbolTableException {
         Token t1 = (Token) stack.pop(),
                 t2 = (Token) stack.pop(),
-                t3 = (Token) stack.get(0);
+                t3 = (Token) stack.get(0); // bottom
         String n1 = t1.getValue().toString(),
                 n2 = t2.getValue().toString(),
                 n3 = t3.getValue().toString();
-        stack.remove(0);
+        stack.remove(0); // pop bottom
         SymbolTableEntry e1 = new IODeviceEntry(n1),
                 e2 = new IODeviceEntry(n2),
                 e3 = new ProcedureEntry(n3, 0, null);
@@ -332,7 +342,6 @@ public class SemanticActions {
             globalTable.insert(n1, e1);
             globalTable.insert(n2, e2);
             globalTable.insert(n3, e3);
-            // globalMemory += 3;
         } else {
             localTable.insert(n1, e1);
             localTable.insert(n2, e2);
@@ -386,7 +395,7 @@ public class SemanticActions {
     private void action27() {
         // set SKIP_ELSE = makelist(NEXTQUAD), push it!
         stack.push(makeList(quads.getNextQuad()));
-        generate("goto", "_");
+        generate("goto", Placeholder);
         // stack : SKIP_ELSE, E.FALSE
         List<Integer> eF = (List<Integer>) getFromStackTop(1);
         backPatch(eF, quads.getNextQuad());
@@ -424,12 +433,11 @@ public class SemanticActions {
         SymbolTableEntry offset = (SymbolTableEntry) stack.pop();
         SymbolTableEntry id1 = (SymbolTableEntry) stack.pop();
         int check = typeCheck(id1, id2);
-        VariableEntry temp;
         switch (check) {
             case 3:
                 throw new SemanticActionsException("Cannot assign real value to integer variable", line);
             case 2:
-                temp = create(getTempName(), TokenType.REAL);
+                VariableEntry temp = create(getTempName(), TokenType.REAL);
                 generate("ltof", id2, temp);
                 if (offset == null) {
                     generate("move", temp, id1);
@@ -448,7 +456,7 @@ public class SemanticActions {
     }
     
     private void action32() throws SemanticActionsException {
-        ETYPE eType = (ETYPE) stack.pop();
+        ETYPE eType = popETYPE();
         if (!eType.isArithmetic()) {
             throw new SemanticActionsException("Invalid use of relational operator operation", line);
         }
@@ -462,7 +470,7 @@ public class SemanticActions {
         return new ConstantEntry(String.valueOf(i), TokenType.INTEGER);
     }
     private void action33() throws SemanticActionsException, SymbolTableException {
-        ETYPE eType = (ETYPE) stack.pop();
+        ETYPE eType = popETYPE();
         if (!eType.isArithmetic()) {
             throw new SemanticActionsException("Invalid use of relational operator", line);
         }
@@ -480,7 +488,7 @@ public class SemanticActions {
     
     private void action34() throws SemanticActionsException, SymbolTableException {
         // pop ETYPE
-        stack.pop();
+        popETYPE();
         SymbolTableEntry id = (SymbolTableEntry) stack.peek();
         if (id.isFunction()) {
             action52();
@@ -490,7 +498,7 @@ public class SemanticActions {
     }
     
     private void action38(Token token) throws SemanticActionsException {
-        ETYPE eType = (ETYPE) stack.pop();
+        ETYPE eType = popETYPE();
         if (!eType.isArithmetic()) {
             throw new SemanticActionsException("Invalid use of relational operator", line);
         }
@@ -515,7 +523,7 @@ public class SemanticActions {
         }
     } 
     private void action39() throws SemanticActionsException, SymbolTableException {
-        ETYPE eType = (ETYPE) stack.pop();
+        ETYPE eType = popETYPE();
         if (!eType.isArithmetic()) {
             throw new SemanticActionsException("Invalid use of relational operator", line);
         }
@@ -531,15 +539,15 @@ public class SemanticActions {
         if (check == 2) {
             SymbolTableEntry temp = create(getTempName(), TokenType.REAL);
             generate("ltof", id2, temp);
-            generate(tviCode, id1, temp, "_");
+            generate(tviCode, id1, temp, Placeholder);
         } else if (check == 3) {
             SymbolTableEntry temp = create(getTempName(), TokenType.REAL);
             generate("ltof", id1, temp);
-            generate(tviCode, temp, id2, "_");
+            generate(tviCode, temp, id2, Placeholder);
         } else {
-            generate(tviCode, id1, id2, "_");
+            generate(tviCode, id1, id2, Placeholder);
         }
-        generate("goto", "_");
+        generate("goto", Placeholder);
         
         List<Integer> E_True = makeList(quads.getNextQuad() - 2);
         List<Integer> E_False = makeList(quads.getNextQuad() - 1);
@@ -558,14 +566,14 @@ public class SemanticActions {
         if (!etype.isArithmetic()) {
             throw new SemanticActionsException("Invalid use of relational operator", line);
         }
-        SymbolTableEntry id = (SymbolTableEntry) getFromStackTop(0);
-        Token sign = (Token) getFromStackTop(1);
+        //pop sign, id
+        SymbolTableEntry id = (SymbolTableEntry) stack.pop();
+        Token sign = (Token) stack.pop();
         if (sign.isTypeOf(TokenType.UNARYMINUS)) {
             TokenType idType = id.getType();
             VariableEntry temp = create(getTempName(), idType);
             generate((idType.eqauls(TokenType.INTEGER)) ? "uminus" : "fuminus", id, temp);
-            //pop sign, id
-            stack.pop(); stack.pop();
+
             stack.push(temp);
         } else {
             //pop sign, id
@@ -580,7 +588,7 @@ public class SemanticActions {
         return op.isTypeOf(TokenType.ADDOP) && (Integer) op.getValue() == 3;
     }
     private void action42(Token token) throws SemanticActionsException {
-        ETYPE eType = (ETYPE) stack.pop();
+        ETYPE eType = popETYPE();
         // if operator is OR
         if (isTokenOr(token)) {
             if (!eType.isRelational()) {
@@ -598,7 +606,7 @@ public class SemanticActions {
     }
     
     private void action43() throws SymbolTableException, SemanticActionsException {
-        ETYPE eType = (ETYPE) stack.pop();
+        ETYPE eType = popETYPE();
         if (eType.isRelational()) {
             List<Integer> e2F = (ArrayList<Integer>) getFromStackTop(0),
                     e2T = (ArrayList<Integer>) getFromStackTop(1),
@@ -661,7 +669,7 @@ public class SemanticActions {
         return token.isTypeOf(TokenType.MULOP) && (Integer) token.getValue() == 5;
     }
     private void action44(Token token) {
-        ETYPE etype = (ETYPE) stack.pop();
+        ETYPE etype = popETYPE();
         if (etype.isRelational()) {
             // if op is AND
             if (isTokenAnd(token)) {
@@ -673,7 +681,7 @@ public class SemanticActions {
     }
     
     private void action45() throws SemanticActionsException, SymbolTableException {
-        ETYPE etype = (ETYPE) stack.pop();
+        ETYPE etype = popETYPE();
         if (etype.isRelational()) {
             List<Integer> e2F = (ArrayList<Integer>) getFromStackTop(0),
                     e2T = (ArrayList<Integer>) getFromStackTop(1),
@@ -757,16 +765,16 @@ public class SemanticActions {
                 // if op is "div"
                 if (opv == 3) {
                     VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
-                    generate("ftol", id1, temp1);
                     VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
-                    generate("ftol", id2, temp2);
                     VariableEntry temp3 = create(getTempName(), TokenType.INTEGER);
+                    generate("ftol", id1, temp1);
+                    generate("ftol", id2, temp2);
                     generate("div", temp1, temp2, temp3);
                     result = temp3;
                 } else {
                     VariableEntry temp1 = create(getTempName(), TokenType.REAL);
-                    generate("ltof", id1, temp1);
                     VariableEntry temp2 = create(getTempName(), TokenType.REAL);
+                    generate("ltof", id1, temp1);
                     generate((opv == 1) ? "fmul" : "fdiv", temp1, id2, temp2);
                     result = temp2;
                 }
@@ -774,16 +782,16 @@ public class SemanticActions {
             {
                 if (opv == 3) {
                     VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
-                    generate("ftol", id1, temp1);
                     VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
-                    generate("ftol", id2, temp2);
                     VariableEntry temp3 = create(getTempName(), TokenType.INTEGER);
+                    generate("ftol", id1, temp1);
+                    generate("ftol", id2, temp2);
                     generate("div", temp1, temp2, temp3);
                     result = temp3;
                 } else {
                     VariableEntry temp1 = create(getTempName(), TokenType.REAL);
-                    generate("ltof", id2, temp1);
                     VariableEntry temp2 = create(getTempName(), TokenType.REAL);
+                    generate("ltof", id2, temp1);
                     generate((opv == 1) ? "fmul" : "fdiv", id1, temp1, temp2);
                     result = temp2;
                 }
@@ -817,14 +825,14 @@ public class SemanticActions {
     }
     
     private void action47() throws SemanticActionsException {
-        ETYPE etype = (ETYPE) stack.pop();
+        ETYPE etype = popETYPE();
         if (!etype.isRelational()) {
             throw new SemanticActionsException("Invalid use of arithmetic operator", line);
         }
-        // popped is e.false
-        List<Integer> eT = (ArrayList<Integer>) stack.pop(); 
-        // popped is e.true
-        List<Integer> eF = (ArrayList<Integer>) stack.pop(); 
+        // E.TRUE = E.FALSE
+        List<Integer> eT = (ArrayList<Integer>) stack.pop();  // popped is e.false
+        // E.FALSE = E.TRUE
+        List<Integer> eF = (ArrayList<Integer>) stack.pop(); // popped is e.true
         stack.push(eT); stack.push(eF); stack.push(ETYPE.RELATIONAL);
     }
     
@@ -853,7 +861,7 @@ public class SemanticActions {
         }
         FunctionEntry fe = (FunctionEntry) id;
         if (fe.getNumberOfParameters() > 0) {
-            throw new SemanticActionsException(id.getName() + " should have 0 parameters. It has " + fe.getNumberOfParameters(), line);
+            throw new SemanticActionsException(id.getName() + " should have 0 parameters. It has " + fe.getNumberOfParameters() + " parameters", line);
         }
         generate("call", id, 0);
         // ????? fe has no type
@@ -894,7 +902,7 @@ public class SemanticActions {
     private void action56() {
         generate("PROCBEGIN", "main");
         globalStore = quads.getNextQuad();
-        generate("alloc", "_");
+        generate("alloc", Placeholder);
     }
 
     // Order: E.False, E.True,

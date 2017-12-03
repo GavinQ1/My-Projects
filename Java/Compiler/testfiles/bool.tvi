@@ -1,0 +1,115 @@
+CODE
+1:  call main, 0
+2:  exit
+3:  PROCBEGIN main
+4:  alloc 13
+5:  move 10, _2
+6:  move _2, _1
+7:  move 20, _3
+8:  move _3, _0
+9:  move 10, _4
+10:  beq _1, _4, 12
+11:  goto 22
+12:  move 20, _5
+13:  beq _0, _5, 15
+14:  goto 22
+15:  print "I = "
+16:  outp _1
+17:  newl
+18:  print "J = "
+19:  outp _0
+20:  newl
+21:  goto 25
+22:  print "J = "
+23:  outp _0
+24:  newl
+25:  move 10, _6
+26:  beq _1, _6, 28
+27:  goto 38
+28:  move 10, _7
+29:  beq _0, _7, 31
+30:  goto 38
+31:  print "J = "
+32:  outp _0
+33:  newl
+34:  print "I = "
+35:  outp _1
+36:  newl
+37:  goto 41
+38:  print "I = "
+39:  outp _1
+40:  newl
+41:  move 10, _8
+42:  beq _1, _8, 47
+43:  goto 44
+44:  move 10, _9
+45:  beq _0, _9, 47
+46:  goto 54
+47:  print "I = "
+48:  outp _1
+49:  newl
+50:  print "I = "
+51:  outp _1
+52:  newl
+53:  goto 60
+54:  print "J = "
+55:  outp _0
+56:  newl
+57:  print "J = "
+58:  outp _0
+59:  newl
+60:  move 20, _10
+61:  beq _1, _10, 66
+62:  goto 63
+63:  move 10, _11
+64:  beq _0, _11, 66
+65:  goto 76
+66:  print "I = "
+67:  outp _1
+68:  newl
+69:  print "J = "
+70:  outp _0
+71:  newl
+72:  print "I = "
+73:  outp _1
+74:  newl
+75:  goto 85
+76:  print "J = "
+77:  outp _0
+78:  newl
+79:  print "I = "
+80:  outp _1
+81:  newl
+82:  print "J = "
+83:  outp _0
+84:  newl
+85:  move 20, _12
+86:  beq _1, _12, 101
+87:  goto 88
+88:  print "I = "
+89:  outp _1
+90:  newl
+91:  print "J = "
+92:  outp _0
+93:  newl
+94:  print "I = "
+95:  outp _1
+96:  newl
+97:  print "J = "
+98:  outp _0
+99:  newl
+100:  goto 113
+101:  print "J = "
+102:  outp _0
+103:  newl
+104:  print "I = "
+105:  outp _1
+106:  newl
+107:  print "J = "
+108:  outp _0
+109:  newl
+110:  print "I = "
+111:  outp _1
+112:  newl
+113:  free 13
+114:  PROCEND

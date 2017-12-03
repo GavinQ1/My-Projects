@@ -1,0 +1,41 @@
+CODE
+ 1:  call main, 0
+ 2:  exit
+ 3:  PROCBEGIN gcd
+ 4:  alloc 8
+ 5:  div ^%0, ^%1, %2
+ 6:  mul %2, ^%1, %3
+ 7:  sub ^%0, %3, %2
+ 8:  move 0, %4
+ 9:  bne %2, %4, 11
+10:  goto 20
+11:  div ^%1, ^%0, %5
+12:  mul %5, ^%0, %6
+13:  sub ^%1, %6, %5
+14:  param @%5
+15:  param %0
+16:  call gcd, 2
+17:  move _3, %7
+18:  move %7, _3
+19:  goto 21
+20:  move ^%0, _3
+21:  free 8
+22:  PROCEND
+23:  PROCBEGIN main
+24:  alloc 5
+25:  inp _1
+26:  inp _0
+27:  outp _1
+28:  newl
+29:  outp _0
+30:  newl
+31:  bgt _1, _0, 37
+32:  goto 44
+33:  param @_0
+34:  param @_1
+35:  call gcd, 2
+36:  move _3, _4
+37:  outp _4
+38:  newl
+39:  free 5
+40:  PROCEND
