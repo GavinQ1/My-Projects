@@ -6,16 +6,18 @@
 package SymbolTable.SymbolTableEntry;
 import java.util.List;
 import constants.TokenType;
+import java.util.ArrayList;
 /**
  *
  * @author Gavin
  */
 public class FunctionEntry extends SymbolTableEntry {
-    private int numberOfParameters;
-    private List parameterInfo;
-    private VariableEntry result;
     
-    public FunctionEntry(String name, int numberOfParameters, List parameterInfo, VariableEntry result) {
+    public FunctionEntry(String name) {
+        this(name, 0, new ArrayList<>(), null);
+    }
+    
+    public FunctionEntry(String name, int numberOfParameters, List<SymbolTableEntry> parameterInfo, VariableEntry result) {
         super(name);
         this.numberOfParameters = numberOfParameters;
         this.parameterInfo = parameterInfo;
@@ -23,7 +25,7 @@ public class FunctionEntry extends SymbolTableEntry {
     }
     
     public boolean isFunction() { return true; }
-    public List getParameterInfo() { return parameterInfo; }
+    public List<SymbolTableEntry> getParameterInfo() { return parameterInfo; }
     public int getNumberOfParameters() { return numberOfParameters; }
     public VariableEntry getResult() { return result; }
     public TokenType getType() { return result.getType(); }

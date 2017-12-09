@@ -10,6 +10,7 @@ package SymbolTable.SymbolTableEntry;
  */
 public class IODeviceEntry extends SymbolTableEntry {
     public IODeviceEntry(String name) {
-        super(name, true);
+        super(name);
+        this.isReserved = true;
     }
 }

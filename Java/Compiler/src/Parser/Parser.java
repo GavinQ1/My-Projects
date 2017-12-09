@@ -45,55 +45,55 @@ public class Parser {
         }
     }
 
-    // Wrapper, currently we only need token type
+    // Wrapper, currentInputly we only need token type
     public TokenType getNextToken() throws LexicalException, IOException {
         return lexer.getNextToken().getType();
     }
 
     public void parse() throws LexicalException, IOException, ParserException, SymbolTableException, SemanticActionsException {
-        Token current = lexer.getNextToken(), last = null;
+        Token currentInput = lexer.getNextToken(), lastInput = null;
         stack.push(TokenType.ENDOFFILE);
         stack.push(NonTerminal.Goal);
 
         GrammarSymbol predicted;
-        while (!current.getType().eqauls(TokenType.ENDOFFILE)) {
+        while (!currentInput.getType().equals(TokenType.ENDOFFILE)) {
             dumpStack();
             predicted = stack.peek();
             if (predicted.isToken()) {
                 // matched
-                if (current.getType().equals(predicted)) {
-                    trackStack(predicted, current.getType(), "* MATCH *");
+                if (currentInput.getType().equals(predicted)) {
+                    trackStack(predicted, currentInput.getType(), "* MATCH *");
                     
                     // consume token
                     stack.pop();
-                    last = current;
-                    current = lexer.getNextToken();
+                    lastInput = currentInput;
+                    currentInput = lexer.getNextToken();
                 } else {
-                    trackStack(predicted, current.getType(), "ERROR: MISMATCH");
+                    trackStack(predicted, currentInput.getType(), "ERROR: MISMATCH");
                     throw new ParserException(
                             lexer.getLine(),
                             lexer.getFilename(),
                             String.format("Expecting %s, \"%s\" (Type: %s) found.",
                                     (predicted.isToken()) ? ((TokenType) predicted).toInputString() : predicted,
                                     lexer.getCurrentLexeme(),
-                                    current.getType())
+                                    currentInput.getType())
                     );
                 }
             } else if (predicted.isNonTerminal()) {
-                int code = ParserTable.getCode(current.getType().getIndex(), predicted.getIndex());
+                int code = ParserTable.getCode(currentInput.getType().getIndex(), predicted.getIndex());
                 // error case
                 if (code == 999) {
-                    trackStack(predicted, current.getType(), "ERROR: MISMATCH");
+                    trackStack(predicted, currentInput.getType(), "ERROR: MISMATCH");
                     throw new ParserException(
                             lexer.getLine(),
                             lexer.getFilename(),
                             String.format("Expecting %s, \"%s\" (Type: %s) found.", 
                                     (predicted.isToken()) ? ((TokenType) predicted).toInputString() : predicted,
                                     lexer.getCurrentLexeme(), 
-                                    current.getType()));
+                                    currentInput.getType()));
                     // empty string case
                 } else if (code < 0) {
-                    trackStack(predicted, current.getType(), "# EPSILON #");
+                    trackStack(predicted, currentInput.getType(), "# EPSILON #");
                     
                     // do nothing
                     stack.pop();
@@ -107,14 +107,14 @@ public class Parser {
                         stack.push(rule[i]);
                     }
                     
-                    trackStack(predicted, current.getType(), "$ PUSH $  [" + code + "] ::= " + (rule.length == 0 ? "# EPSILON #" : Arrays.toString(rule)));
+                    trackStack(predicted, currentInput.getType(), "$ PUSH $  [" + code + "] ::= " + (rule.length == 0 ? "# EPSILON #" : Arrays.toString(rule)));
                 }
             } else if (predicted.isAction()) {
                 stack.pop();
                 int line = lexer.getLine();
-                if (current.isTypeOf(TokenType.END) || current.isTypeOf(TokenType.THEN)) line--;
+                if (currentInput.isTypeOf(TokenType.END) || currentInput.isTypeOf(TokenType.THEN)) line--;
                 semact.setLine(line);
-                semact.execute((SemanticAction) predicted, last);
+                semact.execute((SemanticAction) predicted, lastInput);
             }
         }
 
@@ -124,11 +124,11 @@ public class Parser {
         }
     }
 
-    private void trackStack(GrammarSymbol predicted, GrammarSymbol current, String comment) {
+    private void trackStack(GrammarSymbol predicted, GrammarSymbol currentInput, String comment) {
         if (__DEBUG__) {
             String log = String.format("Popped %s with token %s (input string: \"%s\"). %s <File: %s, line %d>",
                     predicted,
-                    current,
+                    currentInput,
                     lexer.getCurrentLexeme(),
                     comment,
                     lexer.getFilename(),

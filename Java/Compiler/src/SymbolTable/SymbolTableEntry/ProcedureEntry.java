@@ -4,22 +4,26 @@
  * and open the template in the editor.
  */
 package SymbolTable.SymbolTableEntry;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
  * @author Gavin
  */
 public class ProcedureEntry extends SymbolTableEntry {
-    private int numberOfParameters;
-    private List parameterInfo;
     
-    public ProcedureEntry(String name, int numberOfParameters, List parameterInfo) {
-        super(name, true);
-        this.numberOfParameters = numberOfParameters;
-        this.parameterInfo = parameterInfo;
+    public ProcedureEntry(String name) {
+        this(name, 0, new ArrayList<>());
     }
     
+    public ProcedureEntry(String name, int numberOfParameters, List<SymbolTableEntry> parameterInfo) {
+        super(name);
+        this.numberOfParameters = numberOfParameters;
+        this.parameterInfo = parameterInfo;
+        this.isReserved = true;
+    }
+        
     public boolean isProcedure() { return true; }
-    public List getParameterInfo() { return parameterInfo; }
+    public List<SymbolTableEntry> getParameterInfo() { return parameterInfo; }
     public int getNumberOfParameters() { return numberOfParameters; }
 }

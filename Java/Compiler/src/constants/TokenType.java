@@ -69,8 +69,12 @@ public enum TokenType implements GrammarSymbol {
         return false;
     }
     
-    public boolean eqauls(GrammarSymbol other) {
+    public boolean equals(GrammarSymbol other) {
         return other.isToken() && this.n == other.getIndex();
+    }
+    
+    public boolean isTypeOf(TokenType other) {
+        return equals(other);
     }
     
     public String toInputString() {

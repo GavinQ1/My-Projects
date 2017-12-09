@@ -19,10 +19,12 @@ public class Quadruples {
     public Quadruples() {
         Quadruple = new Vector<>();
         nextQuad = 0;
+        
         String[] dummy_quadruple = new String[4];
         dummy_quadruple[0] = dummy_quadruple[1] = dummy_quadruple[2] = dummy_quadruple[3] = null;
         Quadruple.add(nextQuad, dummy_quadruple);
         nextQuad++;
+        
     }
 
     public String getField(int quadIndex, int field) {
@@ -51,13 +53,14 @@ public class Quadruples {
     }
 
     public void print() {
+        //int quadLabel = 0;
         int quadLabel = 1;
         String separator;
 
         System.out.println("CODE");
         Enumeration<String[]> e = this.Quadruple.elements();
         e.nextElement();
-
+        
         while (e.hasMoreElements()) {
             String[] quad = e.nextElement();
             separator = " ";

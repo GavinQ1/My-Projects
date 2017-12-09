@@ -19,5 +19,5 @@ public interface GrammarSymbol {
 
     public boolean isAction();
     
-    public boolean eqauls(GrammarSymbol other);
+    public boolean equals(GrammarSymbol other);
 }

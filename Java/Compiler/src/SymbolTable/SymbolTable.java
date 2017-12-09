@@ -14,6 +14,8 @@ import SymbolTable.SymbolTableExceptions.SymbolTableException;
  * @author Gavin
  */
 public class SymbolTable {
+    public static final String BUILT_IN_MAIN = "main", BUILT_IN_READ = "read", BUILT_IN_WRITE = "write";
+    
     private Hashtable<String, SymbolTableEntry> table;
     
     public SymbolTable() {
@@ -25,9 +27,9 @@ public class SymbolTable {
     }
     
     public void installBuiltins() throws SymbolTableException {
-        insert("main", new ProcedureEntry("main", 0, new ArrayList()));
-        insert("read", new ProcedureEntry("read", 0, new ArrayList()));
-        insert("write", new ProcedureEntry("write", 0, new ArrayList()));
+        insert(BUILT_IN_MAIN, new ProcedureEntry(BUILT_IN_MAIN, 0, new ArrayList()));
+        insert(BUILT_IN_READ, new ProcedureEntry(BUILT_IN_READ, 0, new ArrayList()));
+        insert(BUILT_IN_WRITE, new ProcedureEntry(BUILT_IN_WRITE, 0, new ArrayList()));
         // insert("input", new IODeviceEntry("input"));
         // insert("output", new IODeviceEntry("output"));
     }
@@ -42,6 +44,10 @@ public class SymbolTable {
             return table.get(name);
         }
         return null;
+    }
+    
+    public void clear() {
+        table.clear();
     }
     
     public boolean lookup(String name) {
@@ -68,9 +74,7 @@ public class SymbolTable {
         for (Map.Entry<String, SymbolTableEntry> entry : table.entrySet()) {
             String key = entry.getKey();
             SymbolTableEntry value = entry.getValue();
-            String addr = "" + value.getAddress();
-            if (addr.length() > 0) addr = "_" + addr;
-            System.out.println(key + " <==> " + value + " " + addr);
+            System.out.println(key + " <==> " + value);
         }
     }
     

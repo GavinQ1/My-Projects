@@ -44,7 +44,7 @@ public enum SemanticAction implements GrammarSymbol {
         return true;
     }
 
-    public boolean eqauls(GrammarSymbol other) {
+    public boolean equals(GrammarSymbol other) {
         return other.isAction() && this.n == other.getIndex();
     }
     

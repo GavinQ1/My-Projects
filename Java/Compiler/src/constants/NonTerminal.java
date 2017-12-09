@@ -44,7 +44,7 @@ public enum NonTerminal implements GrammarSymbol {
         return false;
     }
     
-    public boolean eqauls(GrammarSymbol other) {
+    public boolean equals(GrammarSymbol other) {
         return other.isNonTerminal() && this.n == other.getIndex();
     }
     

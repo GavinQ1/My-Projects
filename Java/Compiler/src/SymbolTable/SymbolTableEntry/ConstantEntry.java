@@ -16,4 +16,5 @@ public class ConstantEntry extends SymbolTableEntry {
     }
     
     public boolean isConstant() { return true; }
+    public TokenType getType() { return this.type; }
 }

@@ -32,7 +32,9 @@ public class Token<E> implements GrammarSymbol {
     
     public TokenType getType() { return this.tag; }
     
-    public boolean isTypeOf(TokenType t) { return this.tag.eqauls(t); }
+    public boolean isTypeOf(TokenType t) { return this.tag.equals(t); }
+    
+    public String getLexeme() { return this.value.toString().toLowerCase(); }
     
     public String toString() {
         return "(" + tag + ", " + value + ")";
@@ -58,7 +60,14 @@ public class Token<E> implements GrammarSymbol {
         return false;
     }
     
-    public boolean eqauls(GrammarSymbol other) {
-        return other.isToken() && this.tag.eqauls(other);
+    public boolean equals(GrammarSymbol other) {
+        return other.isToken() && this.tag.equals(other);
+    }
+    
+    public static void main(String[] args) {
+        Token test = new Token(TokenType.INTEGER);
+        test.setValue("String");
+        System.out.println(test.getValue().getClass());
+        
     }
 }
