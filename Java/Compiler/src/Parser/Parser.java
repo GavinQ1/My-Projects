@@ -149,8 +149,13 @@ public class Parser {
         }
     }
     
-    public void dumpCode() {
+    public void output() {
         semact.dumpCode();
+    }
+    
+    public void output(PrintWriter o) {
+        semact.dumpCode(o);
+        o.close();
     }
     
     public boolean isDebugging() {

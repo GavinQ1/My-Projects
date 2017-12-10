@@ -14,7 +14,9 @@ import SymbolTable.*;
 import SymbolTable.SymbolTableEntry.*;
 import SymbolTable.SymbolTableExceptions.SymbolTableException;
 import constants.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1124,6 +1126,33 @@ public class SemanticActions {
         nextParamStack.push(convert2ParamStack(func.getParameterInfo()));
     }
     
+    private ArrayList<SymbolTableEntry> findRightParamOrder() {
+        Stack<SymbolTableEntry> temp = new Stack<>();
+        while (!stack.isEmpty()) {
+            Object p = stack.peek();
+            if (p instanceof FunctionEntry || p instanceof ProcedureEntry || !(p instanceof SymbolTableEntry)) {
+                break;
+            }
+            temp.push((SymbolTableEntry) stack.pop());
+        }
+        
+        ArrayList<SymbolTableEntry> right_order = new ArrayList<>(), tempList = new ArrayList<>();
+        TokenType lastType = null;
+        do {
+            SymbolTableEntry entry = temp.pop();
+            if (lastType == null || !entry.getType().isTypeOf(lastType)) {
+                lastType = entry.getType();
+                Collections.reverse(tempList);
+                right_order.addAll(tempList);
+                tempList.clear();
+            }
+            tempList.add(entry);
+        } while (!temp.isEmpty());
+        Collections.reverse(tempList);
+        right_order.addAll(tempList);
+        
+        return right_order;
+    }
     private String getParamAddress(SymbolTableEntry op) throws SymbolTableException {
         String prefix;
         int res;
@@ -1146,20 +1175,12 @@ public class SemanticActions {
         return prefix + res;
     }
     private void action50() throws SemanticActionsException, SymbolTableException {
-        Stack<SymbolTableEntry> right_order = new Stack<>();
-        FunctionEntry func = null;
+        SymbolTableEntry func = searchCallerFromTop();
         
-        while (!stack.isEmpty()) {
-            if (stack.peek() instanceof FunctionEntry) {
-                func = (FunctionEntry) stack.peek();
-                break;
-            }
-            SymbolTableEntry id = popSymbolTableEntry();
-            right_order.push(id);
-        }
-        Collections.reverse(right_order);
-        while (!right_order.isEmpty()) {
-            SymbolTableEntry entry = right_order.pop();
+        ArrayList<SymbolTableEntry> right_order = findRightParamOrder();
+        
+        for (int i = 0; i < right_order.size(); i++) {
+            SymbolTableEntry entry = right_order.get(i);
             generate("param", getParamAddress(entry));
             localMemory++;
         }
@@ -1183,9 +1204,9 @@ public class SemanticActions {
         stack.push(ETYPE.ARITHMETIC);
     }
     
-    private void action51Write(SymbolTableEntry caller, Stack<Object> right_order) throws SymbolTableException {
-        while (!right_order.isEmpty()) {
-            SymbolTableEntry paramVal = (SymbolTableEntry) right_order.pop();
+    private void action51Write(SymbolTableEntry caller, ArrayList<SymbolTableEntry> right_order) throws SymbolTableException {
+        for (int i = right_order.size() - 1; i >= 0; i--) {
+            SymbolTableEntry paramVal = right_order.get(i);
             generate("print", "\"" + paramVal.getName() + " = \"");
             if (paramVal.getType().isTypeOf(TokenType.REAL)) {
                 generate("foutp", paramVal);
@@ -1197,9 +1218,9 @@ public class SemanticActions {
         
         nextParamCount(); stack.pop(); stack.pop();
     }
-    private void action51Read(SymbolTableEntry caller, Stack<Object> right_order) throws SymbolTableException {
-        while (!right_order.isEmpty()) {
-            SymbolTableEntry paramVal = (SymbolTableEntry) right_order.pop();
+    private void action51Read(SymbolTableEntry caller, ArrayList<SymbolTableEntry> right_order) throws SymbolTableException {
+        for (int i = right_order.size() - 1; i >= 0; i--) {
+            SymbolTableEntry paramVal = right_order.get(i);
             generate("print", "\"Enter value : \"");
             if (paramVal.getType().isTypeOf(TokenType.REAL)) {
                 generate("finp", paramVal);
@@ -1213,22 +1234,15 @@ public class SemanticActions {
     private void action51() throws SymbolTableException {
         SymbolTableEntry caller = searchCallerFromTop();
         
-        Stack<Object> right_order = new Stack<>();
-        while (!stack.isEmpty()) {
-            Object p = stack.peek();
-            if (p instanceof FunctionEntry || p instanceof ProcedureEntry || !(p instanceof SymbolTableEntry)) {
-                break;
-            }
-            right_order.push(stack.pop());
-        }
+        ArrayList<SymbolTableEntry> right_order = findRightParamOrder();
         
         if (caller.getName().equals(SymbolTable.BUILT_IN_READ)) {
             action51Read(caller, right_order);
         } else if (caller.getName().equals(SymbolTable.BUILT_IN_WRITE)) {
             action51Write(caller, right_order);
         } else {
-           while (!right_order.isEmpty()) {
-               SymbolTableEntry paramVal = (SymbolTableEntry) right_order.pop();
+           for (int i = 0; i < right_order.size(); i++) {
+               SymbolTableEntry paramVal = right_order.get(i);
                generate("param", getParamAddress(paramVal));
                localMemory++;
            }
@@ -1471,6 +1485,10 @@ public class SemanticActions {
     public void dumpCode() {
         quads.print();
     }
+    
+    public void dumpCode(PrintWriter o) {
+        quads.print(o);
+    }
 
     private void printStack(Stack stack) {
         Object[] a = new Object[stack.size()];
@@ -1487,7 +1505,7 @@ public class SemanticActions {
     }
     
     public static void main(String[] args) {
-        String filename = "testfiles/ult-corrected.pas";
+        String filename = "testfiles/fib.pas";
         boolean debug = false;
         if (args.length > 0) {
             filename = args[0];
@@ -1498,12 +1516,17 @@ public class SemanticActions {
                 }
             }
         }
+        
         try {
+            File f = new File(filename);
+            String[] names = f.getName().split("\\.(?=[^\\.]+$)");
+            
             Parser parser = new Parser(filename, debug);
             parser.parse();
-            // System.out.println("\n*****************\nEnd state:\n");
-            parser.dumpCode();
-            // System.out.println("\nACCEPT! (Degbug mode is: " + (parser.isDebugging() ? "on" : "off") + ")\n");
+            PrintWriter output = new PrintWriter(names[0]+".tvi", "UTF-8");
+            parser.output(output);
+            parser.output();
+            System.out.println("\nOutput: " + names[0]+".tvi");
         } catch (LexicalException | ParserException | IOException | SymbolTableException | SemanticActionsException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -70,4 +70,3 @@ begin
      end;
    write(h,i,x,y,z)
 end.
-

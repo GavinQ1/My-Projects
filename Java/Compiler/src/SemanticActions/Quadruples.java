@@ -5,6 +5,7 @@
  */
 package SemanticActions;
 
+import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -77,6 +78,35 @@ public class Quadruples {
             }
 
             System.out.println();
+            quadLabel++;
+        }
+    }
+    
+    public void print(PrintWriter out) {
+        //int quadLabel = 0;
+        int quadLabel = 1;
+        String separator;
+
+        out.println("CODE");
+        Enumeration<String[]> e = this.Quadruple.elements();
+        e.nextElement();
+        
+        while (e.hasMoreElements()) {
+            String[] quad = e.nextElement();
+            separator = " ";
+            out.print(quadLabel + ":  " + quad[0]);
+            if (quad[1] != null) {
+                out.print(separator + quad[1]);
+            }
+            if (quad[2] != null) {
+                separator = ", ";
+                out.print(separator + quad[2]);
+            }
+            if (quad[3] != null) {
+                out.print(separator + quad[3]);
+            }
+
+            out.println();
             quadLabel++;
         }
     }
