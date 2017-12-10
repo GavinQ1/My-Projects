@@ -1,0 +1,5 @@
+mod.pas  (simply should not work)
+noparm.pas (action52 may be wrong, tvi is wrong too)
+or.pas (should not have "")
+unaryminus.tvi (tvi wrong)
+while.pas (should not have "", many errors 243 should be fdvi, final testb output is wrong)

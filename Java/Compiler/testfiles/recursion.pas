@@ -5,7 +5,8 @@ Var
 function gcd (a, b: integer) : result real;
    var x : integer;
 begin
-   if b= 0 then gcd := a
+write(a, b);
+   if a = 0 then gcd := a
    else begin
      x := a;
      while (x >= b) do

@@ -35,7 +35,7 @@ public class SemanticActions {
 
     private Stack<Object> stack;
     private boolean insertF, globalF, arrayF;
-    private SymbolTable globalTable, localTable;
+    private SymbolTable globalTable, localTable, constantTable;
     private int globalMemory, localMemory, globalStore, localStore;
     private Quadruples quads;
     private SymbolTableEntry currentFunction;
@@ -118,6 +118,7 @@ public class SemanticActions {
         quads = new Quadruples();
         globalTable = new SymbolTable();
         localTable = new SymbolTable();
+        constantTable = new SymbolTable();
         globalMemory = localMemory = globalStore = localStore = 0;
         currentFunction = null;
         globalTable.installBuiltins();
@@ -128,23 +129,26 @@ public class SemanticActions {
         this.line = line;
     }
     
+    // start searching scope from local to global
     private String prefixAddress(int address, SymbolTableEntry op) {
         int val = Math.abs(address);
         String prefix;
         
         if (op.isParameter()) {
             prefix = Parameter_Offset_Prefix; 
+        } else if (localTable.lookup(op.getName())) {
+            prefix = Local_Offset_Prefix;
         } else if (globalTable.lookup(op.getName())) {
             prefix = Global_Offset_Prefix;
         } else {
-            prefix = Local_Offset_Prefix;
+            // constant case
+            prefix = globalF ? Global_Offset_Prefix : Local_Offset_Prefix;
         }
         
         return prefix + val;
     }
     private String getAddr(SymbolTableEntry op) throws SymbolTableException {
         int res;
-        
         if (op.isArray()) {
             res = ((ArrayEntry) op).getAddress();
         } else if (op.isVariable()) {
@@ -401,7 +405,7 @@ public class SemanticActions {
         getCurrentTable().insert(n3, e3);
         insertF = false;
 
-        generate("call", "main", 0);
+        generate("call", SymbolTable.BUILT_IN_MAIN, 0);
         generate("exit");
     }
     
@@ -443,7 +447,7 @@ public class SemanticActions {
         TokenType type = popToken().getType();
         // id is func
         FunctionEntry id = (FunctionEntry) stack.peek();
-        
+
         // $$FUN_NAME.type
         VariableEntry temp = id.getResult();
         temp.setType(type);
@@ -989,12 +993,16 @@ public class SemanticActions {
                     VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
                     VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
                     VariableEntry temp3 = create(getTempName(), TokenType.INTEGER);
+                    // GEN(ftol,id1,$$TEMP1)
                     generate("ftol", id1, temp1);
+                    // GEN(ftol,id2,$$TEMP2)
                     generate("ftol", id2, temp2);
+                    // GEN(div,$$TEMP1,$$TEMP2,$$TEMP3)
                     generate("div", temp1, temp2, temp3);
                     result = temp3;
                 } else {
                     temp = create(getTempName(), TokenType.REAL);
+                    // GEN(f***,id1,id2,$$TEMP) 
                     generate((opv == 1) ? "fmul" : "fdiv", id1, id2, temp);
                     result = temp;
                 }
@@ -1003,16 +1011,20 @@ public class SemanticActions {
                 if (opv == 3) {
                     VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
                     VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
-                    VariableEntry temp3 = create(getTempName(), TokenType.INTEGER);
+                    // GEN(ftol,id1,$$TEMP1)
                     generate("ftol", id1, temp1);
-                    generate("ftol", id2, temp2);
-                    generate("div", temp1, temp2, temp3);
-                    result = temp3;
+                    // GEN(div,$$TEMP1,id2,$$TEMP2)
+                    generate("div", temp1, id2, temp2);
+                    result = temp2;
                 } else {
+                    //CREATE(TEMP1,REAL) 
                     VariableEntry temp1 = create(getTempName(), TokenType.REAL);
+                    // CREATE(TEMP2,REAL)
                     VariableEntry temp2 = create(getTempName(), TokenType.REAL);
-                    generate("ltof", id1, temp1);
-                    generate((opv == 1) ? "fmul" : "fdiv", temp1, id2, temp2);
+                    // GEN(ltof,id2,$$TEMP1)
+                    generate("ltof", id2, temp1);
+                    // GEN(f***,id1,$$TEMP1,$$TEMP2)
+                    generate((opv == 1) ? "fmul" : "fdiv", id1, temp1, temp2);
                     result = temp2;
                 }
             } else // if op is "div"
@@ -1020,16 +1032,20 @@ public class SemanticActions {
                 if (opv == 3) {
                     VariableEntry temp1 = create(getTempName(), TokenType.INTEGER);
                     VariableEntry temp2 = create(getTempName(), TokenType.INTEGER);
-                    VariableEntry temp3 = create(getTempName(), TokenType.INTEGER);
-                    generate("ftol", id1, temp1);
-                    generate("ftol", id2, temp2);
-                    generate("div", temp1, temp2, temp3);
-                    result = temp3;
+                    // GEN(ftol,id2,$$TEMP1)
+                    generate("ftol", id2, temp1);
+                    // GEN(div,id1,$$TEMP1,$$TEMP2)
+                    generate("div", id1, temp1, temp2);
+                    result = temp2;
                 } else {
+                    //CREATE(TEMP1,REAL) 
                     VariableEntry temp1 = create(getTempName(), TokenType.REAL);
+                    // CREATE(TEMP2,REAL)
                     VariableEntry temp2 = create(getTempName(), TokenType.REAL);
-                    generate("ltof", id2, temp1);
-                    generate((opv == 1) ? "fmul" : "fdiv", id1, temp1, temp2);
+                    // GEN(ltof,id1,$$TEMP1)
+                    generate("ltof", id1, temp1);
+                    // GEN(f***,$$TEMP1,id2,$$TEMP2)
+                    generate((opv == 1) ? "fmul" : "fdiv", temp1, id2, temp2);
                     result = temp2;
                 }
             }
@@ -1051,10 +1067,10 @@ public class SemanticActions {
             stack.push(entry);
         // if token is a constant
         } else {
-            ConstantEntry entry = (ConstantEntry) globalTable.get(name);
+            ConstantEntry entry = (ConstantEntry) constantTable.get(name);
             if (entry == null) {
                 entry = new ConstantEntry(name, (token.isTypeOf(TokenType.INTCONSTANT) ? TokenType.INTEGER : TokenType.REAL));
-                globalTable.insert(name, entry);
+                constantTable.insert(name, entry);
             }
             stack.push(entry);
         }
@@ -1074,8 +1090,9 @@ public class SemanticActions {
     }
     
     private void action48() throws SemanticActionsException, SymbolTableException {
-        SymbolTableEntry offset = null;
-        if (!stack.isEmpty()) offset = popSymbolTableEntry();
+        if (stack.peek() instanceof ETYPE) popETYPE();
+        SymbolTableEntry offset = popSymbolTableEntry();
+
         if (offset != null) {
             if (offset.isFunction()) {
                 action52();
@@ -1107,30 +1124,43 @@ public class SemanticActions {
         nextParamStack.push(convert2ParamStack(func.getParameterInfo()));
     }
     
-    private String getParamAddress(SymbolTableEntry op) {
+    private String getParamAddress(SymbolTableEntry op) throws SymbolTableException {
         String prefix;
-        int res = Math.abs(op.getAddress());
+        int res;
+        if (op.isConstant()) {
+            VariableEntry temp = create(getTempName(), op.getType());
+            generate("move", op.getName(), temp);
+            res = temp.getAddress();
+        } else {
+            res = op.getAddress();
+        }
+        res = Math.abs(res);
+        
         if (op.isParameter()) {
             prefix = "%";
-        } else if (globalTable.lookup(op.getName())) {
-            prefix = "@_";
-        } else {
+        } else if (localTable.lookup(op.getName())) {
             prefix = "@%";
+        } else {
+            prefix = "@_";
         }
         return prefix + res;
     }
     private void action50() throws SemanticActionsException, SymbolTableException {
         Stack<SymbolTableEntry> right_order = new Stack<>();
         FunctionEntry func = null;
+        
         while (!stack.isEmpty()) {
             if (stack.peek() instanceof FunctionEntry) {
                 func = (FunctionEntry) stack.peek();
                 break;
             }
-            right_order.push((SymbolTableEntry) stack.pop());
+            SymbolTableEntry id = popSymbolTableEntry();
+            right_order.push(id);
         }
+        Collections.reverse(right_order);
         while (!right_order.isEmpty()) {
-            generate("param", getParamAddress(right_order.pop()));
+            SymbolTableEntry entry = right_order.pop();
+            generate("param", getParamAddress(entry));
             localMemory++;
         }
         if (getParamCount() > func.getNumberOfParameters()) {
@@ -1140,7 +1170,7 @@ public class SemanticActions {
                         + func.getNumberOfParameters()
                         + " parameters", line);
         }
-        
+
         generate("call", func.getName(), getParamCount());
         // pop PARAMCOUNT.top, NEXTPARAM.top, (no ETYPE here)!!
         this.nextParamCount(); this.nextParamInfo(); 
@@ -1170,6 +1200,7 @@ public class SemanticActions {
     private void action51Read(SymbolTableEntry caller, Stack<Object> right_order) throws SymbolTableException {
         while (!right_order.isEmpty()) {
             SymbolTableEntry paramVal = (SymbolTableEntry) right_order.pop();
+            generate("print", "\"Enter value : \"");
             if (paramVal.getType().isTypeOf(TokenType.REAL)) {
                 generate("finp", paramVal);
             } else {
@@ -1216,13 +1247,13 @@ public class SemanticActions {
         if (id.getNumberOfParameters() > 0) {
             throw new SemanticActionsException(id.getName() + " should have 0 parameters. It has " + id.getNumberOfParameters() + " parameters", line);
         }
-        generate("call", id, 0);
+        generate("call", id.getName(), 0);
         VariableEntry temp = create(getTempName(), id.getResult().getType());
         generate("move", id.getResult(), temp);
         stack.pop(); // pop id
-        stack.pop(); // pop ETYPE
         stack.push(temp);
-        stack.push(ETYPE.ARITHMETIC);
+        // stack.pop(); // pop ETYPE
+        stack.push(null);
     }
     
     private void action53() throws SemanticActionsException {         
@@ -1263,6 +1294,10 @@ public class SemanticActions {
     public void execute(SemanticAction action, Token token) throws SymbolTableException, SemanticActionsException {
         int actionIndex = action.getIndex();
         boolean flag = true;
+        if (1 == 0) {
+             System.out.println(line + " calling action : " + actionIndex + " with token " + token);
+        }
+        
         switch (actionIndex) {
             case 1:
                 action1();

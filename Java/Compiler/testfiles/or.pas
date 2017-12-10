@@ -9,15 +9,15 @@ h:= 1;
  j:= 3;
   if ((h <> j) and (h = j)) then
 	
-  	write(" true case: " 1)
+  	write(1)
   	
-  else write("false case: " 2);
+  else write(2);
   
   
   if ((h = j) or (h + i = j)) then
   	
-  	write(" true case: " 1)
+  	write(1)
     	
-  else write("false case: " 2)
+  else write(2)
   
  end.

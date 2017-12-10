@@ -54,7 +54,7 @@ j := 1;
 k := 2;
 l := 3;
 
-write("h = -1: "h);
+write(h);
 
 h := h * (-1) + 3;
 write(h);

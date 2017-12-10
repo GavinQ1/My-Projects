@@ -11,7 +11,7 @@ program modTest (input, output);   {Test for the better mod function}
    c := - 14; 
    d := -13 mod 7;
    e := 13 mod (-7);
-   f := -13 mod (-7);
+   f := (-13) mod (-7);
    write(a,b,c,d,e,f);
    
    p := -1.3;
