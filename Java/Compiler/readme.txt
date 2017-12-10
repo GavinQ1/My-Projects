@@ -12,10 +12,12 @@ python compile.py [-a] [-d:dir] [-f:filename] [-h] [-n]
 -a: flag, if compile all files in directory, default is false
 -f [filename]: compile a single file
 -d [dir]: compile all files in given directory
--n: flag, if show output in console, default is true
+-v: flag, if show output in console, default is false
 
 
 # run compiled files
+##!! does not work for programs that need input
+
 
 python run.py [-a] [-d:dir] [-f:filename] [-h] [-o]
 
